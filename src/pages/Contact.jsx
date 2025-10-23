@@ -1,0 +1,195 @@
+import { Mail, MessageCircle, MapPin, Instagram, Facebook, Twitter, Youtube, Send } from "lucide-react";
+import { motion } from "framer-motion";
+import { useState } from "react";
+
+const Contact = () => {
+  const [formData, setFormData] = useState({ name: "", email: "", message: "" });
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({ ...prev, [name]: value }));
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    console.log("Form submitted:", formData);
+    alert("Thank you for reaching out! We'll get back to you soon.");
+    setFormData({ name: "", email: "", message: "" });
+  };
+
+  return (
+    <div className="min-h-screen bg-[#FDFBF8] dark:bg-brand-dark text-[#4B3B27] dark:text-gray-100 transition-colors duration-300">
+      {/* HEADER */}
+      <section className="text-center py-16 px-4">
+        <motion.h1
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+          className="text-3xl md:text-4xl font-serif font-semibold mb-4 text-gray-900 dark:text-white"
+        >
+          Get In Touch
+        </motion.h1>
+        <motion.p
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.2, duration: 0.6 }}
+          className="max-w-2xl mx-auto text-[#7A6C59] dark:text-gray-300 leading-relaxed"
+        >
+          We’re here to assist you with any inquiries, support needs, or simply to chat
+          about our exquisite timepieces. Choose your preferred method below.
+        </motion.p>
+      </section>
+
+      {/* CONTACT OPTIONS */}
+      <div className="max-w-5xl mx-auto px-6 py-10 grid md:grid-cols-2 gap-8">
+        {/* WhatsApp */}
+        <motion.div
+          whileHover={{ y: -4 }}
+          className="bg-[#F8F5F0] dark:bg-brand-lightdark rounded-md p-8 text-center shadow-sm transition-all duration-300"
+        >
+          <MessageCircle className="w-10 h-10 mx-auto text-[#4B3B27] dark:text-[#d4b278] mb-4" />
+          <h2 className="text-lg font-semibold mb-2">WhatsApp Us</h2>
+          <p className="text-[#7A6C59] dark:text-gray-400 mb-6">
+            For quick inquiries, immediate support, or direct ordering, connect
+            with us on WhatsApp.
+          </p>
+          <a
+            href="https://wa.me/2349012345678?text=Hello%20Kedar%20Watches%2C%20I%27d%20like%20to%20order..."
+            target="_blank"
+            rel="noreferrer"
+            className="mt-3 inline-block text-sm bg-brand-gold text-white font-medium rounded-md hover:bg-brand-darkgold transition px-4 py-2 duration-300"
+          >
+            Chat Now on WhatsApp
+          </a>
+        </motion.div>
+
+        {/* Email */}
+        <motion.div
+          whileHover={{ y: -4 }}
+          className="bg-[#F8F5F0] dark:bg-brand-lightdark rounded-md p-8 text-center shadow-sm transition-all duration-300"
+        >
+          <Mail className="w-10 h-10 mx-auto text-[#4B3B27] dark:text-[#d4b278] mb-4" />
+          <h2 className="text-lg font-semibold mb-2">Email Us</h2>
+          <p className="text-[#7A6C59] dark:text-gray-400 mb-4">
+            For detailed questions, partnerships, or feedback, send us an email.
+            We aim to respond within 24 hours.
+          </p>
+          <a
+            href="mailto:support@kedarwatches.com"
+            className="text-[#A57C4D] dark:text-[#d4b278] font-medium hover:underline"
+          >
+            support@kedarwatches.com
+          </a>
+        </motion.div>
+      </div>
+
+      {/* CONNECT & SHOWROOM */}
+      <div className="max-w-5xl mx-auto px-6 pb-16 grid md:grid-cols-2 gap-8">
+        {/* Social Media */}
+        <motion.div
+          whileHover={{ y: -4 }}
+          className="bg-[#F8F5F0] dark:bg-brand-lightdark rounded-md p-8 text-center shadow-sm transition-all duration-300"
+        >
+          <h2 className="text-lg font-semibold mb-3">Connect With Us</h2>
+          <p className="text-[#7A6C59] dark:text-gray-400 mb-6">
+            Follow us on social media for the latest collections, news, and updates.
+          </p>
+          <div className="flex justify-center space-x-6">
+            <a href="#" className="hover:text-[#A57C4D] dark:hover:text-[#d4b278] transition">
+              <Instagram className="w-5 h-5" />
+            </a>
+            <a href="#" className="hover:text-[#A57C4D] dark:hover:text-[#d4b278] transition">
+              <Facebook className="w-5 h-5" />
+            </a>
+            <a href="#" className="hover:text-[#A57C4D] dark:hover:text-[#d4b278] transition">
+              <Twitter className="w-5 h-5" />
+            </a>
+            <a href="#" className="hover:text-[#A57C4D] dark:hover:text-[#d4b278] transition">
+              <Youtube className="w-5 h-5" />
+            </a>
+          </div>
+        </motion.div>
+
+        {/* Showroom */}
+        <motion.div
+          whileHover={{ y: -4 }}
+          className="bg-[#F8F5F0] dark:bg-brand-lightdark rounded-md p-8 text-center shadow-sm transition-all duration-300"
+        >
+          <h2 className="text-lg font-semibold mb-3">Our Showroom</h2>
+          <p className="text-[#7A6C59] dark:text-gray-400 mb-4">
+            Experience our collection firsthand at our flagship store.
+          </p>
+          <p className="font-medium">Kedar Watches Boutique</p>
+          <p className="text-[#7A6C59] dark:text-gray-400">
+            12 Eleganza Avenue, Lekki Phase 1, Lagos, Nigeria
+          </p>
+          <p className="mt-2 text-sm text-[#7A6C59] dark:text-gray-400">
+            <strong>Hours:</strong> Mon–Sat, 10 AM – 7 PM
+          </p>
+          <a
+            href="https://maps.google.com"
+            target="_blank"
+            rel="noreferrer"
+            className="inline-block mt-3 text-sm font-medium text-[#A57C4D] dark:text-[#d4b278] hover:underline"
+          >
+            Get Directions
+          </a>
+        </motion.div>
+      </div>
+
+      {/* SEND A MESSAGE FORM */}
+      <div className="bg-[#F8F5F0] dark:bg-brand-dark py-16 px-6 border-t border-brand-lightgold">
+        <div className="max-w-3xl mx-auto text-center">
+          <h2 className="text-2xl font-semibold mb-4 text-gray-900 dark:text-white">
+            Send Us a Message
+          </h2>
+          <p className="text-[#7A6C59] dark:text-gray-400 mb-10">
+            Prefer to reach us directly? Fill out the form below and we’ll respond to your inquiry as soon as possible.
+          </p>
+
+          <form onSubmit={handleSubmit} className="grid gap-6">
+            <div className="grid md:grid-cols-2 gap-6">
+              <input
+                type="text"
+                name="name"
+                placeholder="Your Name"
+                value={formData.name}
+                onChange={handleChange}
+                required
+                className="w-full px-4 py-3 rounded-md bg-white dark:bg-brand-lightdark text-gray-800 dark:text-gray-100 focus:ring-2 focus:ring-[#A57C4D] dark:focus:ring-[#d4b278] outline-none"
+              />
+              <input
+                type="email"
+                name="email"
+                placeholder="Your Email"
+                value={formData.email}
+                onChange={handleChange}
+                required
+                className="w-full px-4 py-3 rounded-md bg-white dark:bg-brand-lightdark text-gray-800 dark:text-gray-100 focus:ring-2 focus:ring-[#A57C4D] dark:focus:ring-[#d4b278] outline-none"
+              />
+            </div>
+            <textarea
+              name="message"
+              placeholder="Your Message..."
+              value={formData.message}
+              onChange={handleChange}
+              required
+              rows="5"
+              className="w-full px-4 py-3 rounded-md bg-white dark:bg-brand-lightdark text-gray-800 dark:text-gray-100 focus:ring-2 focus:ring-[#A57C4D] dark:focus:ring-[#d4b278] outline-none resize-none"
+            ></textarea>
+            <button
+              type="submit"
+              className="flex items-center justify-center gap-2 bg-brand-gold hover:bg-brand-darkgold text-white font-medium py-3 px-8 rounded-md mx-auto transition"
+            >
+              <Send className="w-4 h-4" />
+              Send Message
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+
+export default Contact;

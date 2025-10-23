@@ -1,0 +1,202 @@
+import { motion } from "framer-motion";
+import { Package, Truck, Globe, ShieldCheck, RefreshCcw, FileText, Headphones } from "lucide-react";
+
+const Shipping = () => {
+  return (
+    <div className="min-h-screen bg-[#FDFBF8] dark:bg-brand-dark text-[#4B3B27] dark:text-gray-100 transition-colors duration-300">
+      {/* HEADER */}
+      <section className="text-center py-16 px-4">
+        <motion.h1
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+          className="text-3xl md:text-4xl font-serif font-semibold mb-4 text-gray-900 dark:text-white"
+        >
+          Shipping & Customer Service
+        </motion.h1>
+        <motion.p
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.2, duration: 0.6 }}
+          className="max-w-2xl mx-auto text-[#7A6C59] dark:text-gray-300 leading-relaxed"
+        >
+          We take pride in ensuring that every order is processed with care, delivered safely, and supported by
+          a customer-first experience worthy of your trust.
+        </motion.p>
+      </section>
+
+      {/* DELIVERY INFO */}
+      <section className="max-w-5xl mx-auto px-6 py-10 space-y-10">
+        {/* SHIPPING METHODS */}
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+          className="bg-[#F8F5F0] dark:bg-brand-lightdark rounded-md p-8 shadow-sm"
+        >
+          <div className="flex items-center gap-3 mb-5">
+            <Truck className="w-6 h-6 text-[#A57C4D] dark:text-[#d4b278]" />
+            <h2 className="text-xl font-semibold text-gray-900 dark:text-white">
+              Shipping Methods & Estimated Delivery
+            </h2>
+          </div>
+          <p className="text-[#7A6C59] dark:text-gray-300 mb-4">
+            We offer multiple shipping options to ensure your timepiece arrives securely and on time.
+          </p>
+
+          <div className="space-y-6">
+            <div>
+              <h3 className="font-medium text-[#4B3B27] dark:text-gray-100">Standard Shipping</h3>
+              <p className="text-[#7A6C59] dark:text-gray-400">
+                <strong>Cost:</strong> Free for orders over ₦200,000, otherwise ₦10,000. <br />
+                <strong>Time:</strong> 5–7 business days within Nigeria. <br />
+                <strong>Carrier:</strong> DHL, GIG Logistics, or FedEx.
+              </p>
+            </div>
+
+            <div>
+              <h3 className="font-medium text-[#4B3B27] dark:text-gray-100">Express Shipping</h3>
+              <p className="text-[#7A6C59] dark:text-gray-400">
+                <strong>Cost:</strong> ₦25,000 flat rate. <br />
+                <strong>Time:</strong> 2–3 business days within Nigeria. <br />
+                <strong>Carrier:</strong> FedEx or DHL Express.
+              </p>
+            </div>
+
+            <div>
+              <h3 className="font-medium text-[#4B3B27] dark:text-gray-100">International Shipping</h3>
+              <p className="text-[#7A6C59] dark:text-gray-400">
+                <strong>Cost:</strong> Calculated at checkout based on destination and weight. <br />
+                <strong>Time:</strong> 7–21 business days depending on customs clearance. <br />
+                <strong>Carrier:</strong> DHL or FedEx International.
+              </p>
+            </div>
+          </div>
+        </motion.div>
+
+        {/* ORDER PROCESSING */}
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+          className="bg-[#F8F5F0] dark:bg-brand-lightdark rounded-md p-8 shadow-sm"
+        >
+          <div className="flex items-center gap-3 mb-5">
+            <Package className="w-6 h-6 text-[#A57C4D] dark:text-[#d4b278]" />
+            <h2 className="text-xl font-semibold">Order Processing Times</h2>
+          </div>
+          <p className="text-[#7A6C59] dark:text-gray-400">
+            All orders are processed and shipped within <strong>1–2 business days</strong>, excluding weekends and
+            public holidays. You will receive a confirmation email with tracking details once your order ships.
+          </p>
+        </motion.div>
+
+        {/* PACKAGING */}
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+          className="bg-[#F8F5F0] dark:bg-brand-lightdark rounded-md p-8 shadow-sm"
+        >
+          <div className="flex items-center gap-3 mb-5">
+            <ShieldCheck className="w-6 h-6 text-[#A57C4D] dark:text-[#d4b278]" />
+            <h2 className="text-xl font-semibold">Packaging</h2>
+          </div>
+          <p className="text-[#7A6C59] dark:text-gray-400">
+            Every watch is carefully inspected and packaged in a premium box with protective padding to ensure it
+            arrives in flawless condition.
+          </p>
+        </motion.div>
+
+        {/* RETURNS */}
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+          className="bg-[#F8F5F0] dark:bg-brand-lightdark rounded-md p-8 shadow-sm"
+        >
+          <div className="flex items-center gap-3 mb-5">
+            <RefreshCcw className="w-6 h-6 text-[#A57C4D] dark:text-[#d4b278]" />
+            <h2 className="text-xl font-semibold">Returns & Exchanges</h2>
+          </div>
+          <p className="text-[#7A6C59] dark:text-gray-400 mb-4">
+            We want you to be completely satisfied with your purchase. If not, you can return or exchange your
+            watch within <strong>30 days</strong> of the original purchase date.
+          </p>
+
+          <h3 className="font-medium mb-2">Eligibility Criteria:</h3>
+          <ul className="list-disc list-inside text-[#7A6C59] dark:text-gray-400 mb-4">
+            <li>Items must be unworn, undamaged, and in original condition.</li>
+            <li>All packaging, tags, and documents must be included.</li>
+            <li>Engraved or customized items are non-returnable unless defective.</li>
+            <li>Proof of purchase is required for all returns.</li>
+          </ul>
+
+          <h3 className="font-medium mb-2">How to Initiate a Return:</h3>
+          <ol className="list-decimal list-inside text-[#7A6C59] dark:text-gray-400 space-y-1">
+            <li>Contact our support team within 30 days to request a return authorization number.</li>
+            <li>Repack your item(s) securely with all original contents.</li>
+            <li>Use the prepaid label we send you to ship it back.</li>
+            <li>Refunds or exchanges are processed within 5–7 business days of receipt.</li>
+          </ol>
+
+          <p className="mt-4 text-[#7A6C59] dark:text-gray-400">
+            <strong>Defective or Damaged Items:</strong> If your item arrives damaged or faulty, contact us
+            immediately for a free replacement or full refund.
+          </p>
+        </motion.div>
+
+        {/* POLICIES */}
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+          className="bg-[#F8F5F0] dark:bg-brand-lightdark rounded-md p-8 shadow-sm"
+        >
+          <div className="flex items-center gap-3 mb-5">
+            <FileText className="w-6 h-6 text-[#A57C4D] dark:text-[#d4b278]" />
+            <h2 className="text-xl font-semibold">Our Policies</h2>
+          </div>
+          <ul className="text-[#7A6C59] dark:text-gray-400 space-y-2">
+            <li>
+              <strong>Privacy Policy:</strong> We are committed to protecting your privacy. Read more in our{" "}
+              <a href="/privacy" className="text-[#A57C4D] dark:text-[#d4b278] hover:underline">Privacy Policy</a>.
+            </li>
+            <li>
+              <strong>Terms of Service:</strong> By purchasing from Kedar Watches, you agree to our{" "}
+              <a href="/terms" className="text-[#A57C4D] dark:text-[#d4b278] hover:underline">Terms of Service</a>.
+            </li>
+            <li>
+              <strong>Warranty:</strong> All timepieces come with a manufacturer’s warranty. View details on our{" "}
+              <a href="/warranty" className="text-[#A57C4D] dark:text-[#d4b278] hover:underline">Warranty Page</a>.
+            </li>
+          </ul>
+        </motion.div>
+
+        {/* CUSTOMER SUPPORT */}
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+          className="bg-[#F8F5F0] dark:bg-brand-lightdark rounded-md p-8 text-center shadow-sm"
+        >
+          <Headphones className="w-8 h-8 mx-auto mb-4 text-[#A57C4D] dark:text-[#d4b278]" />
+          <h2 className="text-xl font-semibold mb-3">Customer Support</h2>
+          <p className="text-[#7A6C59] dark:text-gray-400 mb-4">
+            Our dedicated team is ready to help with any inquiries or support needs.
+          </p>
+          <a
+            href="/contact"
+            className="inline-block bg-brand-gold hover:bg-brand-darkgold dark:bg-brand-gold dark:hover:bg-brand-darkgold text-white dark:text-gray-900 font-medium py-2 px-6 rounded-md transition"
+          >
+            Contact Us
+          </a>
+        </motion.div>
+      </section>
+    </div>
+  );
+}
+
+
+export default Shipping;
+
