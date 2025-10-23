@@ -1,16 +1,16 @@
-import mainWatch from "../assets/images/replica-watch.jpg";
-import watch1 from "../assets/images/casual-chain-watch-kedar.jpg";
-import watch2 from "../assets/images/smart-watch-kedar.jpg";
-import watch3 from "../assets/images/automatic-watch-kedar.jpg";
-import watch4 from "../assets/images/watch.jpg";
-import watch5 from "../assets/images/watch7.jpg";
-import watch6 from "../assets/images/watch30.jpg";
-import watch7 from "../assets/images/watch32.jpg";
-import watch8 from "../assets/images/watch17.jpg";
-import watch9 from "../assets/images/watch20.jpg";
-import watch10 from "../assets/images/watch22.jpg";
-import watch11 from "../assets/images/watch23.jpg";
-import watch12 from "../assets/images/watch29.jpg";
+import MainWatch from "../assets/images/replica-watch.jpg";
+import Watch1 from "../assets/images/casual-chain-watch-kedar.jpg";
+import Watch2 from "../assets/images/smart-watch-kedar.jpg";
+import Watch3 from "../assets/images/automatic-watch-kedar.jpg";
+import Watch4 from "../assets/images/watch.JPG";
+import Watch5 from "../assets/images/watch7.JPG";
+import Watch6 from "../assets/images/watch30.JPG";
+import Watch7 from "../assets/images/watch32.JPG";
+import Watch8 from "../assets/images/watch17.JPG";
+import Watch9 from "../assets/images/watch20.JPG";
+import Watch10 from "../assets/images/watch22.JPG";
+import Watch11 from "../assets/images/watch23.JPG";
+import Watch12 from "../assets/images/watch29.JPG";
 
 export const products = [
   {
@@ -19,8 +19,8 @@ export const products = [
     categoryIds: ["luxury", "automatic"],
     price: "1,999,000",
     rating: 4.8,
-    mainImage: mainWatch,
-    thumbnails: [mainWatch, watch1, watch2, watch3],
+    mainImage: MainWatch,
+    thumbnails: [MainWatch, Watch1, Watch2, Watch3],
     description:
       "Experience unparalleled elegance with the Timeless Chronos Gold Edition. Crafted with precision and an unwavering commitment to luxury, this watch features an 18k gold-plated stainless steel case, sapphire crystal, and an intricate automatic movement.",
     details: [
@@ -40,8 +40,8 @@ export const products = [
     categoryIds: ["smart"],
     price: "499,000",
     rating: 4.5,
-    mainImage: watch2,
-    thumbnails: [watch2, mainWatch, watch1, watch3],
+    mainImage: Watch2,
+    thumbnails: [Watch2, MainWatch, Watch1, Watch3],
     description:
       "A fusion of intelligence and style — Smart Elegance Pro keeps you connected while maintaining luxury aesthetics. Designed for tech lovers who appreciate design.",
     details: [
@@ -57,8 +57,8 @@ export const products = [
     categoryIds: ["luxury", "automatic"],
     price: "799,000",
     rating: 4.7,
-    mainImage: watch3,
-    thumbnails: [watch3, mainWatch, watch1, watch2],
+    mainImage: Watch3,
+    thumbnails: [Watch3, MainWatch, Watch1, Watch2],
     description:
       "The Automatic Sapphire Classic — precision-engineered for timeless durability and performance, with a sapphire crystal finish and seamless design.",
     details: [
@@ -74,8 +74,8 @@ export const products = [
     categoryIds: ["luxury", "automatic"],
     price: "799,000",
     rating: 4.2,
-    mainImage: watch1,
-    thumbnails: [watch3, mainWatch, watch1, watch2],
+    mainImage: Watch1,
+    thumbnails: [Watch3, MainWatch, Watch1, Watch2],
     description:
       "The Automatic Sapphire Classic — precision-engineered for timeless durability and performance, with a sapphire crystal finish and seamless design.",
     details: [
@@ -91,8 +91,8 @@ export const products = [
     categoryIds: ["luxury", "casual"],
     price: "23,000",
     rating: 4.4,
-    mainImage: watch4,
-    thumbnails: [watch4, watch5, watch6, watch7],
+    mainImage: Watch4,
+    thumbnails: [Watch4, Watch5, Watch6, Watch7],
     description:
       "Experience elegance with the Timeless Franck Muller Replica. Crafted with precision and an unwavering commitment to luxury, this watch features a moissanite bezel and an intricate quartz movement.",
     details: [
@@ -108,8 +108,8 @@ export const products = [
     categoryIds: ["casual", "luxury"],
     price: "26,500",
     rating: 4.8,
-    mainImage: watch8,
-    thumbnails: [watch8, watch9, watch10, watch11, watch12],
+    mainImage: Watch8,
+    thumbnails: [Watch8, Watch9, Watch10, Watch11, Watch12],
     description:
       "Experience unparalleled elegance with the Timeless Chronos Gold Edition. Crafted with precision and an unwavering commitment to luxury, this watch features an 18k gold-plated stainless steel case, sapphire crystal, and an intricate automatic movement.",
     details: [
