@@ -51,7 +51,7 @@ const Navbar = () => {
             : "bg-white/90 dark:bg-brand-dark/90 py-5 shadow-none border-b border-transparent"
         }`}
       >
-        <div className="flex justify-between items-center max-w-7xl mx-auto px-6 transition-all duration-300">
+        <div className="flex justify-between items-center max-w-8xl mx-auto px-6 transition-all duration-300">
           {/* Logo */}
           <Link to="/" className="flex items-center space-x-2 group">
             <motion.img
