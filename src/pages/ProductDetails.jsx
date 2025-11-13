@@ -1,13 +1,16 @@
 import { useParams } from "react-router-dom";
 import { useProducts } from "../context/ProductContext";
+import { useCart } from "../context/CartContext";
 import { useState } from "react";
 
 const ProductDetails = () => {
   const { id } = useParams();
   const { products } = useProducts();
+  const { addToCart } = useCart();
+
   const product = products.find((p) => p.id === Number(id));
 
-  const [selectedImage, setSelectedImage] = useState(product.mainImage);
+  const [selectedImage, setSelectedImage] = useState(product?.mainImage);
   const [quantity, setQuantity] = useState(1);
 
   if (!product) return <p className="text-center mt-10">Product not found</p>;
@@ -62,9 +65,11 @@ const ProductDetails = () => {
             >
               −
             </button>
+
             <span className="px-4 py-1 bg-gray-100 dark:bg-gray-700 rounded-md text-gray-900 dark:text-white">
               {quantity}
             </span>
+
             <button
               onClick={() => setQuantity((q) => q + 1)}
               className="px-3 py-1 border rounded-md dark:border-gray-600 dark:text-white"
@@ -72,10 +77,32 @@ const ProductDetails = () => {
               +
             </button>
 
-            <button className="ml-4 px-6 py-2 bg-[#8B6431] hover:bg-[#a0743b] text-white font-medium rounded-md transition duration-300">
+            <button
+              onClick={() =>
+                addToCart(
+                  {
+                    id: product.id,
+                    name: product.name,
+                    price: product.price,
+                    image: product.mainImage || product.image,
+                    // ✅ Include detailed attributes for Cart & Checkout
+                    details: {
+                      movement: product.movement || "Not specified",
+                      strap: product.strap || "Not specified",
+                      case: product.case || "Not specified",
+                      glass: product.glass || "Not specified",
+                      waterResistance: product.waterResistance || "Not specified",
+                    },
+                  },
+                  quantity
+                )
+              }
+              className="ml-4 px-6 py-2 bg-[#8B6431] hover:bg-[#a0743b] text-white font-medium rounded-md transition duration-300"
+            >
               Add to Cart
             </button>
           </div>
+
 
           {/* Accordion */}
           <div className="space-y-2 border-t pt-4">
@@ -100,5 +127,3 @@ const ProductDetails = () => {
 };
 
 export default ProductDetails;
-
-

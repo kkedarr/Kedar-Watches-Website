@@ -8,40 +8,34 @@ import Shipping from "./pages/Shipping";
 import About from "./pages/About";
 import Contact from "./pages/Contact";
 import ProductDetails from "./pages/ProductDetails";
+import Cart from "./pages/Cart";
+
+// ✅ import provider
+import { CartProvider } from "./context/CartContext";
 
 const App = () => {
   return (
-    <Router>
-      <div className="font-sans bg-white dark:bg-brand-dark min-h-screen text-gray-900 dark:text-gray-100 transition-colors duration-300">
-        <Navbar />
+    <CartProvider>
+      <Router>
+        <div className="font-sans bg-white dark:bg-brand-dark min-h-screen text-gray-900 dark:text-gray-100 transition-colors duration-300">
+          <Navbar />
 
-        <Routes>
-          {/* Home Page */}
-          <Route path="/" element={<Home />} />
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/shop" element={<Shop />} />
+            <Route path="/shop/:categoryId" element={<Shop />} />
+            <Route path="/learn" element={<Learn />} />
+            <Route path="/shipping" element={<Shipping />} />
+            <Route path="/about" element={<About />} />
+            <Route path="/contact" element={<Contact />} />
+            <Route path="/product/:id" element={<ProductDetails />} />
+            <Route path="/cart" element={<Cart />} />
+          </Routes>
 
-          {/* ✅ Shop Pages (general + category specific) */}
-          <Route path="/shop" element={<Shop />} />
-          <Route path="/shop/:categoryId" element={<Shop />} />
-
-          {/* Learn Page */}
-          <Route path="/learn" element={<Learn />} />
-
-          {/* Shipping Page */}
-          <Route path="/shipping" element={<Shipping />} />
-
-          {/* About Page */}
-          <Route path="/about" element={<About />} />
-
-          {/* Contact Page */}
-          <Route path="/contact" element={<Contact />} />
-
-          {/* ✅ Product Details Page */}
-          <Route path="/product/:id" element={<ProductDetails />} />
-        </Routes>
-
-        <Footer />
-      </div>
-    </Router>
+          <Footer />
+        </div>
+      </Router>
+    </CartProvider>
   );
 };
 

@@ -4,6 +4,8 @@ import { ShoppingCart, Sun, Moon, Menu, X } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import useTheme from "../hooks/useTheme";
 import Logo from "../assets/images/kedarwatcheslogo.png";
+import { useCart } from "../context/CartContext";
+
 
 const Navbar = () => {
   const { theme, setTheme } = useTheme();
@@ -11,6 +13,11 @@ const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const location = useLocation();
   const sidebarRef = useRef(null);
+
+
+ const { cartItems } = useCart();
+ const cartCount = cartItems?.length ?? 0;
+
 
   // Scroll detection
   useEffect(() => {
@@ -86,12 +93,23 @@ const Navbar = () => {
           {/* Right Section (Desktop Only) */}
           <div className="hidden md:flex items-center space-x-4">
             {/* Cart */}
-            <motion.button
-              whileHover={{ scale: 1.1 }}
-              className="relative p-2 rounded-full hover:bg-gray-100 dark:hover:bg-[#2a2a2a] transition"
-            >
-              <ShoppingCart className="w-5 h-5 text-gray-700 dark:text-gray-200" />
-            </motion.button>
+            <Link to="/cart" className="relative">
+              <motion.button
+                whileHover={{ scale: 1.1 }}
+                className="relative p-2 rounded-full hover:bg-gray-100 dark:hover:bg-[#2a2a2a] transition"
+              >
+                <ShoppingCart className="w-5 h-5 text-gray-700 dark:text-gray-200" />
+
+                {/* Cart Badge */}
+                {(cartItems?.length ?? 0) > 0 && (
+                  <span className="absolute -top-1 -right-1 bg-red-600 text-white text-xs font-semibold px-1.5 py-0.5 rounded-full">
+                    {cartItems.length}
+                  </span>
+                )}
+
+              </motion.button>
+            </Link>
+
 
             {/* Theme Toggle */}
             <motion.button

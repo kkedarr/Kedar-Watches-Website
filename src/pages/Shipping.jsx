@@ -46,28 +46,30 @@ const Shipping = () => {
 
           <div className="space-y-6">
             <div>
-              <h3 className="font-medium text-[#4B3B27] dark:text-gray-100">Standard Shipping</h3>
+              <h3 className="font-medium text-[#4B3B27] dark:text-gray-100">Standard Shipping within Nigeria</h3>
               <p className="text-[#7A6C59] dark:text-gray-400">
-                <strong>Cost:</strong> Free for orders over ₦200,000, otherwise ₦10,000. <br />
-                <strong>Time:</strong> 5–7 business days within Nigeria. <br />
-                <strong>Carrier:</strong> DHL, GIG Logistics, or FedEx.
+                <strong>Free Shipping</strong> Free for orders over ₦200,000. <br />
+                <strong>Cost:</strong>₦3,000-₦5,000, depending on delivery destination<br />
+                <strong>Time:</strong> 2-3 business days within Nigeria. <br />
+                <strong>Carrier:</strong>Private Logistics Company; customers can also decide to use DHL, GIG Logistics, or FedEx and handle fees based on how much they charge.
               </p>
             </div>
 
             <div>
-              <h3 className="font-medium text-[#4B3B27] dark:text-gray-100">Express Shipping</h3>
+              <h3 className="font-medium text-[#4B3B27] dark:text-gray-100">Shipping in Lagos</h3>
               <p className="text-[#7A6C59] dark:text-gray-400">
-                <strong>Cost:</strong> ₦25,000 flat rate. <br />
-                <strong>Time:</strong> 2–3 business days within Nigeria. <br />
-                <strong>Carrier:</strong> FedEx or DHL Express.
+                <strong>Express shipping in Lagos:</strong> ₦10,000 flat rate to your doorstep. <br />
+                <strong>Cost:</strong>Depends on location <br />
+                <strong>Time:</strong> Same day or next business day delivery within Lagos. <br />
+                <strong>Carrier:</strong>Private Delivery Services or (Bolt, Uber, FedEx or DHL Express).
               </p>
             </div>
 
             <div>
               <h3 className="font-medium text-[#4B3B27] dark:text-gray-100">International Shipping</h3>
               <p className="text-[#7A6C59] dark:text-gray-400">
-                <strong>Cost:</strong> Calculated at checkout based on destination and weight. <br />
-                <strong>Time:</strong> 7–21 business days depending on customs clearance. <br />
+                <strong>Cost:</strong> Delivery fee is calculated at checkout based on destination and weight at logistic company's office. <br />
+                <strong>Time:</strong> 3-7 business days depending on customs clearance. <br />
                 <strong>Carrier:</strong> DHL or FedEx International.
               </p>
             </div>
@@ -87,7 +89,7 @@ const Shipping = () => {
           </div>
           <p className="text-[#7A6C59] dark:text-gray-400">
             All orders are processed and shipped within <strong>1–2 business days</strong>, excluding weekends and
-            public holidays. You will receive a confirmation email with tracking details once your order ships.
+            public holidays. You will receive a confirmation message details once your order has been processed.
           </p>
         </motion.div>
 

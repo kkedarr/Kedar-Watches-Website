@@ -1,4 +1,3 @@
-// tailwind.config.js
 export default {
   darkMode: "class", // enables dark mode using a class
   content: [

@@ -3,7 +3,7 @@ import HeroImage from "../assets/images/watch-hero.jpg";
 
 const Hero = () => {
   return (
-    <section className="flex flex-col md:flex-row items-center justify-between py-16 px-6 md:px-16 lg:px-32 bg-brand-light dark:bg-brand-lightdark transition-colors duration-300 overflow-hidden">
+    <section className="max-w-8xl flex flex-col md:flex-row items-center justify-between py-16 px-6 md:px-16 lg:px-32 bg-brand-light dark:bg-brand-lightdark transition-colors duration-300 overflow-hidden">
       {/* Left Content */}
       <motion.div
         className="max-w-xl space-y-6 text-center md:text-left"
@@ -12,7 +12,7 @@ const Hero = () => {
         viewport={{ once: false }}
         transition={{ duration: 0.7, ease: "easeOut" }}
       >
-        <h1 className="mt-0 text-4xl md:text-5xl font-serif font-bold leading-tight text-gray-900 dark:text-white">
+        <h1 className="mt-0 text-4xl md:text-4xl font-serif font-bold leading-tight text-gray-900 dark:text-white">
           Luxury You Can Afford.
           <br />
           <span className="text-brand-gold">Style You Can Trust.</span>
