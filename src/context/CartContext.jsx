@@ -14,10 +14,14 @@ export const CartProvider = ({ children }) => {
     localStorage.setItem("cartItems", JSON.stringify(cartItems));
   }, [cartItems]);
 
-  /** ✅ Add to Cart (includes details like Movement, Strap, etc.) */
+  /** ✅ Add to Cart (fixes NaN price issue) */
   const addToCart = (product, quantity = 1) => {
     setCartItems((prev) => {
       const existing = prev.find((item) => item.id === product.id);
+
+      // Normalize price → remove commas → convert to number
+      const numericPrice =
+        Number(String(product.price).replace(/,/g, "")) || 0;
 
       if (existing) {
         const updated = prev.map((item) =>
@@ -37,10 +41,9 @@ export const CartProvider = ({ children }) => {
         {
           id: product.id,
           name: product.name,
-          price: product.price,
+          price: numericPrice, // ✅ ALWAYS a valid number
           image: product.mainImage || product.image,
           quantity,
-          // ✅ Include full product details for checkout
           details: product.details || {
             movement: product.movement,
             strap: product.strap,

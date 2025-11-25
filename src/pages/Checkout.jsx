@@ -32,14 +32,14 @@ const Checkout = () => {
   const handleChange = (e) =>
     setForm((s) => ({ ...s, [e.target.name]: e.target.value }));
 
-  // price calculations
+  // ✅ PRICE CALCULATIONS — VAT & Shipping removed
   const subtotal = cartItems.reduce(
     (sum, item) => sum + (Number(item.price) || 0) * (item.quantity || 1),
     0
   );
-  const shipping = cartItems.length ? 2500 : 0; // optionally 0 when cart empty
-  const tax = Math.round(subtotal * 0.075);
-  const total = subtotal + shipping + tax;
+
+  const shipping = 0; // no fee shown — replaced with text
+  const total = subtotal; // total is subtotal only
 
   const validateForm = () => {
     const required = ["firstName", "lastName", "email", "phone", "address1", "city"];
@@ -59,8 +59,8 @@ const Checkout = () => {
       return;
     }
 
-    // prepare WhatsApp message
-    const whatsappNumber = "2348131316083"; // <-- replace with your number (country code + number, no +)
+    // WhatsApp order message
+    const whatsappNumber = "2348131316083";
     const lines = [];
 
     lines.push("ORDER REQUEST FROM KEDAR WATCHES WEBSITE");
@@ -79,7 +79,11 @@ const Checkout = () => {
       lines.push(`${idx + 1}. ${item.name}`);
       lines.push(`   Quantity: ${item.quantity || 1}`);
       lines.push(`   Unit Price: ₦${Number(item.price).toLocaleString()}`);
-      lines.push(`   Line Total: ₦${(Number(item.price) * (item.quantity || 1)).toLocaleString()}`);
+      lines.push(
+        `   Line Total: ₦${(
+          Number(item.price) * (item.quantity || 1)
+        ).toLocaleString()}`
+      );
       if (item.mainImage || item.image) {
         lines.push(`   Image: ${item.mainImage || item.image}`);
       }
@@ -87,16 +91,18 @@ const Checkout = () => {
     });
 
     lines.push(`Subtotal: ₦${subtotal.toLocaleString()}`);
-    lines.push(`Shipping: ₦${shipping.toLocaleString()}`);
-    lines.push(`VAT (7.5%): ₦${tax.toLocaleString()}`);
+    lines.push(
+      `Shipping: To be determined after confirming your delivery address and dispatch fee.`
+    );
     lines.push("");
-    lines.push(`TOTAL: ₦${total.toLocaleString()}`);
+    lines.push(`TOTAL (excluding shipping): ₦${total.toLocaleString()}`);
     lines.push("");
     lines.push("Please confirm my order and send payment/delivery instructions.");
 
-    const url = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(lines.join("\n"))}`;
+    const url = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(
+      lines.join("\n")
+    )}`;
 
-    // open whatsapp and then clear cart
     window.open(url, "_blank");
     clearCart();
   };
@@ -266,7 +272,7 @@ const Checkout = () => {
         </div>
       </div>
 
-      {/* Order Summary (bottom) */}
+      {/* Order Summary */}
       <div className="p-8 bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-200 dark:border-gray-700">
         <h2 className="text-xl font-semibold mb-6">Order Summary</h2>
 
@@ -276,7 +282,10 @@ const Checkout = () => {
           )}
 
           {cartItems.map((item) => (
-            <div key={item.id} className="flex items-center gap-4 pb-4 border-b border-gray-200 dark:border-gray-700">
+            <div
+              key={item.id}
+              className="flex items-center gap-4 pb-4 border-b border-gray-200 dark:border-gray-700"
+            >
               <img
                 src={item.mainImage || item.image}
                 alt={item.name}
@@ -287,35 +296,38 @@ const Checkout = () => {
                 {item.color && <p className="text-sm text-gray-500">Color: {item.color}</p>}
                 <p className="text-sm text-gray-500">Quantity: {item.quantity}</p>
               </div>
-              <p className="font-medium">₦{(Number(item.price) * (item.quantity || 1)).toLocaleString()}</p>
+              <p className="font-medium">
+                ₦{(Number(item.price) * (item.quantity || 1)).toLocaleString()}
+              </p>
             </div>
           ))}
         </div>
 
-        {/* price breakdown */}
+        {/* Price breakdown */}
         <div className="mt-6 space-y-2 text-sm">
           <div className="flex justify-between">
             <p>Subtotal:</p>
             <p>₦{subtotal.toLocaleString()}</p>
           </div>
 
-          <div className="flex justify-between">
+          <div className="flex justify-between text-xs">
             <p>Shipping:</p>
-            <p>₦{shipping.toLocaleString()}</p>
+            <p className="text-gray-500 text-xs">
+              Will be determined after confirming your address and dispatch fee.
+            </p>
           </div>
 
-          <div className="flex justify-between">
-            <p>VAT (7.5%):</p>
-            <p>₦{tax.toLocaleString()}</p>
-          </div>
+          {/* No VAT anymore */}
 
           <div className="flex justify-between font-semibold text-lg pt-4 border-t dark:border-gray-700">
             <p>Total:</p>
             <p className="text-[#8B6431]">₦{total.toLocaleString()}</p>
           </div>
+          <p className="text-xs text-gray-500 mt-1">
+            Total excludes shipping. Final delivery cost will be confirmed on WhatsApp.
+          </p>
         </div>
 
-        {/* CTAs */}
         <div className="mt-10 flex flex-col sm:flex-row gap-3 sm:justify-between">
           <Link
             to="/cart"
