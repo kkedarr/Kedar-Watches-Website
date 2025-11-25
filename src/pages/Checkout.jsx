@@ -1,120 +1,338 @@
 import { useState } from "react";
+import { Link } from "react-router-dom";
 import { useCart } from "../context/CartContext";
 
+const countries = [
+  "Nigeria",
+  "Ghana",
+  "Kenya",
+  "South Africa",
+  "United States",
+  "Canada",
+  "United Kingdom",
+  "UAE",
+];
+
 const Checkout = () => {
-  const { cart, clearCart } = useCart();
+  const { cartItems, clearCart } = useCart();
 
   const [form, setForm] = useState({
-    name: "",
+    firstName: "",
+    lastName: "",
+    email: "",
     phone: "",
-    address: "",
+    address1: "",
+    address2: "",
+    city: "",
+    state: "",
+    country: "Nigeria",
+    postalCode: "",
   });
 
   const handleChange = (e) =>
-    setForm({ ...form, [e.target.name]: e.target.value });
+    setForm((s) => ({ ...s, [e.target.name]: e.target.value }));
 
-  const total = cart.reduce((sum, item) => sum + item.price * item.qty, 0);
+  // price calculations
+  const subtotal = cartItems.reduce(
+    (sum, item) => sum + (Number(item.price) || 0) * (item.quantity || 1),
+    0
+  );
+  const shipping = cartItems.length ? 2500 : 0; // optionally 0 when cart empty
+  const tax = Math.round(subtotal * 0.075);
+  const total = subtotal + shipping + tax;
 
-  const handleCheckout = () => {
-    const phoneNumber = "2348012345678"; // 💬 Your WhatsApp number
+  const validateForm = () => {
+    const required = ["firstName", "lastName", "email", "phone", "address1", "city"];
+    for (const key of required) {
+      if (!form[key] || form[key].trim() === "") return false;
+    }
+    return true;
+  };
 
-    if (!form.name || !form.phone || !form.address) {
-      alert("Please complete all details.");
+  const handlePlaceOrder = () => {
+    if (!cartItems || cartItems.length === 0) {
+      alert("Your cart is empty.");
+      return;
+    }
+    if (!validateForm()) {
+      alert("Please complete required shipping fields (name, email, phone, address, city).");
       return;
     }
 
-    const messageLines = [
-      `🛍 *New Order Request*`,
-      `--------------------------------`,
-      `👤 *Name:* ${form.name}`,
-      `📍 *Address:* ${form.address}`,
-      `📞 *Phone:* ${form.phone}`,
-      `--------------------------------`,
-      `🧾 *Order Details:*`,
-      ...cart.map(
-        (item) =>
-          `• ${item.name} (${item.color ?? "N/A"}) x${item.qty}  – ₦${(
-            item.price * item.qty
-          ).toLocaleString()}
-Image: ${item.image}`
-      ),
-      `--------------------------------`,
-      `💰 *Total:* ₦${total.toLocaleString()}`,
-      `--------------------------------`,
-      `✅ Please confirm order.`,
-    ];
+    // prepare WhatsApp message
+    const whatsappNumber = "2348131316083"; // <-- replace with your number (country code + number, no +)
+    const lines = [];
 
-    const finalMsg = encodeURIComponent(messageLines.join("\n"));
+    lines.push("ORDER REQUEST FROM KEDAR WATCHES WEBSITE");
+    lines.push("");
+    lines.push("Customer Details:");
+    lines.push(`Name: ${form.firstName} ${form.lastName}`);
+    lines.push(`Phone: ${form.phone}`);
+    lines.push(`Email: ${form.email}`);
+    lines.push(`Address: ${form.address1}${form.address2 ? ", " + form.address2 : ""}`);
+    lines.push(`${form.city}${form.state ? ", " + form.state : ""}, ${form.country}`);
+    lines.push(`Postal Code: ${form.postalCode || "-"}`);
+    lines.push("");
+    lines.push("ORDER SUMMARY:");
 
-    window.open(`https://wa.me/${phoneNumber}?text=${finalMsg}`, "_blank");
+    cartItems.forEach((item, idx) => {
+      lines.push(`${idx + 1}. ${item.name}`);
+      lines.push(`   Quantity: ${item.quantity || 1}`);
+      lines.push(`   Unit Price: ₦${Number(item.price).toLocaleString()}`);
+      lines.push(`   Line Total: ₦${(Number(item.price) * (item.quantity || 1)).toLocaleString()}`);
+      if (item.mainImage || item.image) {
+        lines.push(`   Image: ${item.mainImage || item.image}`);
+      }
+      lines.push("");
+    });
 
-    // Optionally clear cart
-    // clearCart();
+    lines.push(`Subtotal: ₦${subtotal.toLocaleString()}`);
+    lines.push(`Shipping: ₦${shipping.toLocaleString()}`);
+    lines.push(`VAT (7.5%): ₦${tax.toLocaleString()}`);
+    lines.push("");
+    lines.push(`TOTAL: ₦${total.toLocaleString()}`);
+    lines.push("");
+    lines.push("Please confirm my order and send payment/delivery instructions.");
+
+    const url = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(lines.join("\n"))}`;
+
+    // open whatsapp and then clear cart
+    window.open(url, "_blank");
+    clearCart();
   };
 
   return (
-    <div className="max-w-3xl mx-auto py-16 px-4">
-      <h2 className="text-3xl font-serif font-bold mb-8">Checkout</h2>
+    <section className="max-w-6xl mx-auto px-6 md:px-12 py-20 bg-gray-50 dark:bg-brand-dark transition-colors">
+      <h1 className="text-4xl font-serif font-bold text-gray-900 dark:text-white mb-12">Checkout</h1>
 
-      {/* User Inputs */}
-      <div className="space-y-6">
-        <input
-          name="name"
-          placeholder="Full Name"
-          className="w-full p-3 border rounded"
-          value={form.name}
-          onChange={handleChange}
-        />
+      {/* Shipping Information */}
+      <div className="p-8 bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-200 dark:border-gray-700 mb-10">
+        <h2 className="text-xl font-semibold mb-1">Shipping Information</h2>
+        <p className="text-sm text-gray-500 mb-6">Please provide your contact and shipping details.</p>
 
-        <input
-          name="phone"
-          placeholder="Phone Number"
-          className="w-full p-3 border rounded"
-          value={form.phone}
-          onChange={handleChange}
-        />
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div>
+            <label className="block text-sm mb-1">First Name</label>
+            <input
+              name="firstName"
+              value={form.firstName}
+              onChange={handleChange}
+              className="w-full border border-gray-200 dark:border-gray-600 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[#8B6431] dark:bg-gray-700"
+              type="text"
+              placeholder="First name"
+              required
+            />
+          </div>
 
-        <textarea
-          name="address"
-          placeholder="Delivery Address"
-          className="w-full p-3 border rounded"
-          value={form.address}
-          onChange={handleChange}
-        />
-      </div>
+          <div>
+            <label className="block text-sm mb-1">Last Name</label>
+            <input
+              name="lastName"
+              value={form.lastName}
+              onChange={handleChange}
+              className="w-full border border-gray-200 dark:border-gray-600 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[#8B6431] dark:bg-gray-700"
+              type="text"
+              placeholder="Last name"
+              required
+            />
+          </div>
+        </div>
 
-      {/* Summary */}
-      <h3 className="text-xl font-semibold mt-10">Order Summary</h3>
+        <div className="mt-6">
+          <label className="block text-sm mb-1">Email</label>
+          <input
+            name="email"
+            value={form.email}
+            onChange={handleChange}
+            className="w-full border border-gray-200 dark:border-gray-600 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[#8B6431] dark:bg-gray-700"
+            type="email"
+            placeholder="you@example.com"
+            required
+          />
+        </div>
 
-      <div className="space-y-4 mt-4">
-        {cart.map((item) => (
-          <div key={item.id} className="flex gap-4 items-center border p-3 rounded">
-            <img src={item.image} alt="" className="w-20 h-20 object-cover rounded" />
+        <div className="mt-6">
+          <label className="block text-sm mb-1">Phone Number</label>
+          <input
+            name="phone"
+            value={form.phone}
+            onChange={handleChange}
+            className="w-full border border-gray-200 dark:border-gray-600 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[#8B6431] dark:bg-gray-700"
+            type="tel"
+            placeholder="+2348012345678"
+            required
+          />
+        </div>
+
+        {/* Address */}
+        <div className="mt-10">
+          <h3 className="text-lg font-medium">Shipping Address</h3>
+
+          <div className="mt-4 space-y-6">
             <div>
-              <p className="font-medium">{item.name}</p>
-              {item.color && <p className="text-gray-500 text-sm">Color: {item.color}</p>}
-              <p className="text-brand-gold text-sm">
-                ₦{(item.price * item.qty).toLocaleString()}
-              </p>
+              <label className="block text-sm mb-1">Address Line 1</label>
+              <input
+                name="address1"
+                value={form.address1}
+                onChange={handleChange}
+                className="w-full border border-gray-200 dark:border-gray-600 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[#8B6431] dark:bg-gray-700"
+                type="text"
+                placeholder="Street address, P.O. box"
+                required
+              />
+            </div>
+
+            <div>
+              <label className="block text-sm mb-1">Address Line 2 (Optional)</label>
+              <input
+                name="address2"
+                value={form.address2}
+                onChange={handleChange}
+                className="w-full border border-gray-200 dark:border-gray-600 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[#8B6431] dark:bg-gray-700"
+                type="text"
+                placeholder="Apartment, suite, unit, building"
+              />
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div>
+                <label className="block text-sm mb-1">City</label>
+                <input
+                  name="city"
+                  value={form.city}
+                  onChange={handleChange}
+                  className="w-full border border-gray-200 dark:border-gray-600 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[#8B6431] dark:bg-gray-700"
+                  type="text"
+                  placeholder="City"
+                  required
+                />
+              </div>
+
+              <div>
+                <label className="block text-sm mb-1">State / Province</label>
+                <input
+                  name="state"
+                  value={form.state}
+                  onChange={handleChange}
+                  className="w-full border border-gray-200 dark:border-gray-600 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[#8B6431] dark:bg-gray-700"
+                  type="text"
+                  placeholder="State / Province"
+                />
+              </div>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div>
+                <label className="block text-sm mb-1">Postal Code</label>
+                <input
+                  name="postalCode"
+                  value={form.postalCode}
+                  onChange={handleChange}
+                  className="w-full border border-gray-200 dark:border-gray-600 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[#8B6431] dark:bg-gray-700"
+                  type="text"
+                  placeholder="Postal code"
+                />
+              </div>
+
+              <div>
+                <label className="block text-sm mb-1">Country</label>
+                <select
+                  name="country"
+                  value={form.country}
+                  onChange={handleChange}
+                  className="w-full border border-gray-200 dark:border-gray-600 rounded-md px-3 py-2 bg-white dark:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-[#8B6431]"
+                >
+                  {countries.map((c) => (
+                    <option key={c} value={c}>
+                      {c}
+                    </option>
+                  ))}
+                </select>
+              </div>
             </div>
           </div>
-        ))}
+        </div>
       </div>
 
-      {/* Total + Checkout Button */}
-      <div className="flex justify-between items-center mt-10">
-        <h3 className="text-xl font-semibold">
-          Total: ₦{total.toLocaleString()}
-        </h3>
+      {/* Payment Method */}
+      <div className="p-8 bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-200 dark:border-gray-700 mb-10">
+        <h2 className="text-xl font-semibold mb-1">Payment Method</h2>
+        <p className="text-sm text-gray-500 mb-4">
+          Payment gateway integration is coming soon. Currently, checkout is completed via WhatsApp.
+        </p>
 
-        <button
-          onClick={handleCheckout}
-          className="px-8 py-3 bg-brand-gold text-white rounded-md hover:bg-brand-darkgold transition"
-        >
-          Checkout on WhatsApp
-        </button>
+        <div className="p-4 bg-gray-100 dark:bg-gray-700 rounded-lg text-sm text-gray-600 dark:text-gray-300">
+          Our support team will confirm your order and provide next steps after you send the WhatsApp message.
+        </div>
       </div>
-    </div>
+
+      {/* Order Summary (bottom) */}
+      <div className="p-8 bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-200 dark:border-gray-700">
+        <h2 className="text-xl font-semibold mb-6">Order Summary</h2>
+
+        <div className="space-y-6">
+          {cartItems.length === 0 && (
+            <p className="text-gray-600 dark:text-gray-300">No items in your cart.</p>
+          )}
+
+          {cartItems.map((item) => (
+            <div key={item.id} className="flex items-center gap-4 pb-4 border-b border-gray-200 dark:border-gray-700">
+              <img
+                src={item.mainImage || item.image}
+                alt={item.name}
+                className="w-16 h-16 rounded-lg object-cover"
+              />
+              <div className="flex-1">
+                <p className="font-medium">{item.name}</p>
+                {item.color && <p className="text-sm text-gray-500">Color: {item.color}</p>}
+                <p className="text-sm text-gray-500">Quantity: {item.quantity}</p>
+              </div>
+              <p className="font-medium">₦{(Number(item.price) * (item.quantity || 1)).toLocaleString()}</p>
+            </div>
+          ))}
+        </div>
+
+        {/* price breakdown */}
+        <div className="mt-6 space-y-2 text-sm">
+          <div className="flex justify-between">
+            <p>Subtotal:</p>
+            <p>₦{subtotal.toLocaleString()}</p>
+          </div>
+
+          <div className="flex justify-between">
+            <p>Shipping:</p>
+            <p>₦{shipping.toLocaleString()}</p>
+          </div>
+
+          <div className="flex justify-between">
+            <p>VAT (7.5%):</p>
+            <p>₦{tax.toLocaleString()}</p>
+          </div>
+
+          <div className="flex justify-between font-semibold text-lg pt-4 border-t dark:border-gray-700">
+            <p>Total:</p>
+            <p className="text-[#8B6431]">₦{total.toLocaleString()}</p>
+          </div>
+        </div>
+
+        {/* CTAs */}
+        <div className="mt-10 flex flex-col sm:flex-row gap-3 sm:justify-between">
+          <Link
+            to="/cart"
+            className="px-6 py-3 border rounded-md hover:bg-gray-100 dark:hover:bg-gray-700 transition text-center"
+          >
+            Back to Cart
+          </Link>
+
+          <button
+            onClick={handlePlaceOrder}
+            className="px-8 py-3 bg-[#8B6431] hover:bg-[#a0743b] text-white rounded-md transition"
+          >
+            Place Order via WhatsApp
+          </button>
+        </div>
+      </div>
+    </section>
   );
 };
 
