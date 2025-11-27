@@ -61,10 +61,10 @@ const Cart = () => {
                       ₦{item.price.toLocaleString()}
                     </p>
 
-                    {/* ✅ Product Details Accordion */}
+                    {/* Product Details Accordion */}
                     {item.details && Object.keys(item.details).length > 0 && (
                       <details className="mt-2 border rounded-md border-gray-200 dark:border-gray-700 p-2 bg-gray-50 dark:bg-gray-800">
-                        <summary className="cursor-pointer text-sm font-medium text-gray-700 dark:text-gray-300">
+                        <summary className="cursor-pointer text-xs md:text-base text-gray-700 dark:text-gray-300">
                           View Product Details
                         </summary>
                         <ul className="mt-2 space-y-1 text-sm text-gray-600 dark:text-gray-400">
