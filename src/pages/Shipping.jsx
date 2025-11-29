@@ -1,6 +1,7 @@
 import { motion } from "framer-motion";
 import { Package, Truck, Globe, ShieldCheck, RefreshCcw, FileText, Headphones } from "lucide-react";
 
+
 const Shipping = () => {
   return (
     <div className="min-h-screen bg-[#FDFBF8] dark:bg-brand-dark text-[#4B3B27] dark:text-gray-100 transition-colors duration-300">
@@ -48,10 +49,10 @@ const Shipping = () => {
             <div>
               <h3 className="font-medium text-[#4B3B27] dark:text-gray-100">Standard Shipping within Nigeria</h3>
               <p className="text-[#7A6C59] dark:text-gray-400">
-                <strong>Free Shipping</strong> Free for orders over ₦200,000. <br />
-                <strong>Cost:</strong>₦3,000-₦5,000, depending on delivery destination<br />
-                <strong>Time:</strong> 2-3 business days within Nigeria. <br />
-                <strong>Carrier:</strong>Private Logistics Company; customers can also decide to use DHL, GIG Logistics, or FedEx and handle fees based on how much they charge.
+                <strong>Free Shipping:</strong> Free for orders over ₦200,000. <br />
+                <strong>Cost:</strong> ₦3,000 - ₦5,000, depending on delivery destination<br />
+                <strong>Time:</strong> 2 - 3 business days within Nigeria. <br />
+                <strong>Carrier:</strong> Private Logistics Company; customers can also decide to use DHL, GIG Logistics, or FedEx and handle fees based on how much they charge.
               </p>
             </div>
 
@@ -59,9 +60,9 @@ const Shipping = () => {
               <h3 className="font-medium text-[#4B3B27] dark:text-gray-100">Shipping in Lagos</h3>
               <p className="text-[#7A6C59] dark:text-gray-400">
                 <strong>Express shipping in Lagos:</strong> ₦10,000 flat rate to your doorstep. <br />
-                <strong>Cost:</strong>Depends on location <br />
+                <strong>Cost:</strong> ₦3,000 - ₦5,000 depending on delivery address <br />
                 <strong>Time:</strong> Same day or next business day delivery within Lagos. <br />
-                <strong>Carrier:</strong>Private Delivery Services or (Bolt, Uber, FedEx or DHL Express).
+                <strong>Carrier:</strong> Private Delivery Services or (Bolt, Uber, FedEx or DHL Express).
               </p>
             </div>
 
@@ -69,7 +70,7 @@ const Shipping = () => {
               <h3 className="font-medium text-[#4B3B27] dark:text-gray-100">International Shipping</h3>
               <p className="text-[#7A6C59] dark:text-gray-400">
                 <strong>Cost:</strong> Delivery fee is calculated at checkout based on destination and weight at logistic company's office. <br />
-                <strong>Time:</strong> 3-7 business days depending on customs clearance. <br />
+                <strong>Time:</strong> 3 - 7 business days depending on customs clearance. <br />
                 <strong>Carrier:</strong> DHL or FedEx International.
               </p>
             </div>
@@ -88,7 +89,7 @@ const Shipping = () => {
             <h2 className="text-xl font-semibold">Order Processing Times</h2>
           </div>
           <p className="text-[#7A6C59] dark:text-gray-400">
-            All orders are processed and shipped within <strong>1–2 business days</strong>, excluding weekends and
+            All orders are processed and shipped within <strong>1 – 2 business days</strong>, excluding weekends and
             public holidays. You will receive a confirmation message details once your order has been processed.
           </p>
         </motion.div>
@@ -121,32 +122,78 @@ const Shipping = () => {
             <RefreshCcw className="w-6 h-6 text-[#A57C4D] dark:text-[#d4b278]" />
             <h2 className="text-xl font-semibold">Returns & Exchanges</h2>
           </div>
+
+          {/* INTRO */}
           <p className="text-[#7A6C59] dark:text-gray-400 mb-4">
-            We want you to be completely satisfied with your purchase. If not, you can return or exchange your
-            watch within <strong>30 days</strong> of the original purchase date.
+            We want every customer to be satisfied with their purchase. However, because our watches are
+            <strong> high-grade replicas and aftermarket timepieces</strong>, certain return conditions apply to protect product integrity.
+            Customers are encouraged to <strong>inspect their order immediately upon delivery</strong>.
           </p>
 
-          <h3 className="font-medium mb-2">Eligibility Criteria:</h3>
-          <ul className="list-disc list-inside text-[#7A6C59] dark:text-gray-400 mb-4">
-            <li>Items must be unworn, undamaged, and in original condition.</li>
-            <li>All packaging, tags, and documents must be included.</li>
-            <li>Engraved or customized items are non-returnable unless defective.</li>
-            <li>Proof of purchase is required for all returns.</li>
+          {/* IMPORTANT CONDITIONS */}
+          <h3 className="font-medium mb-2">Important Return Conditions:</h3>
+          <ul className="list-disc list-inside text-[#7A6C59] dark:text-gray-400 mb-4 space-y-1">
+            <li>
+              <strong>No refunds or exchanges</strong> for items that match the exact specifications, photos,
+              or descriptions provided at the time of purchase.
+            </li>
+            <li>
+              Replica wristwatches are <strong>not original brand products</strong>. By purchasing,
+              the buyer acknowledges and accepts this.
+            </li>
+            <li>
+              Customers must inspect their package <strong>in the presence of the delivery agent</strong>.
+              Once the rider leaves, claims about scratches, color differences, or appearance are no longer valid.
+            </li>
+            <li>
+              Colors, textures, and finishes may appear slightly different due to lighting, camera quality,
+              or screen display settings. These variations do <strong>not</strong> qualify as defects.
+            </li>
+            <li>
+              Water resistance is approximate. Moisture or water-related issues are <strong>not covered</strong>
+              under returns.
+            </li>
+            <li>
+              Discounted items, clearance items, resized straps, or products with removed protective films
+              are <strong>non-returnable</strong>.
+            </li>
           </ul>
 
+          {/* STANDARD POLICY */}
+          <h3 className="font-medium mb-2">Standard Return Eligibility:</h3>
+          <ul className="list-disc list-inside text-[#7A6C59] dark:text-gray-400 mb-4 space-y-1">
+            <li>Items must be unworn, undamaged, and in original condition.</li>
+            <li>All packaging, tags, protective films, and documents must be intact and included.</li>
+            <li>Proof of purchase is required for all return requests.</li>
+            <li>Photos or videos may be required to verify defect claims.</li>
+          </ul>
+
+          {/* HOW TO RETURN */}
           <h3 className="font-medium mb-2">How to Initiate a Return:</h3>
-          <ol className="list-decimal list-inside text-[#7A6C59] dark:text-gray-400 space-y-1">
-            <li>Contact our support team within 30 days to request a return authorization number.</li>
-            <li>Repack your item(s) securely with all original contents.</li>
-            <li>Use the prepaid label we send you to ship it back.</li>
-            <li>Refunds or exchanges are processed within 5–7 business days of receipt.</li>
+          <ol className="list-decimal list-inside text-[#7A6C59] dark:text-gray-400 space-y-1 mb-4">
+            <li>Contact our support team within 30 days to request a return authorization.</li>
+            <li>Repack the item securely with all original contents.</li>
+            <li>Ship the watch using the address and instructions provided.</li>
+            <li>
+              Refunds or exchanges are processed within 5 – 7 business days after we receive and inspect the item.
+            </li>
           </ol>
 
+          {/* RETURN SHIPPING COST */}
+          <p className="text-[#7A6C59] dark:text-gray-400 mb-4">
+            <strong>Return shipping or delivery fees are the responsibility of the customer</strong>.
+            These charges are not refundable.
+          </p>
+
+          {/* DEFECTIVE ITEMS */}
           <p className="mt-4 text-[#7A6C59] dark:text-gray-400">
-            <strong>Defective or Damaged Items:</strong> If your item arrives damaged or faulty, contact us
-            immediately for a free replacement or full refund.
+            <strong>Defective or Damaged Items:</strong>  
+            If your item arrives damaged or with a manufacturing defect, contact us immediately (preferably
+            on the day of delivery). Verified defects qualify for a free replacement or refund.
           </p>
         </motion.div>
+
+
 
         {/* POLICIES */}
         <motion.div
@@ -162,11 +209,11 @@ const Shipping = () => {
           <ul className="text-[#7A6C59] dark:text-gray-400 space-y-2">
             <li>
               <strong>Privacy Policy:</strong> We are committed to protecting your privacy. Read more in our{" "}
-              <a href="/privacy" className="text-[#A57C4D] dark:text-[#d4b278] hover:underline">Privacy Policy</a>.
+              <a href="/privacypolicy" className="text-[#A57C4D] dark:text-[#d4b278] hover:underline">Privacy Policy</a>.
             </li>
             <li>
               <strong>Terms of Service:</strong> By purchasing from Kedar Watches, you agree to our{" "}
-              <a href="/terms" className="text-[#A57C4D] dark:text-[#d4b278] hover:underline">Terms of Service</a>.
+              <a href="/termsandconditions" className="text-[#A57C4D] dark:text-[#d4b278] hover:underline">Terms of Service</a>.
             </li>
             <li>
               <strong>Warranty:</strong> All timepieces come with a manufacturer’s warranty. View details on our{" "}

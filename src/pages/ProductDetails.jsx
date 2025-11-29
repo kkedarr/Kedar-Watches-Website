@@ -1,3 +1,4 @@
+// src/pages/ProductDetails.jsx
 import { useParams } from "react-router-dom";
 import { useProducts } from "../context/ProductContext";
 import { useCart } from "../context/CartContext";
@@ -10,15 +11,33 @@ const ProductDetails = () => {
 
   const product = products.find((p) => p.id === Number(id));
 
-  const [selectedImage, setSelectedImage] = useState(product?.mainImage);
+  const [selectedImage, setSelectedImage] = useState(product?.mainImage || "");
   const [quantity, setQuantity] = useState(1);
 
   if (!product) return <p className="text-center mt-10">Product not found</p>;
 
+  const handleAddToCart = () => {
+    addToCart(
+      {
+        id: product.id,
+        name: product.name,
+        price: Number(product.price) || 0,
+        image: product.mainImage || product.image || "",
+        details: {
+          movement: product.movement || "Not specified",
+          strap: product.strap || "Not specified",
+          case: product.case || "Not specified",
+        },
+      },
+      quantity
+    );
+    // optionally show a confirmation (toast or alert)
+    // alert("Added to cart");
+  };
+
   return (
     <section className="py-16 px-6 md:px-20 bg-gray-50 dark:bg-brand-dark transition-colors duration-300">
       <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
-        {/* Left */}
         <div>
           <img
             src={selectedImage}
@@ -30,7 +49,7 @@ const ProductDetails = () => {
               <img
                 key={index}
                 src={thumb}
-                alt="Thumbnail"
+                alt={`thumb-${index}`}
                 onClick={() => setSelectedImage(thumb)}
                 className={`w-20 h-20 object-cover rounded-md cursor-pointer border-2 transition duration-300 ${
                   selectedImage === thumb
@@ -42,7 +61,6 @@ const ProductDetails = () => {
           </div>
         </div>
 
-        {/* Right */}
         <div>
           <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-2">
             {product.name}
@@ -51,13 +69,12 @@ const ProductDetails = () => {
             ⭐ {product.rating} / 5 Stars
           </p>
           <p className="text-2xl font-semibold text-[#8B6431] mb-4">
-            {product.price}
+            ₦{Number(product.price).toLocaleString("en-NG")}
           </p>
           <p className="text-gray-700 dark:text-gray-300 mb-6 leading-relaxed">
             {product.description}
           </p>
 
-          {/* Quantity + Buttons */}
           <div className="flex items-center gap-3 mb-6">
             <button
               onClick={() => setQuantity((q) => Math.max(1, q - 1))}
@@ -78,33 +95,13 @@ const ProductDetails = () => {
             </button>
 
             <button
-              onClick={() =>
-                addToCart(
-                  {
-                    id: product.id,
-                    name: product.name,
-                    price: product.price,
-                    image: product.mainImage || product.image,
-                    // ✅ Include detailed attributes for Cart & Checkout
-                    details: {
-                      movement: product.movement || "Not specified",
-                      strap: product.strap || "Not specified",
-                      case: product.case || "Not specified",
-                      glass: product.glass || "Not specified",
-                      waterResistance: product.waterResistance || "Not specified",
-                    },
-                  },
-                  quantity
-                )
-              }
+              onClick={handleAddToCart}
               className="ml-4 px-6 py-2 bg-[#8B6431] hover:bg-[#a0743b] text-white font-medium rounded-md transition duration-300"
             >
               Add to Cart
             </button>
           </div>
 
-
-          {/* Accordion */}
           <div className="space-y-2 border-t pt-4">
             {product.details.map((detail, index) => (
               <details

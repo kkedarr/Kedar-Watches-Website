@@ -1,114 +1,115 @@
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
-import LuxReplica from "../assets/images/replica-watch.jpg";
-import CasualWatch from "../assets/images/casual-chain-watch-kedar.jpg";
-import SmartWatch from "../assets/images/smart-watch-kedar.jpg";
-import AutomaticWatch from "../assets/images/automatic-watch-kedar.jpg";
 
 const Categories = () => {
-  const categories = [
-    {
-      id: "luxury",
-      name: "Luxury Replicas",
-      img: LuxReplica,
-      desc: "High-grade replica watches mirroring the craftsmanship of world-class brands.",
-    },
-    {
-      id: "casual",
-      name: "Casual Watches",
-      img: CasualWatch,
-      desc: "Everyday comfort meets subtle elegance — the perfect wrist companions.",
-    },
-    {
-      id: "smart",
-      name: "Smart Watches",
-      img: SmartWatch,
-      desc: "Modern designs packed with innovation and smart functionality for your lifestyle.",
-    },
-    {
-      id: "automatic",
-      name: "Automatic & Mechanical",
-      img: AutomaticWatch,
-      desc: "Engineered with precision — where movement meets timeless craftsmanship.",
-    },
-  ];
+  /* --- GROUPED BRAND CATEGORIES --- */
+  const brandCategories = {
+    "Swiss Luxury": [
+      "Rolex", "Omega", "Audemars Piguet", "Patek Philippe", "Vacheron Constantin",
+      "Richard Mille", "Hublot", "Breitling", "IWC", "Tag Heuer",
+      "Jaeger-LeCoultre", "Longines", "Rado", "Blancpain", "Zenith"
+    ],
 
-  // Animation variants
+    "Japanese Classics": [
+      "Seiko", "Casio", "Citizen", "Orient", "Q&Q", "Alba", "Lorus"
+    ],
+
+    "German Precision": [
+      "A. Lange & Söhne", "Nomos", "Sinn", "Glashütte Original", "Junghans"
+    ],
+
+    "Fashion & Designer": [
+      "Fossil", "Skagen", "Michael Kors", "Diesel", "Armani Exchange",
+      "Emporio Armani", "Tommy Hilfiger", "Hugo Boss", "Guess", "Nautica"
+    ],
+
+    "Budget & Trending (Nigeria)": [
+      "Curren", "Poedagar", "Tomi", "Naviforce", "SKMEI", "Nibosi",
+      "Forsining", "Olevs", "Benyar", "Lige", "Megir", "Tevise",
+      "Pagani Design", "Carnival", "Guanqin", "Crrju", "Holuns", "Agelocer"
+    ],
+
+    "Smartwatches": [
+      "Apple", "Samsung", "Huawei", "Xiaomi", "Amazfit", "Oraimo",
+      "Kieslect", "Haylou", "Imilab"
+    ],
+  };
+
+  /* --- ANIMATION --- */
   const fadeUp = {
-    hidden: { opacity: 0, y: 40 },
+    hidden: { opacity: 0, y: 30 },
     visible: (i) => ({
       opacity: 1,
       y: 0,
-      transition: { delay: i * 0.15, duration: 0.6, ease: "easeOut" },
+      transition: { delay: i * 0.05, duration: 0.5, ease: "easeOut" },
     }),
   };
 
   return (
-    <section className="py-16 px-6 md:px-16 lg:px-16 bg-brand-darklight dark:bg-brand-dark transition-colors duration-300">
-      <div className="text-center mb-14">
+    <section className="py-16 px-6 md:px-16 bg-brand-darklight dark:bg-brand-dark transition-colors duration-300">
+      
+      {/* HEADER */}
+      <div className="text-center mb-10">
         <motion.h2
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 15 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ twice: true }}
-          transition={{ duration: 0.2, ease: "easeOut" }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.4 }}
           className="text-3xl md:text-4xl font-serif font-bold text-gray-900 dark:text-white"
         >
-          Explore Our Categories
+          Explore by Brand
         </motion.h2>
 
         <motion.p
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
-          transition={{ delay: 0, duration: 0.2, ease: "easeOut" }}
-          className="text-gray-600 dark:text-gray-400 mt-3 text-sm md:text-base"
+          transition={{ delay: 0.2, duration: 0.4 }}
+          className="text-gray-600 dark:text-gray-400 mt-2 text-sm md:text-base"
         >
-          From timeless classics to smart modern designs — discover the perfect watch that matches your lifestyle.
+          Discover the perfect timepiece from the brands you trust and love.
         </motion.p>
       </div>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8 px-6 md:px-20">
-        {categories.map((cat, i) => (
-          <motion.div
-            key={cat.id}
-            variants={fadeUp}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true }}
-            custom={i}
-          >
-            <Link
-              to={`/shop/${cat.id}`}
-              className="group flex flex-col items-center rounded-md bg-brand-light dark:bg-brand-lightdark shadow-md hover:shadow-2xl hover:-translate-y-2 transition-all duration-500 overflow-hidden"
-            >
-              {/* Image */}
-              <div className="w-full h-60 overflow-hidden relative">
-                <img
-                  src={cat.img}
-                  alt={cat.name}
-                  className="w-full h-full object-cover transform group-hover:scale-110 transition duration-700 ease-out"
-                />
-                <div className="absolute inset-0 bg-black/10 group-hover:bg-black/30 transition duration-500"></div>
-              </div>
+      {/* BRAND GROUPS */}
+      <div className="space-y-14 max-w-5xl mx-auto">
 
-              {/* Text */}
-              <div className="p-5 text-center">
-                <h3 className="text-lg font-serif font-bold text-gray-800 dark:text-gray-200 mb-2">
-                  {cat.name}
-                </h3>
-                <p className="text-gray-600 dark:text-gray-400 text-sm leading-relaxed">
-                  {cat.desc}
-                </p>
+        {Object.entries(brandCategories).map(([category, brands], index) => (
+          <div key={category}>
+            
+            {/* CATEGORY TITLE */}
+            <h3 className="text-lg md:text-xl font-bold text-gray-800 dark:text-gray-200 mb-4">
+              {category}
+            </h3>
 
-                <div className="mt-4">
-                  <button className="px-5 py-2 bg-brand-gold text-white text-sm rounded-md hover:bg-yellow-700 transition duration-300 shadow-md hover:shadow-lg">
-                    Explore
-                  </button>
-                </div>
-              </div>
-            </Link>
-          </motion.div>
+            {/* BUTTON GRID */}
+            <div className="flex flex-wrap justify-center md:justify-start gap-4 md:gap-5">
+              {brands.map((brand, i) => (
+                <motion.div
+                  key={brand}
+                  variants={fadeUp}
+                  initial="hidden"
+                  whileInView="visible"
+                  viewport={{ once: true }}
+                  custom={i}
+                >
+                  <Link
+                    to={`/shop?brand=${encodeURIComponent(brand)}`}
+                    className="px-5 py-2.5 bg-brand-light dark:bg-brand-lightdark 
+                      text-gray-900 dark:text-gray-100 text-sm rounded-xl shadow-md 
+                      hover:shadow-lg border border-gray-300 dark:border-gray-700 
+                      hover:bg-brand-gold hover:text-white dark:hover:bg-brand-gold 
+                      transition-all duration-300"
+                  >
+                    {brand}
+                  </Link>
+                </motion.div>
+              ))}
+            </div>
+
+          </div>
         ))}
+
       </div>
     </section>
   );

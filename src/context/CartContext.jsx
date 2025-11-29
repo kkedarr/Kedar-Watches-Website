@@ -1,91 +1,80 @@
-import { createContext, useContext, useEffect, useState } from "react";
-import toast from "react-hot-toast";
+// src/context/CartContext.jsx
+import React, { createContext, useContext, useEffect, useState } from "react";
 
 const CartContext = createContext();
 
-export const CartProvider = ({ children }) => {
+export function CartProvider({ children }) {
   const [cartItems, setCartItems] = useState(() => {
-    const stored = localStorage.getItem("cartItems");
-    return stored ? JSON.parse(stored) : [];
+    try {
+      const raw = localStorage.getItem("kedar_cart");
+      return raw ? JSON.parse(raw) : [];
+    } catch {
+      return [];
+    }
   });
 
-  // ✅ Persist cart in localStorage
+  // persist cart
   useEffect(() => {
-    localStorage.setItem("cartItems", JSON.stringify(cartItems));
+    localStorage.setItem("kedar_cart", JSON.stringify(cartItems));
   }, [cartItems]);
 
-  /** ✅ Add to Cart (fixes NaN price issue) */
+  // addToCart(productObject, quantity)
+  // productObject should include: id (number), name, price (number), image, ...optional
   const addToCart = (product, quantity = 1) => {
     setCartItems((prev) => {
-      const existing = prev.find((item) => item.id === product.id);
-
-      // Normalize price → remove commas → convert to number
-      const numericPrice =
-        Number(String(product.price).replace(/,/g, "")) || 0;
-
+      const existing = prev.find((p) => p.id === product.id);
       if (existing) {
-        const updated = prev.map((item) =>
-          item.id === product.id
-            ? { ...item, quantity: item.quantity + quantity }
-            : item
+        return prev.map((p) =>
+          p.id === product.id
+            ? { ...p, quantity: (p.quantity || 1) + Number(quantity) }
+            : p
         );
-
-        toast.success(`Updated quantity: ${product.name}`);
-        return updated;
       }
-
-      toast.success(`Added to cart: ${product.name}`);
-
       return [
         ...prev,
         {
           id: product.id,
           name: product.name,
-          price: numericPrice, // ✅ ALWAYS a valid number
-          image: product.mainImage || product.image,
-          quantity,
-          details: product.details || {
-            movement: product.movement,
-            strap: product.strap,
-            case: product.case,
-            waterResistance: product.waterResistance,
-            glass: product.glass,
-          },
+          price: Number(product.price) || 0,
+          image: product.image || product.mainImage || "",
+          quantity: Number(quantity) || 1,
+          details: product.details || {},
         },
       ];
     });
   };
 
-  /** ✅ Update Qty */
   const updateQty = (id, newQty) => {
-    if (newQty <= 0) return;
     setCartItems((prev) =>
-      prev.map((item) =>
-        item.id === id ? { ...item, quantity: newQty } : item
-      )
+      prev
+        .map((p) =>
+          p.id === id ? { ...p, quantity: Math.max(1, Number(newQty) || 1) } : p
+        )
+        .filter(Boolean)
     );
   };
 
-  /** ✅ Remove item */
   const removeItem = (id) => {
-    setCartItems((prev) => prev.filter((item) => item.id !== id));
-    toast("Removed from cart");
+    setCartItems((prev) => prev.filter((p) => p.id !== id));
   };
 
-  /** ✅ Clear all */
   const clearCart = () => {
     setCartItems([]);
-    toast("Cart cleared");
   };
 
-  return (
-    <CartContext.Provider
-      value={{ cartItems, addToCart, updateQty, removeItem, clearCart }}
-    >
-      {children}
-    </CartContext.Provider>
-  );
+  const value = {
+    cartItems,
+    addToCart,
+    updateQty,
+    removeItem,
+    clearCart,
+  };
+
+  return <CartContext.Provider value={value}>{children}</CartContext.Provider>;
+}
+
+export const useCart = () => {
+  const ctx = useContext(CartContext);
+  if (!ctx) throw new Error("useCart must be used within CartProvider");
+  return ctx;
 };
-
-export const useCart = () => useContext(CartContext);
-

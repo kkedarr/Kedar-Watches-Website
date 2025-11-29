@@ -10,6 +10,9 @@ import Contact from "./pages/Contact";
 import ProductDetails from "./pages/ProductDetails";
 import Cart from "./pages/Cart";
 import Checkout from "./pages/Checkout";
+import TermsAndConditions from "./pages/TermsandConditions";
+import Warranty from "./pages/Warranty";
+import PrivacyPolicy from "./pages/PrivacyPolicy";
 
 // ✅ import provider
 import { CartProvider } from "./context/CartContext";
@@ -20,7 +23,6 @@ const App = () => {
       <Router>
         <div className="font-sans bg-white dark:bg-brand-dark min-h-screen text-gray-900 dark:text-gray-100 transition-colors duration-300">
           <Navbar />
-
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/shop" element={<Shop />} />
@@ -32,6 +34,9 @@ const App = () => {
             <Route path="/product/:id" element={<ProductDetails />} />
             <Route path="/cart" element={<Cart />} />
             <Route path="/checkout" element={<Checkout />} />
+            <Route path="/privacypolicy" element={<PrivacyPolicy />} />
+            <Route path="/termsandconditions" element={<TermsAndConditions />} />
+            <Route path="/warranty" element={<Warranty />} />
           </Routes>
 
           <Footer />
