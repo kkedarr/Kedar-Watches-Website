@@ -115,26 +115,27 @@ const Contact = () => {
           whileHover={{ y: -4 }}
           className="bg-[#F8F5F0] dark:bg-brand-lightdark rounded-md p-8 text-center shadow-sm transition-all duration-300"
         >
-          <h2 className="text-lg font-semibold mb-3">Our Showroom</h2>
+          <h2 className="text-lg font-semibold mb-3">Online Store Only</h2>
+
           <p className="text-[#7A6C59] dark:text-gray-400 mb-4">
-            Experience our collection firsthand at our flagship store.
+            We operate entirely online to keep prices affordable and our service fast. 
+            All orders are processed, packaged, and shipped directly to your doorstep.
           </p>
-          <p className="font-medium">Kedar Watches Boutique</p>
-          <p className="text-[#7A6C59] dark:text-gray-400">
-            12 Eleganza Avenue, Lekki Phase 1, Lagos, Nigeria
+
+          <p className="text-[#7A6C59] dark:text-gray-400 mt-2">
+            <strong>Customer Support:</strong> Available Mon–Sat, 7 AM – 11 PM
           </p>
-          <p className="mt-2 text-sm text-[#7A6C59] dark:text-gray-400">
-            <strong>Hours:</strong> Mon–Sat, 10 AM – 7 PM
-          </p>
+
           <a
-            href="https://maps.google.com"
+            href="https://wa.me/2348131316083"
             target="_blank"
             rel="noreferrer"
             className="inline-block mt-3 text-sm font-medium text-[#A57C4D] dark:text-[#d4b278] hover:underline"
           >
-            Get Directions
+            Chat With Support
           </a>
         </motion.div>
+
       </div>
 
       {/* SEND A MESSAGE FORM */}

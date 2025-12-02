@@ -131,7 +131,7 @@ const Shipping = () => {
           </p>
 
           {/* IMPORTANT CONDITIONS */}
-          <h3 className="font-medium mb-2">Important Return Conditions:</h3>
+          <h3 className="font-medium mb-2">Important Return Conditions</h3>
           <ul className="list-disc list-inside text-[#7A6C59] dark:text-gray-400 mb-4 space-y-1">
             <li>
               <strong>No refunds or exchanges</strong> for items that match the exact specifications, photos,
@@ -160,7 +160,7 @@ const Shipping = () => {
           </ul>
 
           {/* STANDARD POLICY */}
-          <h3 className="font-medium mb-2">Standard Return Eligibility:</h3>
+          <h3 className="font-medium mb-2">Standard Return Eligibility</h3>
           <ul className="list-disc list-inside text-[#7A6C59] dark:text-gray-400 mb-4 space-y-1">
             <li>Items must be unworn, undamaged, and in original condition.</li>
             <li>All packaging, tags, protective films, and documents must be intact and included.</li>
@@ -169,7 +169,7 @@ const Shipping = () => {
           </ul>
 
           {/* HOW TO RETURN */}
-          <h3 className="font-medium mb-2">How to Initiate a Return:</h3>
+          <h3 className="font-medium mb-2">How to Initiate a Return</h3>
           <ol className="list-decimal list-inside text-[#7A6C59] dark:text-gray-400 space-y-1 mb-4">
             <li>Contact our support team within 30 days to request a return authorization.</li>
             <li>Repack the item securely with all original contents.</li>
@@ -187,7 +187,7 @@ const Shipping = () => {
 
           {/* DEFECTIVE ITEMS */}
           <p className="mt-4 text-[#7A6C59] dark:text-gray-400">
-            <strong>Defective or Damaged Items:</strong>  
+            <strong>Defective or Damaged Items  </strong>  
             If your item arrives damaged or with a manufacturing defect, contact us immediately (preferably
             on the day of delivery). Verified defects qualify for a free replacement or refund.
           </p>
