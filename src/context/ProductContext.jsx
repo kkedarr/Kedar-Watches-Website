@@ -1,32 +1,59 @@
-import { createContext, useContext, useState } from "react"
-import { products as initialProducts } from "../utils/data"
+// src/context/ProductContext.jsx
+import { createContext, useContext, useEffect, useState } from "react";
+import { supabase } from "../lib/supabaseClient";
 
-// Create the context (no default value yet)
-const ProductContext = createContext(undefined)
+const ProductContext = createContext();
 
-function ProductProvider({ children }) {
-  const [products, setProducts] = useState(initialProducts)
+export const ProductProvider = ({ children }) => {
+  const [products, setProducts] = useState([]);
 
-  const addProduct = (newProduct) => setProducts((prev) => [...prev, newProduct])
-  const removeProduct = (id) => setProducts((prev) => prev.filter((p) => p.id !== id))
-  const getProductsByCategory = (categoryId) => {
-    return products.filter((p) => p.categoryIds.includes(categoryId));
+  const fetchProducts = async () => {
+    const { data, error } = await supabase
+      .from("products")
+      .select(`
+        *,
+        product_images (
+          id,
+          url,
+          key,
+          is_main
+        )
+      `)
+      .order("created_at", { ascending: false });
+
+    if (error) {
+      console.error("Product fetch error:", error);
+      return;
+    }
+
+    const formatted = data.map((p) => {
+      const imgs = p.product_images || [];
+      const main = imgs.find((img) => img.is_main) || imgs[0];
+
+      return {
+        ...p,
+        images: imgs,
+        mainImage: main?.url || "/placeholder.jpg",
+      };
+    });
+
+    setProducts(formatted);
   };
 
-  const value = { products, addProduct, removeProduct, getProductsByCategory }
+  useEffect(() => {
+    fetchProducts();
+  }, []);
 
-  return <ProductContext.Provider value={value}>{children}</ProductContext.Provider>
-}
+  const getProductsByCategory = (catId) =>
+    products.filter((p) =>
+      p.category_ids?.includes(catId)
+    );
 
-// ✅ Define the hook *outside* any conditional or export wrapper
-function useProducts() {
-  const context = useContext(ProductContext)
-  if (context === undefined) {
-    throw new Error("useProducts must be used within a ProductProvider")
-  }
-  return context
-}
+  return (
+    <ProductContext.Provider value={{ products, getProductsByCategory }}>
+      {children}
+    </ProductContext.Provider>
+  );
+};
 
-// ✅ Export everything at once (stable, consistent exports)
-export { ProductProvider, useProducts }
-
+export const useProducts = () => useContext(ProductContext);

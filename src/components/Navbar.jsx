@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from "react";
 import { Link, useLocation } from "react-router-dom";
-import { ShoppingCart, Sun, Moon, Menu, X } from "lucide-react";
+import { ShoppingCart, Sun, Moon, Menu, X, Shield } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import useTheme from "../hooks/useTheme";
 import Logo from "../assets/images/kedarwatcheslogo.png";
@@ -118,6 +118,16 @@ const Navbar = () => {
                 <Sun className="w-5 h-5 text-yellow-400" />
               )}
             </motion.button>
+
+            {/* --- ADMIN ICON (desktop) --- */}
+            <Link to="/admin/login">
+              <motion.button
+                whileHover={{ scale: 1.1 }}
+                className="p-2 rounded-full border border-gray-300 dark:border-gray-600 hover:bg-gray-100 dark:hover:bg-[#2a2a2a] shadow-sm hover:shadow transition-all"
+              >
+                <Shield className="w-5 h-5 text-gray-700 dark:text-gray-200" />
+              </motion.button>
+            </Link>
           </div>
 
           {/* Mobile Menu Toggle */}
@@ -193,7 +203,7 @@ const Navbar = () => {
 
               <div className="border-t border-gray-200 dark:border-gray-700 my-6"></div>
 
-              {/* THEME & CART BUTTONS (Mobile) */}
+              {/* THEME, CART, ADMIN ICONS (Mobile) */}
               <div className="flex items-center justify-between mb-3">
                 {/* Theme toggle */}
                 <button
@@ -207,7 +217,14 @@ const Navbar = () => {
                   )}
                 </button>
 
-                {/* Cart button with badge (FIXED) */}
+                {/* Admin icon */}
+                <Link to="/admin/login" onClick={() => setIsOpen(false)}>
+                  <button className="p-2 rounded-full border border-gray-300 dark:border-gray-600 hover:bg-gray-100 dark:hover:bg-[#2a2a2a] transition">
+                    <Shield className="w-5 h-5 text-gray-700 dark:text-gray-200" />
+                  </button>
+                </Link>
+
+                {/* Cart */}
                 <Link to="/cart" onClick={() => setIsOpen(false)}>
                   <button className="relative p-2 rounded-full hover:bg-gray-100 dark:hover:bg-[#2a2a2a] transition">
                     <ShoppingCart className="w-5 h-5 text-gray-700 dark:text-gray-200" />

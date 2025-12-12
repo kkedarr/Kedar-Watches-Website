@@ -13,6 +13,12 @@ import Checkout from "./pages/Checkout";
 import TermsAndConditions from "./pages/TermsandConditions";
 import Warranty from "./pages/Warranty";
 import PrivacyPolicy from "./pages/PrivacyPolicy";
+import AdminLogin from "./pages/admin/AdminLogin";
+import AdminProducts from "./pages/admin/AdminProducts";
+import ProtectedAdminRoute from "./components/ProtectedAdminRoute";
+import  AdminDashboard from "./pages/admin/AdminDashboard";
+import AddNewProduct from "./pages/admin/AddNewProduct";
+
 
 // ✅ import provider
 import { CartProvider } from "./context/CartContext";
@@ -36,9 +42,33 @@ const App = () => {
             <Route path="/checkout" element={<Checkout />} />
             <Route path="/privacypolicy" element={<PrivacyPolicy />} />
             <Route path="/termsandconditions" element={<TermsAndConditions />} />
-            <Route path="/warranty" element={<Warranty />} />
-          </Routes>
+            <Route path="/admin/login" element={ <AdminLogin /> } />
+            
+            <Route 
+              path="/admin/dashboard" 
+              element={
+              <ProtectedAdminRoute>
+                <AdminDashboard />
+              </ProtectedAdminRoute>} 
+            />
 
+            <Route 
+              path="/admin/products" 
+              element={
+              <ProtectedAdminRoute>
+                <AdminProducts />
+              </ProtectedAdminRoute>} 
+            />
+
+            <Route 
+              path="/admin/products/addnewproduct" 
+              element={
+              <ProtectedAdminRoute>
+                <AddNewProduct />
+              </ProtectedAdminRoute>}
+            />           
+
+          </Routes>
           <Footer />
         </div>
       </Router>

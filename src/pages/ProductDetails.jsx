@@ -9,73 +9,109 @@ const ProductDetails = () => {
   const { products } = useProducts();
   const { addToCart } = useCart();
 
-  const product = products.find((p) => p.id === Number(id));
+  const product = products.find((p) => String(p.id) === String(id));
 
-  const [selectedImage, setSelectedImage] = useState(product?.mainImage || "");
+  const images = product?.product_images || [];
+  const mainImage = images.find((i) => i.is_main)?.url || images[0]?.url || "";
+
+  const [selectedImage, setSelectedImage] = useState(mainImage);
   const [quantity, setQuantity] = useState(1);
 
-  if (!product) return <p className="text-center mt-10">Product not found</p>;
+  if (!product) {
+    return (
+      <p className="text-center mt-20 text-gray-600 dark:text-gray-300">
+        Product not found.
+      </p>
+    );
+  }
 
-  const handleAddToCart = () => {
+  const handleAdd = () => {
     addToCart(
       {
         id: product.id,
         name: product.name,
-        price: Number(product.price) || 0,
-        image: product.mainImage || product.image || "",
-        details: {
-          movement: product.movement || "Not specified",
-          strap: product.strap || "Not specified",
-          case: product.case || "Not specified",
-        },
+        price: Number(product.price),
+        image: mainImage,
       },
       quantity
     );
-    // optionally show a confirmation (toast or alert)
-    // alert("Added to cart");
   };
 
+  // -------------------------------------------------------------
+  // AUTOMATIC DETAILS HANDLING
+  // -------------------------------------------------------------
+  const isSmartwatch = product.type === "smartwatch";
+
+  const detailSections = isSmartwatch
+    ? [
+        { label: "Display", value: product.display || "Not specified" },
+        { label: "Battery Life", value: product.battery || "Not specified" },
+        { label: "Compatibility", value: product.compatibility || "Not specified" },
+        { label: "Water Resistance", value: product.water_resistance || "Not specified" },
+      ]
+    : [
+        { label: "Movement", value: product.movement || "Not specified" },
+        { label: "Strap Material", value: product.strap_material || "Not specified" },
+        { label: "Water Resistance", value: product.water_resistance || "Not specified" },
+      ];
+
   return (
-    <section className="py-16 px-6 md:px-20 bg-gray-50 dark:bg-brand-dark transition-colors duration-300">
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
+    <section className="py-16 px-6 md:px-20 bg-[#F8F7F3] dark:bg-brand-dark min-h-screen">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-14">
+
+        {/* ------------------ LEFT: IMAGES ------------------ */}
         <div>
+          {/* Main Image */}
           <img
             src={selectedImage}
             alt={product.name}
-            className="w-full h-[450px] object-cover rounded-xl shadow-md"
+            className="w-full h-[480px] object-cover rounded-xl shadow-md"
           />
-          <div className="flex gap-4 mt-4 justify-center">
-            {product.thumbnails.map((thumb, index) => (
+
+          {/* Thumbnails */}
+          <div className="flex gap-4 mt-5 overflow-x-auto pb-2">
+            {images.map((img, index) => (
               <img
                 key={index}
-                src={thumb}
-                alt={`thumb-${index}`}
-                onClick={() => setSelectedImage(thumb)}
-                className={`w-20 h-20 object-cover rounded-md cursor-pointer border-2 transition duration-300 ${
-                  selectedImage === thumb
-                    ? "border-[#8B6431]"
-                    : "border-transparent hover:border-gray-300"
-                }`}
+                src={img.url}
+                onClick={() => setSelectedImage(img.url)}
+                className={`w-24 h-24 object-cover rounded-lg cursor-pointer border-2 transition
+                  ${
+                    selectedImage === img.url
+                      ? "border-[#8B6431]"
+                      : "border-transparent hover:border-gray-300"
+                  }
+                `}
               />
             ))}
           </div>
         </div>
 
+        {/* ------------------ RIGHT: DETAILS ------------------ */}
         <div>
-          <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-2">
+          {/* Title */}
+          <h1 className="text-3xl font-bold text-gray-900 dark:text-white mb-2">
             {product.name}
-          </h2>
-          <p className="text-sm text-gray-500 dark:text-gray-400 mb-3">
-            ⭐ {product.rating} / 5 Stars
+          </h1>
+
+          {/* Rating */}
+          <p className="text-sm text-gray-500 dark:text-gray-300 mb-2">
+            ⭐ {product.rating || "4.5"} / 5 Stars
           </p>
-          <p className="text-2xl font-semibold text-[#8B6431] mb-4">
+
+          {/* Price */}
+          <p className="text-3xl font-semibold text-[#8B6431] dark:text-[#d4b278] mb-5">
             ₦{Number(product.price).toLocaleString("en-NG")}
           </p>
-          <p className="text-gray-700 dark:text-gray-300 mb-6 leading-relaxed">
+
+          {/* Description */}
+          <p className="text-gray-700 dark:text-gray-300 leading-relaxed mb-8">
             {product.description}
           </p>
 
-          <div className="flex items-center gap-3 mb-6">
+          {/* ------------------ Quantity + Add to Cart ------------------ */}
+          <div className="flex items-center gap-4 mb-10">
+
             <button
               onClick={() => setQuantity((q) => Math.max(1, q - 1))}
               className="px-3 py-1 border rounded-md dark:border-gray-600 dark:text-white"
@@ -83,7 +119,7 @@ const ProductDetails = () => {
               −
             </button>
 
-            <span className="px-4 py-1 bg-gray-100 dark:bg-gray-700 rounded-md text-gray-900 dark:text-white">
+            <span className="px-5 py-1 bg-gray-100 dark:bg-gray-700 rounded-md text-gray-900 dark:text-white">
               {quantity}
             </span>
 
@@ -95,27 +131,31 @@ const ProductDetails = () => {
             </button>
 
             <button
-              onClick={handleAddToCart}
-              className="ml-4 px-6 py-2 bg-[#8B6431] hover:bg-[#a0743b] text-white font-medium rounded-md transition duration-300"
+              onClick={handleAdd}
+              className="ml-4 px-6 py-2 bg-[#8B6431] hover:bg-[#a0743b] text-white font-medium rounded-md transition"
             >
               Add to Cart
             </button>
           </div>
 
-          <div className="space-y-2 border-t pt-4">
-            {product.details.map((detail, index) => (
+          {/* ------------------ DETAILS ACCORDION ------------------ */}
+          <div className="border-t border-gray-300 dark:border-gray-700 pt-6 space-y-3">
+
+            {detailSections.map((d, i) => (
               <details
-                key={index}
-                className="border-b border-gray-200 dark:border-gray-700 py-2"
+                key={i}
+                className="border-b border-gray-200 dark:border-gray-700 py-3"
               >
-                <summary className="cursor-pointer font-medium text-gray-800 dark:text-gray-200">
-                  {detail.label}
+                <summary className="cursor-pointer text-lg font-medium text-gray-800 dark:text-gray-200">
+                  {d.label}
                 </summary>
+
                 <p className="mt-2 text-gray-600 dark:text-gray-400 text-sm">
-                  {detail.value}
+                  {d.value}
                 </p>
               </details>
             ))}
+
           </div>
         </div>
       </div>
