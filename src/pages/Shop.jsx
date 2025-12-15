@@ -2,6 +2,7 @@
 import { useProducts } from "../context/ProductContext";
 import { Link, useParams } from "react-router-dom";
 import { motion } from "framer-motion";
+import { supabase } from "../lib/supabaseClient";
 
 const Shop = () => {
   const { categoryId } = useParams();
@@ -10,6 +11,19 @@ const Shop = () => {
   const displayedProducts = categoryId
     ? getProductsByCategory(categoryId)
     : products;
+
+  // SAFELY resolve image source for public users
+  const resolveImageSrc = (mainImage) => {
+  if (!mainImage) return "/placeholder.jpg";
+
+  const { data } = supabase
+    .storage
+    .from("products")
+    .getPublicUrl(mainImage);
+
+  return data?.publicUrl || "/placeholder.jpg";
+};
+
 
   return (
     <section className="py-20 px-6 md:px-20 bg-[#FDFBF8] dark:bg-brand-dark transition-colors duration-300">
@@ -32,7 +46,7 @@ const Shop = () => {
           transition={{ delay: 0.2, duration: 0.6 }}
           className="text-[#7A6C59] dark:text-gray-300 max-w-2xl mx-auto leading-relaxed"
         >
-          Explore a premium collection of reliable, elegant timepieces — from 
+          Explore a premium collection of reliable, elegant timepieces — from
           luxury, smartwatches, Japanese classics, to trending budget watches.
         </motion.p>
       </div>
@@ -63,8 +77,9 @@ const Shop = () => {
               <Link to={`/product/${product.id}`}>
                 <div className="relative group">
                   <img
-                    src={product.mainImage || "/placeholder.jpg"}
+                    src={resolveImageSrc(product.mainImage)}
                     alt={product.name}
+                    loading="lazy"
                     className="w-full h-72 object-cover transition-transform duration-500 group-hover:scale-105"
                   />
                   <div className="absolute inset-0 bg-black/5 group-hover:bg-black/20 transition duration-300" />
@@ -83,9 +98,9 @@ const Shop = () => {
 
                 <Link
                   to={`/product/${product.id}`}
-                  className="inline-block bg-[#A57C4D] hover:bg-[#8C663C] 
-                  dark:bg-[#d4b278] dark:hover:bg-[#c9a660] 
-                  text-white dark:text-gray-900 text-sm font-medium 
+                  className="inline-block bg-[#A57C4D] hover:bg-[#8C663C]
+                  dark:bg-[#d4b278] dark:hover:bg-[#c9a660]
+                  text-white dark:text-gray-900 text-sm font-medium
                   px-5 py-2 rounded-md transition duration-300"
                 >
                   View Details
