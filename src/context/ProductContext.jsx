@@ -28,17 +28,15 @@ export const ProductProvider = ({ children }) => {
 
     const formatted = data.map((p) => {
       const imgs = p.product_images || [];
-      const main = imgs.find((img) => img.is_main) || imgs[0] || null;
 
       return {
         ...p,
         images: imgs,
-        // IMPORTANT:
-        // Store ONLY the storage key or null
-        // Never inject "/placeholder.jpg" here
-        mainImage: main?.key || null,
+        // Always use first image if available
+        mainImage: imgs.length > 0 ? imgs[0].key : null,
       };
     });
+
 
 
     setProducts(formatted);

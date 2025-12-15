@@ -66,7 +66,17 @@ const App = () => {
               <ProtectedAdminRoute>
                 <AddNewProduct />
               </ProtectedAdminRoute>}
-            />           
+            />     
+
+            <Route 
+              path="/admin/products/:id"
+              element={
+                <ProtectedAdminRoute>
+                  <AddNewProduct />
+                </ProtectedAdminRoute>
+              }
+            />
+      
 
           </Routes>
           <Footer />

@@ -69,19 +69,19 @@ const AdminProducts = () => {
     <section className="min-h-screen bg-gray-50 dark:bg-brand-dark py-12 px-6">
       <div className="max-w-6xl mx-auto">
         <div className="flex justify-between items-center mb-8">
-          <h1 className="text-3xl font-serif font-bold text-gray-900 dark:text-white">
+          <h1 className="text-2xl font-serif font-bold text-gray-900 dark:text-white">
             Products
           </h1>
 
           <div className="flex gap-3">
             <button
               onClick={() => navigate("/admin/products/addnewproduct")}
-              className="px-4 py-2 bg-[#8B6431] text-white rounded-md"
+              className="px-2 py-1 bg-[#8B6431] text-sm text-white rounded-md"
             >
               + Add Product
             </button>
 
-            <Link to="/" className="px-4 py-2 border rounded-md">
+            <Link to="/" className="px-2 py-1 text-sm border rounded-md">
               View Store
             </Link>
           </div>
@@ -94,7 +94,7 @@ const AdminProducts = () => {
             {products.map((p) => (
               <div
                 key={p.id}
-                className="bg-white dark:bg-gray-800 rounded-2xl p-4 shadow flex gap-4"
+                className="bg-white dark:bg-gray-800 rounded-lg p-4 shadow flex gap-4"
               >
                 <img
                   src={p.mainImage}
@@ -103,7 +103,7 @@ const AdminProducts = () => {
                 />
 
                 <div className="flex-1">
-                  <h3 className="font-semibold text-lg text-gray-900 dark:text-white">
+                  <h3 className="font-semibold text-md text-gray-900 dark:text-white">
                     {p.name}
                   </h3>
                   <p className="text-sm text-gray-500">
@@ -117,14 +117,14 @@ const AdminProducts = () => {
                   <div className="flex gap-2 mt-3 items-center">
                     <button
                       onClick={() => navigate(`/admin/products/${p.id}`)}
-                      className="px-3 py-1 border rounded text-sm"
+                      className="px-3 py-1 border rounded text-xs"
                     >
                       Edit
                     </button>
 
                     <button
                       onClick={() => toggleStock(p)}
-                      className={`px-3 py-1 text-sm rounded ${
+                      className={`px-3 py-1 text-xs rounded ${
                         p.instock
                           ? "bg-green-50 text-green-800"
                           : "bg-red-50 text-red-800"
@@ -135,7 +135,7 @@ const AdminProducts = () => {
 
                     <button
                       onClick={() => remove(p.id)}
-                      className="px-3 py-1 text-sm border rounded text-red-600"
+                      className="px-3 py-1 text-xs border rounded text-red-600"
                     >
                       Delete
                     </button>

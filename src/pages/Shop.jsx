@@ -1,33 +1,41 @@
 // src/pages/Shop.jsx
 import { useProducts } from "../context/ProductContext";
-import { Link, useParams } from "react-router-dom";
+import { Link, useParams, useSearchParams } from "react-router-dom";
 import { motion } from "framer-motion";
 import { supabase } from "../lib/supabaseClient";
 
 const Shop = () => {
   const { categoryId } = useParams();
+  const [searchParams] = useSearchParams();
+  const brand = searchParams.get("brand");
+
   const { products, getProductsByCategory } = useProducts();
 
-  const displayedProducts = categoryId
+  /* --- FILTER PRODUCTS --- */
+  const displayedProducts = brand
+    ? products.filter(
+        (product) =>
+          product.name?.toLowerCase().includes(brand.toLowerCase())
+      )
+    : categoryId
     ? getProductsByCategory(categoryId)
     : products;
 
-  // SAFELY resolve image source for public users
+
+  /* --- SAFELY RESOLVE IMAGE SOURCE --- */
   const resolveImageSrc = (mainImage) => {
-  if (!mainImage) return "/placeholder.jpg";
+    if (!mainImage) return "/placeholder.jpg";
 
-  const { data } = supabase
-    .storage
-    .from("products")
-    .getPublicUrl(mainImage);
+    const { data } = supabase.storage
+      .from("products")
+      .getPublicUrl(mainImage);
 
-  return data?.publicUrl || "/placeholder.jpg";
-};
-
+    return data?.publicUrl || "/placeholder.jpg";
+  };
 
   return (
     <section className="py-20 px-6 md:px-20 bg-[#FDFBF8] dark:bg-brand-dark transition-colors duration-300">
-      {/* Page Header */}
+      {/* PAGE HEADER */}
       <div className="text-center mb-14">
         <motion.h1
           initial={{ opacity: 0, y: 25 }}
@@ -35,7 +43,9 @@ const Shop = () => {
           transition={{ duration: 0.6 }}
           className="text-3xl md:text-4xl font-serif font-semibold text-gray-900 dark:text-white mb-3"
         >
-          {categoryId
+          {brand
+            ? `${brand.toUpperCase()} WATCHES`
+            : categoryId
             ? `${categoryId.replace(/-/g, " ").toUpperCase()} WATCHES`
             : "Shop Watches"}
         </motion.h1>
@@ -51,14 +61,16 @@ const Shop = () => {
         </motion.p>
       </div>
 
-      {/* No products */}
+      {/* NO PRODUCTS */}
       {displayedProducts.length === 0 ? (
         <motion.p
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           className="text-center text-gray-600 dark:text-gray-400 mt-10"
         >
-          No products found in this category.
+          {brand
+            ? `No products found for ${brand}.`
+            : "No products found in this category."}
         </motion.p>
       ) : (
         <motion.div
@@ -73,7 +85,7 @@ const Shop = () => {
               whileHover={{ scale: 1.02 }}
               className="bg-white dark:bg-brand-lightdark rounded-xl overflow-hidden shadow-md hover:shadow-xl transition duration-300"
             >
-              {/* Product Image */}
+              {/* PRODUCT IMAGE */}
               <Link to={`/product/${product.id}`}>
                 <div className="relative group">
                   <img
@@ -86,7 +98,7 @@ const Shop = () => {
                 </div>
               </Link>
 
-              {/* Product Info */}
+              {/* PRODUCT INFO */}
               <div className="p-6 flex flex-col items-center text-center">
                 <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">
                   {product.name}

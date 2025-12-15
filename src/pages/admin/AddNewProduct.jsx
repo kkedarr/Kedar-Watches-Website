@@ -1,10 +1,10 @@
-// src/pages/admin/AddNewProduct.jsx
-// @ts-nocheck
 import { useEffect, useRef, useState } from "react";
+import { useParams } from "react-router-dom";
 import { supabase } from "../../lib/supabaseClient";
 import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import { FiUpload, FiTrash2, FiCheckCircle, FiXCircle } from "react-icons/fi";
+
 
 /**
  * AddNewProduct - improved version
@@ -19,6 +19,9 @@ const BUCKET = "products"; // <-- change this if your bucket is named "product-i
 
 const AddNewProduct = () => {
   const navigate = useNavigate();
+  const { id } = useParams();
+  const isEdit = Boolean(id);
+
   const fileInputRef = useRef(null);
 
   const [loading, setLoading] = useState(false);
@@ -80,6 +83,65 @@ const AddNewProduct = () => {
     }
     loadLookups();
   }, []);
+
+
+  useEffect(() => {
+    if (!id) return;
+
+    async function loadProductForEdit() {
+      const { data, error } = await supabase
+        .from("products")
+        .select(`
+          *,
+          product_images (
+            id, url, key, is_main
+          ),
+          product_categories (
+            category_id
+          )
+        `)
+        .eq("id", id)
+        .single();
+
+      if (error) {
+        setMessage({ type: "error", text: "Failed to load product for editing." });
+        return;
+      }
+
+      setForm((f) => ({
+        ...f,
+        name: data.name || "",
+        slug: data.slug || "",
+        sku: data.sku || "",
+        price: data.price || "",
+        short_description: data.short_description || "",
+        description: data.description || "",
+        brand_id: data.brand_id || "",
+        stock: data.stock || 0,
+        visible: data.visible ?? true,
+        category_ids: (data.product_categories || []).map((c) => c.category_id),
+        details: data.metadata?.details || f.details,
+        type: data.type || "normal",
+        images: [], // NEW uploads only
+      }));
+
+      // show existing images as previews (read-only)
+      if (data.product_images?.length) {
+        setPreviewFiles(
+          data.product_images.map((img) => ({
+            file: null,
+            previewUrl: img.url,
+            status: "done",
+            error: null,
+            row: img,
+          }))
+        );
+      }
+    }
+
+    loadProductForEdit();
+  }, [id]);
+
 
   useEffect(() => {
     return () => {
@@ -269,105 +331,91 @@ const AddNewProduct = () => {
   }
 
   const handleSubmit = async (e) => {
-    e.preventDefault();
+  e.preventDefault();
 
-    if (!form.name?.trim()) {
-      setMessage({ type: "error", text: "Product name is required." });
-      return;
+  if (!form.name?.trim()) {
+    setMessage({ type: "error", text: "Product name is required." });
+    return;
+  }
+
+  setLoading(true);
+  setMessage(null);
+
+  try {
+    let brandId = form.brand_id;
+    if (showAddBrandInput && addingBrandName.trim()) {
+      brandId = await createBrandIfNeeded();
     }
-    if (!form.price || Number(form.price) < 0) {
-      setMessage({ type: "error", text: "Please enter a valid price." });
-      return;
-    }
 
-    setMessage(null);
-    setLoading(true);
+    const payload = {
+      name: form.name.trim(),
+      sku: form.sku || null,
+      slug: isEdit
+        ? form.slug
+        : await generateUniqueSlug(form.slug || form.name),
+      short_description: form.short_description || null,
+      description: form.description || null,
+      price: Number(form.price || 0),
+      visible: !!form.visible,
+      stock: Number(form.stock || 0),
+      brand_id: brandId || null,
 
-    try {
-      // create brand if admin typed a new one
-      let brandId = form.brand_id;
-      if (showAddBrandInput && addingBrandName.trim()) {
-        brandId = await createBrandIfNeeded();
-      }
+      // ✅ EVERYTHING NON-COLUMN GOES INTO metadata
+      metadata: {
+        type: form.type,
+        details: form.details || {},
+      },
+    };
 
-      // payload
-      const payload = {
-        name: form.name.trim(),
-        sku: form.sku || null,
-        slug: await generateUniqueSlug(form.slug || form.name),
-        short_description: form.short_description || null,
-        description: form.description || null,
-        price: form.price ? Number(form.price) : 0,
-        visible: !!form.visible,
-        stock: form.stock ? Number(form.stock) : 0,
-        brand_id: brandId || null,
-        metadata: {
-          details: form.details || {},
-        },
-      };
 
-      // insert product (handle slug unique)
-      const productData = await insertProductWithUniqueSlug(payload, 4);
-      const productId = productData.id;
+    let productId = id;
 
-      // product categories
-      if (form.category_ids && form.category_ids.length > 0) {
-        const catRows = form.category_ids.map((catId) => ({ product_id: productId, category_id: catId }));
-        const { error: catErr } = await supabase.from("product_categories").insert(catRows);
-        if (catErr) console.warn("product_categories insert error:", catErr);
-      }
-
-      // upload images
-      const files = form.images || [];
-      const uploadedRows = [];
-      if (files.length > 0) {
-        setUploading(true);
-        for (let i = 0; i < files.length; i++) {
-          try {
-            const row = await uploadFileForProduct(productId, files[i], i);
-            uploadedRows.push(row);
-          } catch (err) {
-            console.error("uploadFileForProduct error", err);
-            setMessage({ type: "error", text: `Failed to upload ${files[i].name}. Check console.` });
-            // continue uploading others
-          }
-        }
-      }
-
-      // update metadata with image keys & save main image column if you use it
-      const imagesKeys = uploadedRows.map((r) => r.key);
-      const imagesUrls = uploadedRows.map((r) => r.url);
-      const mainImageUrl = uploadedRows.find((r) => r.is_main)?.url || imagesUrls[0] || null;
-
-      const { error: updErr } = await supabase
+    // 🔹 UPDATE
+    if (isEdit) {
+      const { error } = await supabase
         .from("products")
-        .update({
-          metadata: { ...payload.metadata, images: imagesKeys },
-          // mainimage: mainImageUrl, // uncomment if you have a mainimage column
-        })
-        .eq("id", productId);
+        .update(payload)
+        .eq("id", id);
 
-      if (updErr) console.warn("Could not update product metadata:", updErr);
-
-      setMessage({ type: "success", text: "Product created successfully." });
-      setUploading(false);
-      setLoading(false);
-
-      // cleanup previews
-      previewFiles.forEach((p) => {
-        try {
-          URL.revokeObjectURL(p.previewUrl);
-        } catch {}
-      });
-
-      setTimeout(() => navigate("/admin/products"), 700);
-    } catch (err) {
-      console.error("Add product error:", err);
-      setMessage({ type: "error", text: `Failed to add product: ${err?.message || err}` });
-      setUploading(false);
-      setLoading(false);
+      if (error) throw error;
     }
-  };
+    // 🔹 INSERT
+    else {
+      const product = await insertProductWithUniqueSlug(payload, 4);
+      productId = product.id;
+
+      if (form.category_ids.length) {
+        const catRows = form.category_ids.map((cid) => ({
+          product_id: productId,
+          category_id: cid,
+        }));
+        await supabase.from("product_categories").insert(catRows);
+      }
+    }
+
+    // upload ONLY newly added images
+    if (form.images.length) {
+      setUploading(true);
+      for (let i = 0; i < form.images.length; i++) {
+        await uploadFileForProduct(productId, form.images[i], i);
+      }
+    }
+
+    setMessage({
+      type: "success",
+      text: isEdit ? "Product updated successfully." : "Product created successfully.",
+    });
+
+    setTimeout(() => navigate("/admin/products"), 700);
+  } catch (err) {
+    console.error(err);
+    setMessage({ type: "error", text: err.message || "Save failed." });
+  } finally {
+    setLoading(false);
+    setUploading(false);
+  }
+};
+
 
   const onNameChange = (value) => {
     const s = slugify(value);
@@ -378,7 +426,10 @@ const AddNewProduct = () => {
     <motion.div initial={{ opacity: 0, y: 6 }} animate={{ opacity: 1, y: 0 }} className="p-8 bg-[#F8F5F0] dark:bg-brand-dark min-h-screen">
       <div className="max-w-5xl mx-auto">
         <div className="flex items-center justify-between mb-6">
-          <h1 className="text-2xl md:text-3xl font-serif font-bold text-gray-900 dark:text-white">Add New Product</h1>
+          <h1 className="text-2xl md:text-3xl font-serif font-bold">
+            {isEdit ? "Edit Product" : "Add New Product"}
+          </h1>
+
           <div className="flex gap-3">
             <button onClick={() => navigate("/admin/products")} className="px-4 py-2 border rounded-md bg-white/60 dark:bg-slate-800 text-sm">
               Back to Products
@@ -576,7 +627,7 @@ const AddNewProduct = () => {
 
           <div className="mt-6 flex items-center gap-3">
             <button type="submit" disabled={loading || uploading} className="bg-[#A57C4D] hover:bg-[#8B6431] text-white px-6 py-3 rounded-md flex items-center gap-2">
-              {loading || uploading ? "Saving..." : "Create Product"}
+              {loading || uploading ? "Saving..." : isEdit ? "Save Changes" : "Create Product"}
             </button>
 
             <button type="button" onClick={() => navigate("/admin/products")} className="bg-gray-100 dark:bg-slate-700 px-4 py-2 rounded-md">Cancel</button>

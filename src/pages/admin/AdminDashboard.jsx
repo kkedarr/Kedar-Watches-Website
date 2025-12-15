@@ -103,7 +103,7 @@ function AdminDashboard() {
         </Link>
 
         <Link
-          to="/admin/products/addnewproducts"
+          to="/admin/products/addnewproduct"
           className="px-6 py-3 bg-[#8B6431] text-white rounded-lg hover:bg-[#A57C4D] transition"
         >
           Add New Product
