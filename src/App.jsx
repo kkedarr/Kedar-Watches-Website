@@ -18,6 +18,7 @@ import AdminProducts from "./pages/admin/AdminProducts";
 import ProtectedAdminRoute from "./components/ProtectedAdminRoute";
 import  AdminDashboard from "./pages/admin/AdminDashboard";
 import AddNewProduct from "./pages/admin/AddNewProduct";
+import AddToCartModal from "./components/AddToCartModal";
 
 
 // ✅ import provider
@@ -76,9 +77,8 @@ const App = () => {
                 </ProtectedAdminRoute>
               }
             />
-      
-
           </Routes>
+          < AddToCartModal />
           <Footer />
         </div>
       </Router>

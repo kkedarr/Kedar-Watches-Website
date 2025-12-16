@@ -4,6 +4,9 @@ import React, { createContext, useContext, useEffect, useState } from "react";
 const CartContext = createContext();
 
 export function CartProvider({ children }) {
+  /* =========================
+     CART ITEMS (persisted)
+  ========================== */
   const [cartItems, setCartItems] = useState(() => {
     try {
       const raw = localStorage.getItem("kedar_cart");
@@ -13,26 +16,59 @@ export function CartProvider({ children }) {
     }
   });
 
-  /* ------------------ MODAL STATE ------------------ */
-  const [showCartModal, setShowCartModal] = useState(false);
-  const [lastAddedItem, setLastAddedItem] = useState(null);
+  /* =========================
+     SELECTED IDS (persisted)
+  ========================== */
+  const [selectedIds, setSelectedIds] = useState(() => {
+    try {
+      const raw = localStorage.getItem("kedar_cart_selected");
+      return raw ? JSON.parse(raw) : [];
+    } catch {
+      return [];
+    }
+  });
 
-  /* ------------------ PERSIST CART ------------------ */
+  /* =========================
+     MODALS
+  ========================== */
+  const [addedItem, setAddedItem] = useState(null);
+  const [showClearConfirm, setShowClearConfirm] = useState(false);
+
+  /* =========================
+     PERSIST CART + SELECTION
+  ========================== */
   useEffect(() => {
     localStorage.setItem("kedar_cart", JSON.stringify(cartItems));
   }, [cartItems]);
 
-  /* ------------------ ADD TO CART ------------------ */
-  const addToCart = (product, quantity = 1) => {
-    const qty = Number(quantity) || 1;
+  useEffect(() => {
+    localStorage.setItem(
+      "kedar_cart_selected",
+      JSON.stringify(selectedIds)
+    );
+  }, [selectedIds]);
 
+  /* =========================
+     KEEP SELECTION IN SYNC
+     (remove stale IDs)
+  ========================== */
+  useEffect(() => {
+    setSelectedIds((prev) =>
+      prev.filter((id) => cartItems.some((item) => item.id === id))
+    );
+  }, [cartItems]);
+
+  /* =========================
+     CART ACTIONS
+  ========================== */
+  const addToCart = (product, quantity = 1) => {
     setCartItems((prev) => {
       const existing = prev.find((p) => p.id === product.id);
 
       if (existing) {
         return prev.map((p) =>
           p.id === product.id
-            ? { ...p, quantity: (p.quantity || 1) + qty }
+            ? { ...p, quantity: p.quantity + Number(quantity) }
             : p
         );
       }
@@ -43,63 +79,105 @@ export function CartProvider({ children }) {
           id: product.id,
           name: product.name,
           price: Number(product.price) || 0,
-          image: product.image || product.mainImage || "",
-          quantity: qty,
+          image: product.mainImage || product.image || "",
+          mainImage: product.mainImage || product.image || "",
+          quantity: Number(quantity) || 1,
           details: product.details || {},
         },
       ];
     });
 
-    /* 🔔 TRIGGER ADD-TO-CART MODAL */
-    setLastAddedItem({
-      id: product.id,
+    // ✅ AUTO-SELECT ITEM WHEN ADDED
+    setSelectedIds((prev) =>
+      prev.includes(product.id) ? prev : [...prev, product.id]
+    );
+
+    setAddedItem({
       name: product.name,
-      price: Number(product.price) || 0,
-      image: product.image || product.mainImage || "",
-      quantity: qty,
+      image: product.mainImage || product.image,
+      quantity,
     });
-    setShowCartModal(true);
   };
 
-  /* ------------------ UPDATE QUANTITY ------------------ */
   const updateQty = (id, newQty) => {
     setCartItems((prev) =>
       prev.map((p) =>
-        p.id === id
-          ? { ...p, quantity: Math.max(1, Number(newQty) || 1) }
-          : p
+        p.id === id ? { ...p, quantity: Math.max(1, newQty) } : p
       )
     );
   };
 
-  /* ------------------ REMOVE ITEM ------------------ */
   const removeItem = (id) => {
     setCartItems((prev) => prev.filter((p) => p.id !== id));
+    setSelectedIds((prev) => prev.filter((sid) => sid !== id));
   };
 
-  /* ------------------ CLEAR CART ------------------ */
   const clearCart = () => {
     setCartItems([]);
+    setSelectedIds([]);
+    setShowClearConfirm(false);
   };
 
-  const value = {
-    cartItems,
-    addToCart,
-    updateQty,
-    removeItem,
-    clearCart,
-
-    /* modal exports */
-    showCartModal,
-    setShowCartModal,
-    lastAddedItem,
+  /* =========================
+     SELECTION HELPERS
+  ========================== */
+  const toggleSelectItem = (id) => {
+    setSelectedIds((prev) =>
+      prev.includes(id) ? prev.filter((x) => x !== id) : [...prev, id]
+    );
   };
 
-  return <CartContext.Provider value={value}>{children}</CartContext.Provider>;
+  const selectAll = () => {
+    setSelectedIds(cartItems.map((item) => item.id));
+  };
+
+  const clearSelected = () => setSelectedIds([]);
+
+  /* =========================
+     DERIVED STATE (SOURCE OF TRUTH)
+  ========================== */
+  const selectedItems = cartItems.filter((item) =>
+    selectedIds.includes(item.id)
+  );
+
+  /* =========================
+     OPTIONAL: REMOVE ONLY SELECTED
+     (use after checkout if desired)
+  ========================== */
+  const removeSelectedItems = () => {
+    setCartItems((prev) =>
+      prev.filter((item) => !selectedIds.includes(item.id))
+    );
+    setSelectedIds([]);
+  };
+
+  return (
+    <CartContext.Provider
+      value={{
+        cartItems,
+        selectedItems,
+        selectedIds,
+
+        addToCart,
+        updateQty,
+        removeItem,
+        clearCart,
+        removeSelectedItems,
+
+        toggleSelectItem,
+        selectAll,
+        clearSelected,
+
+        // modals
+        addedItem,
+        setAddedItem,
+        showClearConfirm,
+        setShowClearConfirm,
+      }}
+    >
+      {children}
+    </CartContext.Provider>
+  );
 }
 
-export const useCart = () => {
-  const ctx = useContext(CartContext);
-  if (!ctx) throw new Error("useCart must be used within CartProvider");
-  return ctx;
-};
+export const useCart = () => useContext(CartContext);

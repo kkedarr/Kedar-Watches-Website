@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import { Link } from "react-router-dom";
 import { useCart } from "../context/CartContext";
 
@@ -14,7 +14,15 @@ const countries = [
 ];
 
 const Checkout = () => {
-  const { cartItems, clearCart } = useCart();
+  const { cartItems, selectedIds, clearSelected } = useCart();
+
+  /* 🔹 ONLY SELECTED CART ITEMS */
+  const selectedItems = useMemo(
+    () => cartItems.filter((item) => selectedIds.includes(item.id)),
+    [cartItems, selectedIds]
+  );
+
+
 
   const [form, setForm] = useState({
     firstName: "",
@@ -33,10 +41,11 @@ const Checkout = () => {
     setForm((s) => ({ ...s, [e.target.name]: e.target.value }));
 
   // ✅ PRICE CALCULATIONS — VAT & Shipping removed
-  const subtotal = cartItems.reduce(
+  const subtotal = selectedItems.reduce(
     (sum, item) => sum + (Number(item.price) || 0) * (item.quantity || 1),
     0
   );
+
 
   const shipping = 0; // no fee shown — replaced with text
   const total = subtotal; // total is subtotal only
@@ -49,11 +58,14 @@ const Checkout = () => {
     return true;
   };
 
+
+  
   const handlePlaceOrder = () => {
-    if (!cartItems || cartItems.length === 0) {
-      alert("Your cart is empty.");
+    if (selectedItems.length === 0) {
+      alert("Please select at least one item to checkout.");
       return;
     }
+
     if (!validateForm()) {
       alert("Please complete required shipping fields (name, email, phone, address, city).");
       return;
@@ -65,7 +77,7 @@ const Checkout = () => {
 
     lines.push("ORDER REQUEST FROM KEDAR WATCHES WEBSITE");
     lines.push("");
-    lines.push("Customer Details:");
+    lines.push("My Details:");
     lines.push(`Name: ${form.firstName} ${form.lastName}`);
     lines.push(`Phone: ${form.phone}`);
     lines.push(`Email: ${form.email}`);
@@ -75,7 +87,7 @@ const Checkout = () => {
     lines.push("");
     lines.push("ORDER SUMMARY:");
 
-    cartItems.forEach((item, idx) => {
+    selectedItems.forEach((item, idx) => {
       lines.push(`${idx + 1}. ${item.name}`);
       lines.push(`   Quantity: ${item.quantity || 1}`);
       lines.push(`   Unit Price: ₦${Number(item.price).toLocaleString()}`);
@@ -104,7 +116,11 @@ const Checkout = () => {
     )}`;
 
     window.open(url, "_blank");
-    clearCart();
+    setCartItems((prev) =>
+      prev.filter((item) => !selectedIds.includes(item.id))
+    );
+    clearSelected();
+
   };
 
   return (
@@ -277,11 +293,11 @@ const Checkout = () => {
         <h2 className="text-xl font-semibold mb-6">Order Summary</h2>
 
         <div className="space-y-6">
-          {cartItems.length === 0 && (
-            <p className="text-gray-600 dark:text-gray-300">No items in your cart.</p>
+          {selectedItems.length === 0 && (
+            <p className="text-gray-600 dark:text-gray-300">No items selected for checkout.</p>
           )}
 
-          {cartItems.map((item) => (
+          {selectedItems.map((item) => (
             <div
               key={item.id}
               className="flex items-center gap-4 pb-4 border-b border-gray-200 dark:border-gray-700"
