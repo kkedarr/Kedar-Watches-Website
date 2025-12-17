@@ -1,4 +1,5 @@
-import { FaInstagram, FaTwitter, FaWhatsapp } from "react-icons/fa";
+import { FaInstagram, FaWhatsapp } from "react-icons/fa";
+import { FaXTwitter } from "react-icons/fa6";
 
 const Footer = () => {
   return (
@@ -19,7 +20,7 @@ const Footer = () => {
           <FaInstagram size={16} />
         </a>
         <a href="https://twitter.com" aria-label="Twitter" className="hover:text-[#8B6431] transition-colors">
-          <FaTwitter size={16} />
+          <FaXTwitter size={16} />
         </a>
       </div>
     </footer>

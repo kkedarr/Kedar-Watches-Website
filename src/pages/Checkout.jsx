@@ -14,7 +14,7 @@ const countries = [
 ];
 
 const Checkout = () => {
-  const { cartItems, selectedIds, clearSelected } = useCart();
+  const { cartItems, selectedIds, removeSelectedItems  } = useCart();
 
   /* 🔹 ONLY SELECTED CART ITEMS */
   const selectedItems = useMemo(
@@ -116,11 +116,7 @@ const Checkout = () => {
     )}`;
 
     window.open(url, "_blank");
-    setCartItems((prev) =>
-      prev.filter((item) => !selectedIds.includes(item.id))
-    );
-    clearSelected();
-
+    removeSelectedItems();
   };
 
   return (
