@@ -1,5 +1,5 @@
 import { useState, useMemo } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useCart } from "../context/CartContext";
 
 const countries = [
@@ -15,6 +15,11 @@ const countries = [
 
 const Checkout = () => {
   const { cartItems, selectedIds, removeSelectedItems  } = useCart();
+
+  const location = useLocation();
+  const navigate = useNavigate();
+
+  const returnTo = location.state?.from || "/";
 
   /* 🔹 ONLY SELECTED CART ITEMS */
   const selectedItems = useMemo(
@@ -117,6 +122,10 @@ const Checkout = () => {
 
     window.open(url, "_blank");
     removeSelectedItems();
+
+    setTimeout(() => {
+      navigate(returnTo, { replace: true });
+    }, 300);
   };
 
   return (

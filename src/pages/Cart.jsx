@@ -1,9 +1,10 @@
 import { useMemo, useState } from "react";
 import { useCart } from "../context/CartContext";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { Trash2 } from "lucide-react";
 
 const Cart = () => {
+  const location = useLocation();
   const {
     cartItems,
     updateQty,
@@ -204,6 +205,9 @@ const Cart = () => {
 
             <Link
               to="/checkout"
+              state={{
+                from: location.state?.from || location.pathname
+              }}
               className={`block w-full mt-6 py-3 rounded-md text-center font-medium transition
                 ${
                   selectedIds.length === 0

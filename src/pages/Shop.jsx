@@ -77,7 +77,7 @@ const Shop = () => {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.5 }}
-          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10"
+          className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-4 md:gap-6"
         >
           {displayedProducts.map((product) => (
             <motion.div
@@ -92,28 +92,34 @@ const Shop = () => {
                     src={resolveImageSrc(product.mainImage)}
                     alt={product.name}
                     loading="lazy"
-                    className="w-full h-72 object-cover transition-transform duration-500 group-hover:scale-105"
+                    className="w-full h-44 sm:h-56 md:h-72 object-cover transition-transform duration-500 group-hover:scale-105"
                   />
                   <div className="absolute inset-0 bg-black/5 group-hover:bg-black/20 transition duration-300" />
                 </div>
               </Link>
 
               {/* PRODUCT INFO */}
-              <div className="p-6 flex flex-col items-center text-center">
-                <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">
+              <div className="p-3 sm:p-4 md:p-6 flex flex-col items-center text-center">
+                <h3 className="text-sm sm:text-base md:text-lg font-semibold text-gray-900 dark:text-white mb-1 sm:mb-2 line-clamp-2">
                   {product.name}
                 </h3>
+                {product.description && (
+                  <p className="text-xs sm:text-sm text-gray-600 dark:text-gray-400 mb-2 line-clamp-2">
+                    {product.description}
+                  </p>
+                )}
 
-                <p className="text-[#8B6431] dark:text-[#d4b278] font-medium mb-4">
+                <p className="text-sm sm:text-base text-[#8B6431] dark:text-[#d4b278] font-medium mb-3">
                   ₦{Number(product.price).toLocaleString("en-NG")}
                 </p>
 
                 <Link
                   to={`/product/${product.id}`}
-                  className="inline-block bg-[#A57C4D] hover:bg-[#8C663C]
+                  className="inline-block w-full sm:w-auto
+                  bg-[#A57C4D] hover:bg-[#8C663C]
                   dark:bg-[#d4b278] dark:hover:bg-[#c9a660]
-                  text-white dark:text-gray-900 text-sm font-medium
-                  px-5 py-2 rounded-md transition duration-300"
+                  text-white dark:text-gray-900 text-xs sm:text-sm font-medium
+                  px-4 py-2 rounded-md transition duration-300"
                 >
                   View Details
                 </Link>
