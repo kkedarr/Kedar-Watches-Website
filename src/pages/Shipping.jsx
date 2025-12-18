@@ -71,7 +71,7 @@ const Shipping = () => {
               <p className="text-[#7A6C59] dark:text-gray-400">
                 <strong>Cost:</strong> Delivery fee is calculated at checkout based on destination and weight at logistic company's office. <br />
                 <strong>Time:</strong> 3 - 7 business days depending on customs clearance. <br />
-                <strong>Carrier:</strong> DHL or FedEx International.
+                <strong>Carrier:</strong> DHL, FedEx International, or preferred shipping company of customer.
               </p>
             </div>
           </div>
