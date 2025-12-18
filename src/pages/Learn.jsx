@@ -216,7 +216,7 @@ const Learn = () => {
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-brand-dark transition-colors duration-300">
       {/* Header */}
-      <section className="text-center py-20 px-6 md:px-20 bg-brand-light dark:bg-brand-lightdark transition-colors duration-300">
+      <section className="text-center py-2 px-4 md:px-20 bg-brand-light dark:bg-brand-lightdark transition-colors duration-300">
         <motion.h1
           initial={{ y: 40, opacity: 0 }}
           whileInView={{ y: 0, opacity: 1 }}

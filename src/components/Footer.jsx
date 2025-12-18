@@ -16,10 +16,10 @@ const Footer = () => {
         <a href="w.me/08131316083" aria-label="WhatsApp" className="hover:text-[#8B6431] transition-colors">
           <FaWhatsapp size={16} />
         </a>
-        <a href="https://instagram.com" aria-label="Instagram" className="hover:text-[#8B6431] transition-colors">
+        <a href="https://www.instagram.com/kedarwatches?igsh=cnFkaGpxbjJwc3lk&utm_source=qr" aria-label="Instagram" className="hover:text-[#8B6431] transition-colors">
           <FaInstagram size={16} />
         </a>
-        <a href="https://twitter.com" aria-label="Twitter" className="hover:text-[#8B6431] transition-colors">
+        <a href="https://x.com/kedarr__?s=21" aria-label="Twitter" className="hover:text-[#8B6431] transition-colors">
           <FaXTwitter size={16} />
         </a>
       </div>

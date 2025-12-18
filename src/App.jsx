@@ -19,16 +19,19 @@ import ProtectedAdminRoute from "./components/ProtectedAdminRoute";
 import  AdminDashboard from "./pages/admin/AdminDashboard";
 import AddNewProduct from "./pages/admin/AddNewProduct";
 import AddToCartModal from "./components/AddToCartModal";
+import ScrollManager from "./components/ScrollManager";
 
 
 // ✅ import provider
 import { CartProvider } from "./context/CartContext";
+import ScrollToTopButton from "./components/ScrollToTopButton";
 
 const App = () => {
   return (
     <CartProvider>
       <Router>
         <div className="font-sans bg-white dark:bg-brand-dark min-h-screen text-gray-900 dark:text-gray-100 transition-colors duration-300">
+          <ScrollManager />
           <Navbar />
           <Routes>
             <Route path="/" element={<Home />} />
@@ -78,6 +81,7 @@ const App = () => {
               }
             />
           </Routes>
+          <ScrollToTopButton />
           < AddToCartModal />
           <Footer />
         </div>

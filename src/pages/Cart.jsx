@@ -63,7 +63,7 @@ const Cart = () => {
 
   return (
     <>
-      <section className="py-20 px-6 md:px-20 bg-white dark:bg-brand-dark transition-colors">
+      <section className="py-2 px-4 md:px-20 bg-white dark:bg-brand-dark transition-colors">
         <div className="max-w-6xl mx-auto grid md:grid-cols-3 gap-12">
           {/* ---------------- LEFT ---------------- */}
           <div className="md:col-span-2">

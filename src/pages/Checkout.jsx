@@ -129,7 +129,7 @@ const Checkout = () => {
   };
 
   return (
-    <section className="max-w-6xl mx-auto px-6 md:px-12 py-20 bg-gray-50 dark:bg-brand-dark transition-colors">
+    <section className="max-w-6xl mx-auto py-2 px-4 bg-gray-50 dark:bg-brand-dark transition-colors">
       <h1 className="text-4xl font-serif font-bold text-gray-900 dark:text-white mb-12">Checkout</h1>
 
       {/* Shipping Information */}

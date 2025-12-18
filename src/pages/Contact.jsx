@@ -1,4 +1,5 @@
-import { Mail, MessageCircle, MapPin, Instagram, Facebook, Twitter, Youtube, Send } from "lucide-react";
+import { Mail, Send } from "lucide-react";
+import { FaInstagram, FaXTwitter, FaWhatsapp } from "react-icons/fa6";
 import { motion } from "framer-motion";
 import { useState } from "react";
 
@@ -20,7 +21,7 @@ const Contact = () => {
   return (
     <div className="min-h-screen bg-[#FDFBF8] dark:bg-brand-dark text-[#4B3B27] dark:text-gray-100 transition-colors duration-300">
       {/* HEADER */}
-      <section className="text-center py-16 px-4">
+      <section className="text-center py-2 px-4">
         <motion.h1
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -47,7 +48,7 @@ const Contact = () => {
           whileHover={{ y: -4 }}
           className="bg-[#F8F5F0] dark:bg-brand-lightdark rounded-md p-8 text-center shadow-sm transition-all duration-300"
         >
-          <MessageCircle className="w-10 h-10 mx-auto text-[#4B3B27] dark:text-[#d4b278] mb-4" />
+          <FaWhatsapp className="w-10 h-10 mx-auto text-[#4B3B27] dark:text-[#d4b278] mb-4" />
           <h2 className="text-lg font-semibold mb-2">WhatsApp Us</h2>
           <p className="text-[#7A6C59] dark:text-gray-400 mb-6">
             For quick inquiries, immediate support, or direct ordering, connect
@@ -95,17 +96,24 @@ const Contact = () => {
             Follow us on social media for the latest collections, news, and updates.
           </p>
           <div className="flex justify-center space-x-6">
-            <a href="#" className="hover:text-[#A57C4D] dark:hover:text-[#d4b278] transition">
-              <Instagram className="w-5 h-5" />
+            <a
+              href="https://www.instagram.com/kedarwatches?igsh=cnFkaGpxbjJwc3lk&utm_source=qr"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Instagram"
+              className="hover:text-[#8B6431] transition-colors"
+            >
+              <FaInstagram size={16} />
             </a>
-            <a href="#" className="hover:text-[#A57C4D] dark:hover:text-[#d4b278] transition">
-              <Facebook className="w-5 h-5" />
-            </a>
-            <a href="#" className="hover:text-[#A57C4D] dark:hover:text-[#d4b278] transition">
-              <Twitter className="w-5 h-5" />
-            </a>
-            <a href="#" className="hover:text-[#A57C4D] dark:hover:text-[#d4b278] transition">
-              <Youtube className="w-5 h-5" />
+
+            <a
+              href="https://x.com/kedarr__?s=21"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="X (Twitter)"
+              className="hover:text-[#8B6431] transition-colors"
+            >
+              <FaXTwitter size={16} />
             </a>
           </div>
         </motion.div>

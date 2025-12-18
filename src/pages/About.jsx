@@ -6,7 +6,7 @@ const About = () => {
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-brand-dark transition duration-300 text-gray-700 dark:text-gray-300">
       {/* Hero Section */}
-      <section className="relative overflow-hidden text-center py-20 bg-gray-100 dark:bg-gray-800">
+      {/*<section className="relative overflow-hidden text-center py-2 px-4 bg-gray-100 dark:bg-gray-800">
         <div className="absolute inset-0 dark:bg-[#222222]" />
         <motion.h1
           initial={{ opacity: 0, y: 20 }}
@@ -24,10 +24,9 @@ const About = () => {
         >
           Timeless Style. Honest Quality. True Value.
         </motion.p>
-      </section>
-
+      </section> */}
       {/* Philosophy Section */}
-      <section className="max-w-6xl mx-auto px-6 py-16 grid md:grid-cols-2 gap-12 items-center">
+      <section className="max-w-6xl mx-auto py-6 px-4 py-16 grid md:grid-cols-2 gap-12 items-center">
         <motion.div
           initial={{ opacity: 0, x: -30 }}
           whileInView={{ opacity: 1, x: 0 }}

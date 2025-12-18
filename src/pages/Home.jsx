@@ -1,6 +1,6 @@
 import Hero from "../components/Hero";
 import Categories from "../components/Categories";
-import FeaturedProducts from "../components/FeaturedProducts";
+{/* import FeaturedProducts from "../components/FeaturedProducts"; */}
 import Testimonials from "../components/Testimonials";
 import Newsletter from "../components/Newsletter";
 
@@ -9,7 +9,7 @@ const Home = () => {
     <>
       <Hero />
       <Categories />
-      <FeaturedProducts />
+      {/* <FeaturedProducts /> */}
       <Testimonials />
       <Newsletter />
     </>
