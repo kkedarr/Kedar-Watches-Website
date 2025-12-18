@@ -34,6 +34,7 @@ export const ProductProvider = ({ children }) => {
         images: imgs,
         // Always use first image if available
         mainImage: imgs.length > 0 ? imgs[0].key : null,
+        is_replica: p.metadata?.is_replica === true,
       };
     });
 

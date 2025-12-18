@@ -46,6 +46,7 @@ const AddNewProduct = () => {
     stock: 0,
     visible: true,
     images: [], // File[]
+    is_replica: false,
     details: {
       movement: "",
       strap_material: "",
@@ -122,6 +123,7 @@ const AddNewProduct = () => {
         category_ids: (data.product_categories || []).map((c) => c.category_id),
         details: data.metadata?.details || f.details,
         type: data.type || "normal",
+        is_replica: data.metadata?.is_replica ?? false,
         images: [], // NEW uploads only
       }));
 
@@ -363,6 +365,7 @@ const AddNewProduct = () => {
       // ✅ EVERYTHING NON-COLUMN GOES INTO metadata
       metadata: {
         type: form.type,
+        is_replica: !!form.is_replica,
         details: form.details || {},
       },
     };
@@ -552,10 +555,24 @@ const AddNewProduct = () => {
                 <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">Hold Ctrl/Cmd to select multiple</p>
               </div>
 
-              <div className="flex items-center gap-3">
+              <div className="flex items-center gap-6">
                 <label className="flex items-center gap-2">
                   <input type="checkbox" checked={form.visible} onChange={(e) => setForm((f) => ({ ...f, visible: e.target.checked }))} className="form-checkbox" />
                   <span className="text-sm text-gray-700 dark:text-gray-200">Visible</span>
+                </label>
+
+                <label className="flex items-center gap-2">
+                  <input
+                    type="checkbox"
+                    checked={form.is_replica}
+                    onChange={(e) =>
+                      setForm((f) => ({ ...f, is_replica: e.target.checked }))
+                    }
+                    className="form-checkbox accent-red-600"
+                  />
+                  <span className="text-sm text-gray-700 dark:text-gray-200 font-medium">
+                    Replica product
+                  </span>
                 </label>
 
                 <button type="button" onClick={() => {

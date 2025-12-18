@@ -105,6 +105,19 @@ const ProductDetails = () => {
           </h1>
 
           <p className="text-lg font-semibold text-[#8B6431] dark:text-[#d4b278] mb-2">
+            {product.is_replica && (
+              <div className="mb-6 p-4 border border-red-300 bg-red-50 dark:bg-red-900/20 rounded-lg">
+                <p className="text-sm font-semibold text-red-700 dark:text-red-300 mb-1">
+                  Replica Watch Disclosure
+                </p>
+                <p className="text-xs text-red-600 dark:text-red-400 leading-relaxed">
+                  This product is a high-quality replica inspired by luxury watch designs.
+                  It is not manufactured by, affiliated with, or endorsed by the original brand.
+                  Logos and trademarks belong to their respective owners.
+                </p>
+              </div>
+            )}
+
             ₦{Number(product.price).toLocaleString("en-NG")}
           </p>
 
