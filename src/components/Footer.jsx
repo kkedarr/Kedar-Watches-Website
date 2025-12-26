@@ -13,7 +13,7 @@ const Footer = () => {
 
       {/* Right side social icons */}
       <div className="flex space-x-5 text-gray-600 dark:text-gray-300">
-        <a href="w.me/08131316083" aria-label="WhatsApp" className="hover:text-[#8B6431] transition-colors">
+        <a href="https://wa.me/2348131316083" aria-label="WhatsApp" className="hover:text-[#8B6431] transition-colors">
           <FaWhatsapp size={16} />
         </a>
         <a href="https://www.instagram.com/kedarwatches?igsh=cnFkaGpxbjJwc3lk&utm_source=qr" aria-label="Instagram" className="hover:text-[#8B6431] transition-colors">

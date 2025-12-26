@@ -55,7 +55,7 @@ const Contact = () => {
             with us on WhatsApp.
           </p>
           <a
-            href="https://wa.me/2349012345678?text=Hello%20Kedar%20Watches%2C%20I%27d%20like%20to%20order..."
+            href="https://wa.me/2348131316083?text=Hello%20Kedar%20Watches%2C%20I%27d%20like%20to%20order..."
             target="_blank"
             rel="noreferrer"
             className="mt-3 inline-block text-sm bg-brand-gold text-white font-medium rounded-md hover:bg-brand-darkgold transition px-4 py-2 duration-300"

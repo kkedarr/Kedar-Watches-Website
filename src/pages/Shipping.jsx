@@ -215,10 +215,10 @@ const Shipping = () => {
               <strong>Terms of Service:</strong> By purchasing from Kedar Watches, you agree to our{" "}
               <a href="/termsandconditions" className="text-[#A57C4D] dark:text-[#d4b278] hover:underline">Terms of Service</a>.
             </li>
-            <li>
+            {/*<li>
               <strong>Warranty:</strong> All timepieces come with a manufacturer’s warranty. View details on our{" "}
               <a href="/warranty" className="text-[#A57C4D] dark:text-[#d4b278] hover:underline">Warranty Page</a>.
-            </li>
+            </li> */}
           </ul>
         </motion.div>
 

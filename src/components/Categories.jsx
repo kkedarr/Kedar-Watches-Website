@@ -2,7 +2,6 @@ import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 
 const Categories = () => {
-  /* --- GROUPED BRAND CATEGORIES --- */
   const brandCategories = {
     "Swiss Luxury": [
       "Rolex", "Omega", "Audemars Piguet", "Patek Philippe", "Vacheron Constantin",
@@ -24,37 +23,26 @@ const Categories = () => {
     ],
 
     "Budget & Trending (Nigeria)": [
-      "Curren", "Poedagar", "Tomi", "Naviforce", "SKMEI", "Nibosi",
-      "Forsining", "Olevs", "Benyar", "Lige", "Megir", "Tevise",
-      "Pagani Design", "Carnival", "Guanqin", "Crrju", "Holuns", "Agelocer"
+      "Curren", "Poedagar", "Tomi", "Naviforce", "SKMEI",
+      "Nibosi", "Lige", "Megir", "Matturi"
     ],
 
     "Smartwatches": [
-      "Apple", "Samsung", "Huawei", "Xiaomi", "Amazfit", "Oraimo",
-      "Kieslect", "Haylou", "Imilab"
+      "Apple", "Samsung", "Huawei", "Xiaomi", "Amazfit",
+      "Oraimo", "Kieslect", "Haylou", "Imilab"
     ],
   };
 
-  /* --- ANIMATION --- */
-  const fadeUp = {
-    hidden: { opacity: 0, y: 30 },
-    visible: (i) => ({
-      opacity: 1,
-      y: 0,
-      transition: { delay: i * 0.05, duration: 0.5, ease: "easeOut" },
-    }),
-  };
-
   return (
-    <section className="py-16 px-6 md:px-16 bg-brand-darklight dark:bg-brand-dark transition-colors duration-300">
+    <section className="py-20 px-6 md:px-16 bg-brand-darklight dark:bg-brand-dark transition-colors duration-300">
       
       {/* HEADER */}
-      <div className="text-center mb-10">
+      <div className="text-center max-w-2xl mx-auto mb-14">
         <motion.h2
-          initial={{ opacity: 0, y: 15 }}
+          initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.4 }}
+          transition={{ duration: 0.5 }}
           className="text-3xl md:text-4xl font-serif font-bold text-gray-900 dark:text-white"
         >
           Explore by Brand
@@ -64,42 +52,53 @@ const Categories = () => {
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
-          transition={{ delay: 0.2, duration: 0.4 }}
-          className="text-gray-600 dark:text-gray-400 mt-2 text-sm md:text-base"
+          transition={{ delay: 0.15 }}
+          className="mt-3 text-gray-600 dark:text-gray-400 text-sm md:text-base"
         >
-          Discover the perfect timepiece from the brands you trust and love.
+          Discover premium timepieces across luxury, classic, and modern brands.
         </motion.p>
       </div>
 
-      {/* BRAND GROUPS */}
-      <div className="space-y-14 max-w-5xl mx-auto">
-
-        {Object.entries(brandCategories).map(([category, brands], index) => (
+      {/* BRAND SECTIONS */}
+      <div className="max-w-6xl mx-auto space-y-16">
+        {Object.entries(brandCategories).map(([category, brands]) => (
           <div key={category}>
             
             {/* CATEGORY TITLE */}
-            <h3 className="text-lg md:text-xl font-bold text-gray-800 dark:text-gray-200 mb-4">
+            <h3 className="mb-6 text-lg md:text-xl font-semibold text-gray-800 dark:text-gray-200">
               {category}
             </h3>
 
-            {/* BUTTON GRID */}
-            <div className="flex flex-wrap justify-center md:justify-start gap-4 md:gap-5">
+            {/* BRAND GRID */}
+            <div className="
+              grid gap-4
+              grid-cols-2
+              sm:grid-cols-3
+              md:grid-cols-4
+              lg:grid-cols-5
+            ">
               {brands.map((brand, i) => (
                 <motion.div
                   key={brand}
-                  variants={fadeUp}
-                  initial="hidden"
-                  whileInView="visible"
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
-                  custom={i}
+                  transition={{ delay: i * 0.03 }}
                 >
                   <Link
                     to={`/shop?brand=${encodeURIComponent(brand)}`}
-                    className="px-5 py-2.5 bg-brand-light dark:bg-brand-lightdark 
-                      text-gray-900 dark:text-gray-100 text-sm rounded-xl shadow-md 
-                      hover:shadow-lg border border-gray-300 dark:border-gray-700 
-                      hover:bg-brand-gold hover:text-white dark:hover:bg-brand-gold 
-                      transition-all duration-300"
+                    className="
+                      block text-center
+                      px-4 py-2.5
+                      rounded-xl text-sm font-medium
+                      bg-brand-light dark:bg-brand-lightdark
+                      text-gray-900 dark:text-gray-100
+                      border border-gray-300 dark:border-gray-700
+                      shadow-sm hover:shadow-md
+                      hover:bg-brand-gold hover:text-white
+                      dark:hover:bg-brand-gold
+                      transition-all duration-300
+                    "
                   >
                     {brand}
                   </Link>
@@ -109,7 +108,6 @@ const Categories = () => {
 
           </div>
         ))}
-
       </div>
     </section>
   );

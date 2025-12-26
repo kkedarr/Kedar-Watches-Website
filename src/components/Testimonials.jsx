@@ -1,27 +1,26 @@
-import Customer1 from "../assets/images/smart-watch-kedar.jpg";
-import Customer2 from "../assets/images/smart-watch-kedar.jpg";
-import Customer3 from "../assets/images/smart-watch-kedar.jpg";
+import UserAvatar from "../assets/images/user-placeholder.svg";
+
 import { motion } from "framer-motion";
 
 const Testimonials = () => {
   const testimonials = [
     {
-      name: "Segun Kehinde",
+      name: "Gbenga K.",
       location: "New York, USA",
-      img: Customer1,
-      text: "This watch is simply stunning. The craftsmanship is impeccable, and I receive compliments wherever I go. Truly a timeless piece!",
+      img: UserAvatar,
+      text: "I really appreciate the brand’s commitment to keeping time and its excellent customer support. It reduces stress and online shopping anxiety, and I’ll definitely be referring Kedar Watches to my friends.",
     },
     {
-      name: "Marcus Efendu",
+      name: "Michael O.",
       location: "Port-Harcourt, Nigeria",
-      img: Customer2,
-      text: "I’ve always been particular about my timepieces, and this brand exceeded all expectations. The attention to detail is superb.",
+      img: UserAvatar,
+      text: "I’ve always been particular about my timepieces, and this brand exceeded all expectations. The attention to detail is my favorite quality they have.",
     },
     {
-      name: "Tumininu Renike",
+      name: "Kelechi J.",
       location: "Lagos, Nigeria",
-      img: Customer3,
-      text: "The perfect blend of elegance and functionality. It's comfortable for daily wear yet sophisticated enough for special occasions.",
+      img: UserAvatar,
+      text: "The packaging was excellent. The watch arrived safely in a solid, safe box, it shows the brand’s attention to detail. I’ll definitely be purchasing again.",
     },
   ];
 
