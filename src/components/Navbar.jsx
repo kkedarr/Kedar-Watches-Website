@@ -120,14 +120,14 @@ const Navbar = () => {
             </motion.button>
 
             {/* --- ADMIN ICON (desktop) --- */}
-            <Link to="/admin/login">
+            {/* <Link to="/admin/login">
               <motion.button
                 whileHover={{ scale: 1.1 }}
                 className="p-2 rounded-full border border-gray-300 dark:border-gray-600 hover:bg-gray-100 dark:hover:bg-[#2a2a2a] shadow-sm hover:shadow transition-all"
               >
                 <Shield className="w-5 h-5 text-gray-700 dark:text-gray-200" />
               </motion.button>
-            </Link>
+            </Link> */}
           </div>
 
           {/* Mobile Menu Toggle */}
@@ -218,11 +218,11 @@ const Navbar = () => {
                 </button>
 
                 {/* Admin icon */}
-                <Link to="/admin/login" onClick={() => setIsOpen(false)}>
+                {/*<Link to="/admin/login" onClick={() => setIsOpen(false)}>
                   <button className="p-2 rounded-full border border-gray-300 dark:border-gray-600 hover:bg-gray-100 dark:hover:bg-[#2a2a2a] transition">
                     <Shield className="w-5 h-5 text-gray-700 dark:text-gray-200" />
                   </button>
-                </Link>
+                </Link>*/}
 
                 {/* Cart */}
                 <Link to="/cart" onClick={() => setIsOpen(false)}>

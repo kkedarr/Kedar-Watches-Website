@@ -1,48 +1,99 @@
-import React from "react";
+import { useState } from "react";
 import { motion } from "framer-motion";
+import { supabase } from "../lib/supabaseClient";
 
 const Newsletter = () => {
+  const [email, setEmail] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [status, setStatus] = useState(null); // success | error | duplicate
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    if (!email) return;
+
+    setLoading(true);
+    setStatus(null);
+
+    const { error } = await supabase
+      .from("newsletter_subscribers")
+      .insert([{ email: email.toLowerCase().trim() }]);
+
+    if (error) {
+      if (error.code === "23505") {
+        setStatus("duplicate");
+      } else {
+        setStatus("error");
+      }
+    } else {
+      setStatus("success");
+      setEmail("");
+    }
+
+    setLoading(false);
+  };
+
   return (
     <motion.section
       initial={{ opacity: 0, y: 50 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
       transition={{ duration: 0.3 }}
-      className="bg-brand-gold dark:bg-brand-dark text-white py-16 px-6 md:px-16 lg:px-16 mt-24 mb-20 text-center rounded-md max-w-6xl mx-auto shadow-lg relative overflow-hidden"
+      className="bg-brand-gold dark:bg-brand-dark text-white py-16 px-6 md:px-16 mt-24 mb-20 text-center rounded-md max-w-6xl mx-auto shadow-lg relative overflow-hidden"
     >
-      {/* Decorative gradient overlay */}
-      <div className="absolute inset-0 bg-gradient-to-br from-white/10 to-transparent pointer-events-none"></div>
+      <div className="absolute inset-0 bg-gradient-to-br from-white/10 to-transparent pointer-events-none" />
 
-      {/* Text content */}
       <div className="relative z-10">
         <h2 className="text-3xl md:text-4xl font-serif font-bold mb-4">
           Stay Updated with Our Latest Collections
         </h2>
+
         <p className="text-white/90 text-sm md:text-base mb-10 max-w-2xl mx-auto">
-          Subscribe to our newsletter and be the first to know about new arrivals,
-          exclusive discounts, and special promotions.
+          Subscribe to receive new arrivals, exclusive offers, and special updates from Kedar Watches.
         </p>
 
-        {/* Form */}
         <form
-          onSubmit={(e) => e.preventDefault()}
+          onSubmit={handleSubmit}
           className="flex flex-col sm:flex-row justify-center items-center gap-4"
         >
           <input
             type="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
             placeholder="Enter your email"
-            className="w-full sm:w-[400px] px-5 py-3 rounded-md bg-white/15 text-white placeholder-white/70 
-                       focus:outline-none focus:ring-2 focus:ring-white transition-all duration-300"
             required
+            aria-label="Email address"
+            className="w-full sm:w-[400px] px-5 py-3 rounded-md bg-white/15 text-white placeholder-white/70
+                       focus:outline-none focus:ring-2 focus:ring-white transition"
           />
+
           <button
             type="submit"
-            className="bg-white text-[#8B6431] dark:text-gray-700 font-semibold px-6 py-3 rounded-md hover:bg-gray-200  dark:hover:bg-brand-gold 
-                       transition-all duration-300 shadow-md hover:shadow-lg"
+            disabled={loading}
+            className="bg-white text-[#8B6431] font-semibold px-6 py-3 rounded-md
+                       hover:bg-gray-200 transition shadow-md disabled:opacity-60"
           >
-            Subscribe
+            {loading ? "Subscribing..." : "Subscribe"}
           </button>
         </form>
+
+        {/* Status messages */}
+        {status === "success" && (
+          <p className="mt-4 text-sm text-white">
+            ✅ You’ve been successfully subscribed!
+          </p>
+        )}
+
+        {status === "duplicate" && (
+          <p className="mt-4 text-sm text-white/90">
+            ℹ️ This email is already subscribed.
+          </p>
+        )}
+
+        {status === "error" && (
+          <p className="mt-4 text-sm text-red-200">
+            ❌ Something went wrong. Please try again.
+          </p>
+        )}
       </div>
     </motion.section>
   );

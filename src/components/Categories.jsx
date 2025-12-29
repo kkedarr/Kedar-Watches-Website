@@ -3,6 +3,11 @@ import { Link } from "react-router-dom";
 
 const Categories = () => {
   const brandCategories = {
+    "Budget & Trending (Nigeria)": [
+      "Curren", "Poedagar", "Tomi", "Naviforce", "SKMEI",
+      "Nibosi", "Lige", "Megir", "Matturi"
+    ],
+
     "Swiss Luxury": [
       "Rolex", "Omega", "Audemars Piguet", "Patek Philippe", "Vacheron Constantin",
       "Richard Mille", "Hublot", "Breitling", "IWC", "Tag Heuer",
@@ -13,18 +18,13 @@ const Categories = () => {
       "Seiko", "Casio", "Citizen", "Orient", "Q&Q", "Alba", "Lorus"
     ],
 
-    "German Precision": [
-      "A. Lange & Söhne", "Nomos", "Sinn", "Glashütte Original", "Junghans"
-    ],
-
     "Fashion & Designer": [
       "Fossil", "Skagen", "Michael Kors", "Diesel", "Armani Exchange",
       "Emporio Armani", "Tommy Hilfiger", "Hugo Boss", "Guess", "Nautica"
     ],
 
-    "Budget & Trending (Nigeria)": [
-      "Curren", "Poedagar", "Tomi", "Naviforce", "SKMEI",
-      "Nibosi", "Lige", "Megir", "Matturi"
+    "German Precision": [
+      "A. Lange & Söhne", "Nomos", "Sinn", "Glashütte Original", "Junghans"
     ],
 
     "Smartwatches": [
