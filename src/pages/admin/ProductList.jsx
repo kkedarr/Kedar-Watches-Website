@@ -7,41 +7,14 @@ function ProductList() {
   const [products, setProducts] = useState([]);
 
   const fetchProducts = async () => {
-    const { data, error } = await supabase
-      .from("products")
-      .select(`
-        *,
-        product_images (
-          id,
-          url,
-          key,
-          is_main
-        )
-      `);
-
-    if (error) {
-      console.error(error);
-      return;
-    }
-
-    const formatted = data.map((p) => {
-      const images = p.product_images || [];
-      const main = images.find((i) => i.is_main) || images[0];
-
-      return {
-        ...p,
-        images,
-        mainImage: main?.url || "/placeholder.jpg",
-      };
-    });
-
-    setProducts(formatted);
+    const { data } = await supabase.from("products").select("*");
+    setProducts(data || []);
   };
 
   const toggleStock = async (id, current) => {
     await supabase
       .from("products")
-      .update({ instock: !current }) // use ONE naming consistently
+      .update({ instock: !current })
       .eq("id", id);
 
     fetchProducts();
@@ -74,17 +47,16 @@ function ProductList() {
           >
             <div>
               <p className="font-medium">{p.name}</p>
-              <p className="text-sm text-gray-500">₦{p.price.toLocaleString()}</p>
+              <p className="text-sm text-gray-500">
+                ₦{p.price.toLocaleString()}
+              </p>
             </div>
 
-            <div className="flex items-center space-x-3">
-              <img
-                src={p.mainImage}
-                alt={p.name}
-                className="w-20 h-20 object-cover rounded"
-              />
-
-              <Link to={`/admin/edit/${p.id}`} className="text-blue-600 underline">
+            <div className="flex space-x-3">
+              <Link
+                to={`/admin/edit/${p.id}`}
+                className="text-blue-600 underline"
+              >
                 Edit
               </Link>
 
@@ -110,4 +82,3 @@ function ProductList() {
 }
 
 export default ProductList;
-

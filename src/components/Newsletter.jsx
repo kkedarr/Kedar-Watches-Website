@@ -4,6 +4,7 @@ import { supabase } from "../lib/supabaseClient";
 
 const Newsletter = () => {
   const [email, setEmail] = useState("");
+  const [firstName, setFirstName] = useState("");
   const [loading, setLoading] = useState(false);
   const [status, setStatus] = useState(null); // success | error | duplicate
 
@@ -16,7 +17,12 @@ const Newsletter = () => {
 
     const { error } = await supabase
       .from("newsletter_subscribers")
-      .insert([{ email: email.toLowerCase().trim() }]);
+      .insert([
+        {
+          email: email.toLowerCase().trim(),
+          first_name: firstName.trim() || null,
+        },
+      ]);
 
     if (error) {
       if (error.code === "23505") {
@@ -27,6 +33,7 @@ const Newsletter = () => {
     } else {
       setStatus("success");
       setEmail("");
+      setFirstName("");
     }
 
     setLoading(false);
@@ -55,6 +62,18 @@ const Newsletter = () => {
           onSubmit={handleSubmit}
           className="flex flex-col sm:flex-row justify-center items-center gap-4"
         >
+          {/* First name */}
+          <input
+            type="text"
+            value={firstName}
+            onChange={(e) => setFirstName(e.target.value)}
+            placeholder="First name (optional)"
+            aria-label="First name"
+            className="w-full sm:w-[220px] px-5 py-3 rounded-md bg-white/15 text-white placeholder-white/70
+                       focus:outline-none focus:ring-2 focus:ring-white transition"
+          />
+
+          {/* Email */}
           <input
             type="email"
             value={email}
@@ -62,7 +81,7 @@ const Newsletter = () => {
             placeholder="Enter your email"
             required
             aria-label="Email address"
-            className="w-full sm:w-[400px] px-5 py-3 rounded-md bg-white/15 text-white placeholder-white/70
+            className="w-full sm:w-[320px] px-5 py-3 rounded-md bg-white/15 text-white placeholder-white/70
                        focus:outline-none focus:ring-2 focus:ring-white transition"
           />
 
@@ -100,4 +119,3 @@ const Newsletter = () => {
 };
 
 export default Newsletter;
-

@@ -57,7 +57,7 @@ const Hero = () => {
         <img
           src={HeroImage}
           alt="Luxury Watch"
-          className="relative rounded-2xl shadow-xl w-[340px] md:w-[460px] object-cover transform group-hover:scale-105 transition duration-700"
+          className="relative rounded-2xl shadow-xl w-[340px] md:w-[500px] md:h-[400px] object-cover transform group-hover:scale-105 transition duration-700"
         />
       </motion.div>
     </section>
