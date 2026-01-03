@@ -5,7 +5,7 @@ const Categories = () => {
   const brandCategories = {
     "Budget & Trending (Nigeria)": [
       "Curren", "Poedagar", "Tomi", "Naviforce", "SKMEI",
-      "Nibosi", "Lige", "Megir", "Matturi"
+      "Nibosi", "Lige", "Megir", "Matturi", "Chenxi"
     ],
 
     "Swiss Luxury": [
