@@ -98,19 +98,19 @@ const Newsletter = () => {
         {/* Status messages */}
         {status === "success" && (
           <p className="mt-4 text-sm text-white">
-            ✅ You’ve been successfully subscribed!
+            You’ve been successfully subscribed!✅
           </p>
         )}
 
         {status === "duplicate" && (
           <p className="mt-4 text-sm text-white/90">
-            ℹ️ This email is already subscribed.
+            This email is already subscribed.ℹ️
           </p>
         )}
 
         {status === "error" && (
           <p className="mt-4 text-sm text-red-200">
-            ❌ Something went wrong. Please try again.
+            Something went wrong. Please try again.❌
           </p>
         )}
       </div>
