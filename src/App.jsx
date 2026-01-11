@@ -25,6 +25,7 @@ import ScrollManager from "./components/ScrollManager";
 // ✅ import provider
 import { CartProvider } from "./context/CartContext";
 import ScrollToTopButton from "./components/ScrollToTopButton";
+import FloatingCartButton from "./components/FloatingCartButton";
 
 const App = () => {
   return (
@@ -33,6 +34,7 @@ const App = () => {
         <div className="font-sans bg-white dark:bg-brand-dark min-h-screen text-gray-900 dark:text-gray-100 transition-colors duration-300">
           <ScrollManager />
           <Navbar />
+          <FloatingCartButton />
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/shop" element={<Shop />} />

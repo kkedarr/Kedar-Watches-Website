@@ -10,6 +10,8 @@ const ProductDetails = () => {
   const { addToCart } = useCart();
 
   /* ------------------ HOOKS (ALWAYS FIRST) ------------------ */
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  const [touchStartX, setTouchStartX] = useState(null);
   const [selectedImage, setSelectedImage] = useState("/placeholder.jpg");
   const [quantity, setQuantity] = useState(1);
 
@@ -25,8 +27,13 @@ const ProductDetails = () => {
 
   /* ------------------ EFFECTS ------------------ */
   useEffect(() => {
+    if (!images.length) return;
+
+    const index = images.findIndex((img) => img.url === mainImage);
+    setCurrentImageIndex(index >= 0 ? index : 0);
     setSelectedImage(mainImage);
-  }, [mainImage]);
+  }, [mainImage, images]);
+
 
   /* ------------------ EARLY RETURN (AFTER HOOKS) ------------------ */
   if (!product) {
@@ -68,24 +75,91 @@ const ProductDetails = () => {
         { label: "Water Resistance", value: details.water_resistance || "Not specified" },
       ];
 
+
+  const goNext = () => {
+    setCurrentImageIndex((i) => {
+      const next = (i + 1) % images.length;
+      setSelectedImage(images[next].url);
+      return next;
+    });
+  };
+
+  const goPrev = () => {
+    setCurrentImageIndex((i) => {
+      const prev = (i - 1 + images.length) % images.length;
+      setSelectedImage(images[prev].url);
+      return prev;
+    });
+  };
+
+  const handleTouchStart = (e) => {
+  setTouchStartX(e.touches[0].clientX);
+};
+
+const handleTouchEnd = (e) => {
+  if (touchStartX === null) return;
+
+  const touchEndX = e.changedTouches[0].clientX;
+  const diff = touchStartX - touchEndX;
+
+  if (Math.abs(diff) > 50) {
+    diff > 0 ? goNext() : goPrev();
+  }
+
+  setTouchStartX(null);
+};
+
+
+
   return (
     <section className="py-16 px-6 md:px-20 bg-[#F8F7F3] dark:bg-brand-dark min-h-screen">
       <div className="grid grid-cols-1 md:grid-cols-2 gap-14">
 
         {/* ------------------ LEFT: IMAGES ------------------ */}
         <div>
-          <img
-            src={selectedImage}
-            alt={product.name}
-            className="w-full h-[320px] md:h-[480px] object-cover rounded-xl shadow-md"
-          />
+          <div
+            className="relative"
+            onTouchStart={handleTouchStart}
+            onTouchEnd={handleTouchEnd}
+          >
+            <img
+              src={selectedImage}
+              alt={product.name}
+              className="w-full h-[320px] md:h-[480px] object-cover rounded-xl shadow-md select-none"
+              draggable={false}
+            />
+
+            {/* Desktop / Universal Arrows */}
+            {images.length > 1 && (
+              <>
+                <button
+                  onClick={goPrev}
+                  className="hidden md:flex absolute left-3 top-1/2 -translate-y-1/2 bg-white/80 dark:bg-black/60 p-2 rounded-full shadow hover:scale-105 transition"
+                >
+                  ‹
+                </button>
+
+                <button
+                  onClick={goNext}
+                  className="hidden md:flex absolute right-3 top-1/2 -translate-y-1/2 bg-white/80 dark:bg-black/60 p-2 rounded-full shadow hover:scale-105 transition"
+                >
+                  ›
+                </button>
+              </>
+            )}
+          </div>
+
 
           <div className="flex gap-4 mt-5 overflow-x-auto pb-2">
             {images.map((img, index) => (
               <img
                 key={index}
                 src={img.url}
-                onClick={() => setSelectedImage(img.url)}
+                onClick={() => {
+                  setSelectedImage(img.url);
+                  setCurrentImageIndex(index);
+                }}
+
                 className={`w-24 h-24 object-cover rounded-lg cursor-pointer border-2 transition
                   ${
                     selectedImage === img.url
@@ -104,13 +178,15 @@ const ProductDetails = () => {
             {product.name}
           </h1>
 
-          <p className="text-lg font-semibold text-[#8B6431] dark:text-[#d4b278] mb-2">
+          {/* PRICE + DISCLOSURE */}
+          <div className="mb-2">
+
             {product.is_replica && (
-              <div className="mb-6 p-4 border border-red-300 bg-red-50 dark:bg-red-900/20 rounded-lg">
-                <p className="text-sm font-semibold text-red-700 dark:text-red-300 mb-1">
+              <div className="mb-4 p-4 border border-brand-gold bg-brand-darklight dark:bg-brand-lightdark/40 rounded-lg">
+                <p className="text-sm font-semibold text-brand-darkgold mb-1">
                   Replica Watch Disclosure
                 </p>
-                <p className="text-xs text-red-600 dark:text-red-400 leading-relaxed">
+                <p className="text-xs text-[#7A6C59] dark:text-gray-400 leading-relaxed">
                   This product is a high-quality replica inspired by luxury watch designs.
                   It is not manufactured by, affiliated with, or endorsed by the original brand.
                   Logos and trademarks belong to their respective owners.
@@ -118,8 +194,12 @@ const ProductDetails = () => {
               </div>
             )}
 
-            ₦{Number(product.price).toLocaleString("en-NG")}
-          </p>
+            <p className="text-lg font-semibold text-brand-gold dark:text-brand-gold">
+              ₦{Number(product.price).toLocaleString("en-NG")}
+            </p>
+
+          </div>
+
 
           <p className="text-gray-700 text-sm dark:text-gray-300 leading-relaxed mb-8">
             {product.description}
@@ -147,7 +227,7 @@ const ProductDetails = () => {
 
             <button
               onClick={handleAdd}
-              className="ml-4 px-4 py-1 bg-[#8B6431] hover:bg-[#a0743b] text-md text-white font-medium rounded-md transition"
+              className="ml-4 px-4 py-1 bg-brand-gold hover:bg-[#a0743b] text-md text-white font-medium rounded-md transition"
             >
               Add to Cart
             </button>

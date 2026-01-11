@@ -201,16 +201,24 @@ const AddNewProduct = () => {
 
   const handleFiles = (files) => {
     const arr = Array.from(files || []);
-    const newPreviews = arr.map((file) => ({
-      file,
-      previewUrl: URL.createObjectURL(file),
-      status: "idle",
-      error: null,
-      row: null,
-    }));
+    const newPreviews = arr
+      .filter((file) => file instanceof File)
+      .map((file) => ({
+        file,
+        previewUrl: URL.createObjectURL(file),
+        status: "idle",
+        error: null,
+        row: null,
+      }));
+
 
     setPreviewFiles((prev) => {
-      const existingKeys = new Set(prev.map((p) => `${p.file.name}-${p.file.size}`));
+      const existingKeys = new Set(
+        prev
+          .filter((p) => p.file instanceof File)
+          .map((p) => `${p.file.name}-${p.file.size}`)
+      );
+
       const filtered = newPreviews.filter((p) => !existingKeys.has(`${p.file.name}-${p.file.size}`));
       return [...prev, ...filtered];
     });
