@@ -9,9 +9,9 @@ const Categories = () => {
     ],
 
     "Swiss Luxury": [
-      "Rolex", "Omega", "Audemars Piguet", "Patek Philippe", "Vacheron Constantin",
+      "Rolex", "Omega", "Blancpain" , "Patek Philippe", "Rado" ,
       "Richard Mille", "Hublot", "Breitling", "IWC", "Tag Heuer",
-      "Jaeger-LeCoultre", "Longines", "Rado", "Blancpain", "Zenith"
+      "Zenith" , "Longines", "Vacheron Constantin" , "Audemars Piguet", "Jaeger-LeCoultre"
     ],
 
     "Japanese Classics": [
@@ -21,10 +21,6 @@ const Categories = () => {
     "Fashion & Designer": [
       "Fossil", "Skagen", "Michael Kors", "Diesel", "Armani Exchange",
       "Emporio Armani", "Tommy Hilfiger", "Hugo Boss", "Guess", "Nautica"
-    ],
-
-    "German Precision": [
-      "A. Lange & Söhne", "Nomos", "Sinn", "Glashütte Original", "Junghans"
     ],
 
     "Smartwatches": [

@@ -20,12 +20,13 @@ import  AdminDashboard from "./pages/admin/AdminDashboard";
 import AddNewProduct from "./pages/admin/AddNewProduct";
 import AddToCartModal from "./components/AddToCartModal";
 import ScrollManager from "./components/ScrollManager";
-
+import Container from "./components/Container";
 
 // ✅ import provider
 import { CartProvider } from "./context/CartContext";
 import ScrollToTopButton from "./components/ScrollToTopButton";
 import FloatingCartButton from "./components/FloatingCartButton";
+
 
 const App = () => {
   return (
@@ -35,7 +36,7 @@ const App = () => {
           <ScrollManager />
           <Navbar />
           <FloatingCartButton />
-          <Routes>
+          <Routes element={<Container />}>
             <Route path="/" element={<Home />} />
             <Route path="/shop" element={<Shop />} />
             <Route path="/shop/:categoryId" element={<Shop />} />

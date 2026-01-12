@@ -56,7 +56,7 @@ const Navbar = () => {
             : "bg-white/90 dark:bg-brand-dark/90 py-5 shadow-none border-b border-transparent"
         }`}
       >
-        <div className="flex justify-between items-center max-w-8xl mx-auto px-6 transition-all duration-300">
+        <div className="flex items-center justify-between max-w-7xl mx-auto px-6 lg:px-16 transition-all duration-300">
           {/* Logo */}
           <Link to="/" className="flex items-center space-x-2 group">
             <motion.img
@@ -76,14 +76,23 @@ const Navbar = () => {
                 <Link
                   key={link.name}
                   to={link.path}
-                  className={`font-serif text-base tracking-wide transition-colors duration-200 ${
-                    isActive
-                      ? "text-brand-gold"
-                      : "text-gray-700 dark:text-gray-200 hover:text-brand-gold"
-                  }`}
+                  className={`
+                    relative
+                    px-3 py-1.5
+                    rounded-full
+                    text-md font-medium tracking-wider
+                    transition-all duration-200 ease-out
+                    border
+                    ${
+                      isActive
+                        ? "text-brand-gold border-brand-gold/40 bg-brand-gold/5"
+                        : "text-gray-700 dark:text-gray-200 border-transparent hover:border-black/10 dark:hover:border-white/15 hover:text-brand-gold"
+                    }
+                  `}
                 >
                   {link.name}
                 </Link>
+
               );
             })}
           </div>
@@ -164,12 +173,12 @@ const Navbar = () => {
               animate={{ x: 0 }}
               exit={{ x: "100%" }}
               transition={{ type: "spring", stiffness: 90, damping: 15 }}
-              className="fixed top-0 right-0 w-64 h-full bg-white dark:bg-brand-dark rounded-bl-md shadow-lg z-50 flex flex-col p-6"
+              className="fixed top-0 right-0 w-29 h-full bg-white dark:bg-brand-dark rounded-bl-md shadow-lg z-50 flex flex-col p-6"
             >
               {/* Header */}
               <div className="flex justify-between items-center mb-6">
-                <h2 className="text-2xl font-bold font-serif text-gray-800 dark:text-gray-100">
-                  Menu
+                <h2 className="text-lg font-bold text-gray-800 dark:text-gray-100">
+                  MENU
                 </h2>
 
                 <button
@@ -189,7 +198,7 @@ const Navbar = () => {
                       key={link.name}
                       to={link.path}
                       onClick={() => setIsOpen(false)}
-                      className={`font-serif text-lg tracking-wide transition-colors ${
+                      className={`text-sm font-semibold tracking-wide transition-colors ${
                         isActive
                           ? "text-brand-gold"
                           : "text-gray-700 dark:text-gray-200 hover:text-brand-gold"

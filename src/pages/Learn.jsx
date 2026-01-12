@@ -214,31 +214,31 @@ const Learn = () => {
   }, [selectedItem]);
 
   return (
-    <div className="min-h-screen bg-gray-50 dark:bg-brand-dark transition-colors duration-300">
+    <div className="min-h-screen bg-brand-light dark:bg-brand-dark transition-colors duration-300">
       {/* Header */}
-      <section className="text-center py-2 px-4 md:px-20 bg-brand-light dark:bg-brand-lightdark transition-colors duration-300">
+      <section className="text-center py-5 px-4 md:px-10 bg-brand-light dark:bg-brand-lightdark transition-colors duration-300">
         <motion.h1
           initial={{ y: 40, opacity: 0 }}
           whileInView={{ y: 0, opacity: 1 }}
           transition={{ duration: 0.7 }}
           viewport={{ once: true }}
-          className="text-3xl md:text-5xl font-serif font-bold text-gray-900 dark:text-white mb-6"
+          className="text-xl md:text-3xl font-serif font-bold text-gray-900 dark:text-white mb-6"
         >
           Discover the World of Watches
         </motion.h1>
-        <motion.p
+        {/*<motion.p
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           transition={{ delay: 0.3, duration: 0.8 }}
-          className="text-gray-700 dark:text-gray-300 max-w-3xl mx-auto text-base md:text-lg leading-relaxed"
+          className="text-gray-700 dark:text-gray-300 max-w-3xl mx-auto text-base md:text-md leading-relaxed"
         >
           Dive deep into horology — learn about precision movements, heritage craftsmanship,
           and expert care that make every timepiece a work of art.
-        </motion.p>
+        </motion.p>*/}
       </section>
 
       {/* Grid Section */}
-      <div className="max-w-7xl mx-auto px-6 md:px-16 lg:px-28 py-14 grid sm:grid-cols-2 lg:grid-cols-3 gap-10">
+      <div className="max-w-7xl mx-auto px-6 md:px-5 lg:px-10 py-0 grid sm:grid-cols-2 lg:grid-cols-3 gap-10">
         {learnItems.map((item, idx) => (
           <motion.div
             key={item.title}

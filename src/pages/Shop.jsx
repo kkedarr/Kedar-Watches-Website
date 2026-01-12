@@ -36,7 +36,8 @@ const Shop = () => {
 
   return (
     <section className="py-2 px-4 md:px-20 bg-[#FDFBF8] dark:bg-brand-dark transition-colors duration-300">
-      {/* PAGE HEADER */}
+      
+      {/* PAGE HEADER 
       <div className="text-center mb-14">
         <motion.h1
           initial={{ opacity: 0, y: 25 }}
@@ -60,7 +61,8 @@ const Shop = () => {
           Explore a premium collection of reliable, elegant timepieces — from
           luxury, smartwatches, Japanese classics, to trending budget watches.
         </motion.p>
-      </div>
+      </div> */}
+      
 
       {/* NO PRODUCTS */}
       {displayedProducts.length === 0 ? (
@@ -92,7 +94,7 @@ const Shop = () => {
                   rounded-xl overflow-hidden
                   shadow-md hover:shadow-xl
                   transition duration-300
-                  flex flex-col h-full
+                  flex flex-col h-full mt-10
                 "
               >
                 {/* IMAGE */}
@@ -125,7 +127,7 @@ const Shop = () => {
                     {product.description || " "}
                   </p>
 
-                  <p className="text-sm sm:text-base text-[#8B6431] dark:text-[#d4b278] font-medium mb-4">
+                  <p className="text-sm sm:text-base text-brand-gold dark:text-brand-gold font-medium mb-4">
                     ₦{Number(product.price).toLocaleString("en-NG")}
                   </p>
 
@@ -137,8 +139,8 @@ const Shop = () => {
                       className="
                         inline-flex items-center
                         gap-1 md:gap-2
-                        bg-[#A57C4D] hover:bg-[#8C663C]
-                        dark:bg-[#d4b278] dark:hover:bg-[#c9a660]
+                        bg-brand-gold hover:bg-[#8C663C]
+                        dark:bg-brand-gold dark:hover:bg-[#c9a660]
                         text-white dark:text-gray-900
                         text-xs md:text-sm font-medium
                         px-2 md:px-4
@@ -167,8 +169,8 @@ const Shop = () => {
                       className="
                         inline-flex items-center justify-center
                         w-9 h-8
-                        rounded-md md:rounded-lg
-                        border border-[#A57C4D] dark:border-[#d4b278]
+                        rounded-md md:rounded-lg 
+                        border border-brand-gold dark:border-brand-gold
                         text-[#A57C4D] dark:text-[#d4b278]
                         hover:bg-[#A57C4D] hover:text-white
                         dark:hover:bg-[#d4b278] dark:hover:text-gray-900
@@ -176,7 +178,7 @@ const Shop = () => {
                       "
                       aria-label="Add to cart"
                     >
-                      <ShoppingCart className="w-4 h-4 md:w-5 md:h-5" />
+                      <ShoppingCart className="text-brand-gold w-4 h-4 md:w-5 md:h-5" />
                     </button>
                   </div>
                 </div>

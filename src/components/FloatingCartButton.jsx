@@ -2,72 +2,65 @@ import { motion, useAnimation } from "framer-motion";
 import { ShoppingCart } from "lucide-react";
 import { Link, useLocation } from "react-router-dom";
 import { useCart } from "../context/CartContext";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 
 const BUTTON_SIZE = 48;
 const EDGE_PADDING = 12;
 const STORAGE_KEY = "floating-cart-position";
 const MAGNET_DISTANCE = 80;
 
-const clamp = (value, min, max) =>
-  Math.min(Math.max(value, min), max);
+const clamp = (v, min, max) => Math.min(Math.max(v, min), max);
 
-// Better mobile detection (works in devtools too)
 const isTouchDevice = () =>
-  "ontouchstart" in window ||
-  navigator.maxTouchPoints > 0;
+  "ontouchstart" in window || navigator.maxTouchPoints > 0;
 
 const getSafeAreaInsets = () => {
-  const style = getComputedStyle(document.documentElement);
-
-  const top = parseInt(style.getPropertyValue("--sat") || 0, 10);
-  const bottom = parseInt(style.getPropertyValue("--sab") || 0, 10);
-  const left = parseInt(style.getPropertyValue("--sal") || 0, 10);
-  const right = parseInt(style.getPropertyValue("--sar") || 0, 10);
-
-  return { top, bottom, left, right };
+  const s = getComputedStyle(document.documentElement);
+  return {
+    top: parseInt(s.getPropertyValue("--sat") || 0, 10),
+    bottom: parseInt(s.getPropertyValue("--sab") || 0, 10),
+    left: parseInt(s.getPropertyValue("--sal") || 0, 10),
+    right: parseInt(s.getPropertyValue("--sar") || 0, 10),
+  };
 };
 
 const FloatingCartButton = () => {
   const { cartItems } = useCart();
   const location = useLocation();
   const controls = useAnimation();
+  const prevCount = useRef(0);
 
   const [isMobile, setIsMobile] = useState(false);
   const [position, setPosition] = useState({ x: 0, y: 0 });
 
   const cartCount = cartItems?.length ?? 0;
 
-  // Detect device
+  /* ---------------- Device detection ---------------- */
   useEffect(() => {
     setIsMobile(isTouchDevice());
   }, []);
 
+  /* ---------------- Bounds ---------------- */
   const computeBounds = () => {
-    const vw = window.innerWidth;
-    const vh = window.innerHeight;
+    const { innerWidth: vw, innerHeight: vh } = window;
     const safe = getSafeAreaInsets();
 
-    const minX = EDGE_PADDING + safe.left;
-    const maxX = vw - BUTTON_SIZE - EDGE_PADDING - safe.right;
-
-    const minY = EDGE_PADDING + safe.top;
-    const maxY = vh - BUTTON_SIZE - EDGE_PADDING - safe.bottom;
-
-    return { minX, maxX, minY, maxY };
+    return {
+      minX: EDGE_PADDING + safe.left,
+      maxX: vw - BUTTON_SIZE - EDGE_PADDING - safe.right,
+      minY: EDGE_PADDING + safe.top,
+      maxY: vh - BUTTON_SIZE - EDGE_PADDING - safe.bottom,
+    };
   };
 
-  // Restore saved position or set default
+  /* ---------------- Restore position ---------------- */
   useEffect(() => {
-    if (!isMobile) return;
+    if (!isMobile || cartCount === 0) return;
 
     const { minX, maxX, minY, maxY } = computeBounds();
     const saved = localStorage.getItem(STORAGE_KEY);
 
-    let initial = {
-      x: maxX,
-      y: maxY - 120,
-    };
+    let initial = { x: maxX, y: maxY - 120 };
 
     if (saved) {
       try {
@@ -81,120 +74,116 @@ const FloatingCartButton = () => {
 
     setPosition(initial);
     controls.set(initial);
-  }, [controls, isMobile]);
+  }, [isMobile, cartCount, controls]);
 
-  // Re-clamp on resize
+  /* ---------------- Appear when item added ---------------- */
   useEffect(() => {
-    if (!isMobile) return;
+    if (cartCount > 0 && prevCount.current === 0) {
+      controls.start({
+        scale: [0.85, 1],
+        opacity: [0, 1],
+        transition: { duration: 0.35, ease: "easeOut" },
+      });
+    }
+    prevCount.current = cartCount;
+  }, [cartCount, controls]);
+
+  /* ---------------- Resize re-clamp ---------------- */
+  useEffect(() => {
+    if (!isMobile || cartCount === 0) return;
 
     const handleResize = () => {
       const { minX, maxX, minY, maxY } = computeBounds();
-
       const next = {
         x: clamp(position.x, minX, maxX),
         y: clamp(position.y, minY, maxY),
       };
-
       setPosition(next);
-      controls.start({
-        ...next,
-        transition: { duration: 0.2 },
-      });
+      controls.start({ ...next, transition: { duration: 0.2 } });
     };
 
     window.addEventListener("resize", handleResize);
     window.addEventListener("orientationchange", handleResize);
-
     return () => {
       window.removeEventListener("resize", handleResize);
       window.removeEventListener("orientationchange", handleResize);
     };
-  }, [controls, isMobile, position]);
+  }, [isMobile, position, cartCount, controls]);
 
+  /* ---------------- Drag snap ---------------- */
   const handleDragEnd = (_, info) => {
     const { minX, maxX, minY, maxY } = computeBounds();
     const centerX = window.innerWidth / 2;
 
-    const clampedY = clamp(info.point.y, minY, maxY);
+    const final = {
+      x:
+        Math.abs(info.point.x - minX) < MAGNET_DISTANCE ||
+        info.point.x < centerX
+          ? minX
+          : maxX,
+      y: clamp(info.point.y, minY, maxY),
+    };
 
-    let snapX = info.point.x < centerX ? minX : maxX;
-
-    // Magnetic snap
-    if (Math.abs(info.point.x - minX) < MAGNET_DISTANCE) {
-      snapX = minX;
-    }
-    if (Math.abs(info.point.x - maxX) < MAGNET_DISTANCE) {
-      snapX = maxX;
-    }
-
-    const finalPosition = { x: snapX, y: clampedY };
-
-    setPosition(finalPosition);
-    localStorage.setItem(
-      STORAGE_KEY,
-      JSON.stringify(finalPosition)
-    );
+    setPosition(final);
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(final));
 
     controls.start({
-      ...finalPosition,
-      transition: {
-        type: "spring",
-        stiffness: 520,
-        damping: 32,
-      },
+      ...final,
+      transition: { type: "spring", stiffness: 520, damping: 32 },
     });
+
+    // ✅ subtle vibration on mobile snap
+    if (navigator.vibrate) navigator.vibrate(10);
   };
 
-  // Decide visibility safely (no hook violations)
+  /* ---------------- Visibility rules ---------------- */
+  const hiddenRoutes = ["/cart", "/checkout"];
   const shouldRender =
     isMobile &&
-    !["/cart", "/checkout"].includes(location.pathname);
+    cartCount > 0 &&
+    !hiddenRoutes.includes(location.pathname);
 
   if (!shouldRender) return null;
 
+  /* ---------------- Render ---------------- */
   return (
     <motion.div
       drag
       dragMomentum={false}
       animate={controls}
-      whileDrag={{ scale: 1.05 }}
       onDragEnd={handleDragEnd}
+      whileDrag={{ scale: 1.05 }}
       className="fixed z-50 touch-none"
+      role="complementary"
+      aria-label="Floating cart"
     >
-      <Link to="/cart">
+      <Link to="/cart" aria-label="Open cart">
         <motion.button
           whileHover={{ scale: 1.08 }}
           whileTap={{ scale: 0.95 }}
-          animate={
-            cartCount > 0
-              ? { boxShadow: "0 0 0 8px rgba(181,133,58,0.15)" }
-              : {}
-          }
-          transition={{ duration: 0.4 }}
           className="
             relative flex items-center justify-center
             w-12 h-12 rounded-full
             bg-brand-gold text-white
             shadow-lg hover:shadow-xl
-            dark:bg-brand-darkgold
+            focus:outline-none focus:ring-2 focus:ring-brand-gold/50
           "
         >
-          <ShoppingCart className="w-6 h-6" />
+          <ShoppingCart className="w-6 h-6" aria-hidden />
 
-          {cartCount > 0 && (
-            <span
-              className="
-                absolute -top-1 -right-1
-                bg-black text-white
-                dark:bg-white dark:text-black
-                text-xs font-semibold
-                w-5 h-5 flex items-center justify-center
-                rounded-full
-              "
-            >
-              {cartCount}
-            </span>
-          )}
+          <span
+            aria-live="polite"
+            className="
+              absolute -top-1 -right-1
+              bg-black text-white
+              dark:bg-white dark:text-black
+              text-xs font-semibold
+              w-5 h-5 flex items-center justify-center
+              rounded-full
+            "
+          >
+            {cartCount}
+          </span>
         </motion.button>
       </Link>
     </motion.div>

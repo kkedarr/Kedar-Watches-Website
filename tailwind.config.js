@@ -1,11 +1,27 @@
-export default {
-  darkMode: "class", // enables dark mode using a class
+export default { 
+  darkMode: "class",
   content: [
     "./index.html",
     "./src/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
     extend: {
+      fontFamily: {
+        sans: [
+          "Inter",
+          "SF Pro Text",
+          "SF Pro Display",
+          "Segoe UI Variable",
+          "Segoe UI",
+          "-apple-system",
+          "BlinkMacSystemFont",
+          "system-ui",
+          "Roboto",
+          "Helvetica Neue",
+          "Arial",
+          "sans-serif",
+        ],
+      },
       colors: {
         brand: {
           gold: "#b5853a",

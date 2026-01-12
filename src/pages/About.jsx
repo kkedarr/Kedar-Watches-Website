@@ -1,154 +1,191 @@
 import { motion } from "framer-motion";
 import HeroImage from "../assets/images/watch-hero.jpg";
-import StoryImage from "../assets/images/learnpage/story-about.jpg"
-import { Gem, Wallet, Truck, Handshake } from "lucide-react";
+import StoryImage from "../assets/images/learnpage/story-about.jpg";
+import {
+  Gem,
+  Wallet,
+  Truck,
+  Handshake,
+  ShieldCheck,
+  Smile,
+  Globe,
+} from "lucide-react";
 
+const fadeUp = {
+  initial: { opacity: 0, y: 28 },
+  whileInView: { opacity: 1, y: 0 },
+  transition: { duration: 0.6, ease: "easeOut" },
+  viewport: { once: true },
+};
 
 const About = () => {
   return (
-    <div className="min-h-screen bg-gray-50 dark:bg-brand-dark transition duration-300 text-gray-700 dark:text-gray-300">
-      {/* Hero Section */}
-      {/*<section className="relative overflow-hidden text-center py-2 px-4 bg-gray-100 dark:bg-gray-800">
-        <div className="absolute inset-0 dark:bg-[#222222]" />
-        <motion.h1
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-          className="relative text-3xl md:text-4xl font-bold font-serif text-gray-900 dark:text-white mb-4"
-        >
-          About Kedar Watches
-        </motion.h1>
-        <motion.p
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 0.3 }}
-          className="relative max-w-2xl mx-auto text-lg text-gray-600 dark:text-gray-300"
-        >
-          Timeless Style. Honest Quality. True Value.
-        </motion.p>
-      </section> */}
+    <div className="min-h-screen bg-bg-brand-darklight dark:bg-brand-dark transition duration-300 text-gray-700 dark:text-gray-300">
 
-      {/* Our Story Section */}
-      <section className="bg-gray-100 dark:bg-[#222222] py-16">
-        <div className="max-w-6xl mx-auto px-6 grid md:grid-cols-2 gap-12 items-center">
+      {/* Our Story */}
+      <section className="bg-brand-light dark:bg-[#222222] py-20">
+        <div className="max-w-7xl mx-auto px-6 grid lg:grid-cols-2 gap-14 items-center">
           <motion.img
+            {...fadeUp}
             src={StoryImage}
             alt="Our Story"
-            initial={{ opacity: 0, x: -30 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.6 }}
-            className="rounded-lg shadow-lg object-cover h-[350px] w-full"
+            className="rounded-xl shadow-lg object-cover h-[360px] w-full"
           />
-          <motion.div
-            initial={{ opacity: 0, x: 30 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.6 }}
-            className="space-y-5"
-          >
-            <h2 className="text-3xl font-semibold font-serif text-gray-900 dark:text-white">
+
+          <motion.div {...fadeUp} className="space-y-6">
+            <h2 className="text-3xl md:text-4xl font-semibold text-gray-900 dark:text-white">
               Our Story
             </h2>
-            <p>
-              Kedar Watches was founded with a simple purpose — to make quality 
-              wristwatches accessible to everyone in Nigeria.
+
+            <p className="leading-relaxed">
+              Kedar Watches was founded with a clear purpose — to make refined,
+              dependable wristwatches accessible to customers across Nigeria.
             </p>
-            <p>
-              We saw how difficult it was for people to get stylish, durable watches 
-              without paying extremely high prices. Luxury shouldn’t be limited to the rich.
-              So, we began sourcing premium-grade replica watches that deliver 
-              the same craftsmanship, performance, and beauty as luxury brands — 
-              but at affordable prices.
+
+            <p className="leading-relaxed">
+              We recognized the growing gap between affordability and quality in
+              the watch market. Many customers desired timeless design and
+              reliable craftsmanship without inflated luxury pricing. Our
+              solution was simple: source premium-grade replica and affordable
+              watches that meet high standards of appearance, durability, and
+              performance.
             </p>
-            <p>
-              Today, Kedar Watches has grown into a trusted online retailer known 
-              for affordability, reliability, and speed — bringing timeless designs 
-              to wrists across Nigeria.
+
+            <p className="leading-relaxed">
+              Today, Kedar Watches serves as a trusted online retailer,
+              delivering carefully curated timepieces with fast fulfillment,
+              transparent service, and consistent quality assurance.
             </p>
           </motion.div>
         </div>
       </section>
 
-      {/* Philosophy Section */}
-      <section className="max-w-6xl mx-auto py-6 px-4 py-16 grid md:grid-cols-2 gap-12 items-center">
-        <motion.div
-          initial={{ opacity: 0, x: -30 }}
-          whileInView={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.6 }}
-          className="space-y-5"
-        >
-          <h2 className="text-3xl font-semibold font-serif text-gray-900 dark:text-white">
+      {/* Philosophy */}
+      <section className="max-w-7xl mx-auto px-6 py-20 grid lg:grid-cols-2 gap-14 items-center">
+        <motion.div {...fadeUp} className="space-y-6">
+          <h2 className="text-3xl md:text-4xl font-serif font-semibold text-gray-900 dark:text-white">
             Our Philosophy
           </h2>
-          <p>
-            At <span className="font-semibold text-gray-900 dark:text-white">Kedar Watches</span>, 
-            we believe luxury shouldn’t be out of reach. Everyone deserves a 
-            timepiece that reflects elegance, confidence, and individuality — 
-            without spending a fortune.
+
+          <p className="leading-relaxed">
+            At <span className="font-semibold text-gray-900 dark:text-white">Kedar Watches</span>,
+            we believe personal style should be attainable without compromise.
+            A well-crafted timepiece reflects confidence, discipline, and
+            identity.
           </p>
-          <p>
-            We bring you high-quality replica and affordable wristwatches that 
-            blend precision engineering with stylish craftsmanship. Whether you’re 
-            dressing for business, a night out, or everyday wear, there’s a Kedar 
-            watch for you.
+
+          <p className="leading-relaxed">
+            Our collection blends precision engineering with elegant design —
+            suitable for professional settings, special occasions, and everyday
+            wear. Each product is selected with long-term value, comfort, and
+            durability in mind.
           </p>
         </motion.div>
+
         <motion.img
+          {...fadeUp}
           src={HeroImage}
           alt="Luxury Watches"
-          initial={{ opacity: 0, x: 30 }}
-          whileInView={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.6 }}
-          className="rounded-lg shadow-lg object-cover h-[350px] w-full"
+          className="rounded-xl shadow-lg object-cover h-[360px] w-full"
         />
       </section>
 
-      {/* Mission and Values */}
-      <section className="bg-gray-100 dark:bg-[#222222] py-16">
-        <div className="max-w-6xl mx-auto px-6 grid md:grid-cols-2 gap-12 items-start">
-          <motion.div
-            initial={{ opacity: 0, x: -30 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.6 }}
-            className="space-y-4"
-          >
-            <h2 className="text-3xl font-semibold font-serif text-gray-900 dark:text-white mb-3">
-              Our Mission
-            </h2>
-            <p>
-              To make timeless wristwatches accessible, stylish, and reliable for 
-              everyone — regardless of budget — while maintaining high standards 
-              of quality and trust.
-            </p>
-          </motion.div>
+      {/* Mission & Values */}
+      <section className="bg-brand-light dark:bg-[#222222] py-24">
+        <div className="max-w-7xl mx-auto px-6">
 
-          <motion.div
-            initial={{ opacity: 0, x: 30 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.6 }}
-            className="space-y-3"
-          >
-            <h2 className="text-3xl font-semibold font-serif text-gray-900 dark:text-white mb-3">
-              Our Core Values
-            </h2>
-            <ul className="space-y-2 text-gray-600 dark:text-gray-400">
-              <li>• Integrity — We say it as it is. Every product matches its description.</li>
-              <li>• Excellence — Every piece meets our strict quality benchmarks.</li>
-              <li>• Affordability — Elegance doesn’t have to be expensive.</li>
-              <li>• Customer Satisfaction — Your trust is our biggest achievement.</li>
-              <li>• Accessibility — Bringing world-class designs closer to Nigerian wrists.</li>
-            </ul>
-          </motion.div>
+          <div className="grid lg:grid-cols-2 gap-14 items-start">
+
+            {/* Mission */}
+            <motion.div
+              {...fadeUp}
+              className="rounded-xl border border-black/5 dark:border-white/10 p-8 md:p-10 bg-white/70 dark:bg-white/5 backdrop-blur-sm"
+            >
+              <div className="flex items-center gap-4 mb-5">
+                <div className="p-2 rounded-lg bg-black/5 dark:bg-white/10">
+                  <ShieldCheck className="w-5 h-5 text-brand-gold" />
+                </div>
+                <h3 className="text-xl font-serif font-semibold text-gray-900 dark:text-white">
+                  Our Mission
+                </h3>
+              </div>
+
+              <p className="leading-relaxed text-gray-700 dark:text-gray-300">
+                To provide accessible, refined wristwatches that meet consistent
+                quality standards — while building lasting trust through honest
+                service, reliable delivery, and customer-first operations.
+              </p>
+            </motion.div>
+
+            {/* Values */}
+            <motion.div
+              {...fadeUp}
+              transition={{ delay: 0.1 }}
+              className="rounded-xl border border-black/5 dark:border-white/10 p-8 md:p-10 bg-white/70 dark:bg-white/5 backdrop-blur-sm"
+            >
+              <div className="flex items-center gap-4 mb-6">
+                <div className="p-2 rounded-lg bg-black/5 dark:bg-white/10">
+                  <Gem className="w-5 h-5 text-brand-gold" />
+                </div>
+                <h3 className="text-xl font-serif font-semibold text-gray-900 dark:text-white">
+                  Core Values
+                </h3>
+              </div>
+
+              <ul className="space-y-5">
+                {[
+                  {
+                    icon: ShieldCheck,
+                    title: "Integrity",
+                    desc: "Accurate product representation and transparent communication.",
+                  },
+                  {
+                    icon: Gem,
+                    title: "Excellence",
+                    desc: "Consistent quality control and craftsmanship standards.",
+                  },
+                  {
+                    icon: Wallet,
+                    title: "Affordability",
+                    desc: "Premium appearance without unnecessary markups.",
+                  },
+                  {
+                    icon: Smile,
+                    title: "Customer Trust",
+                    desc: "Long-term relationships built on reliability and service.",
+                  },
+                  {
+                    icon: Globe,
+                    title: "Accessibility",
+                    desc: "Bringing refined designs closer to local customers.",
+                  },
+                ].map((item, idx) => {
+                  const Icon = item.icon;
+                  return (
+                    <li key={idx} className="flex gap-4">
+                      <Icon className="w-5 h-5 flex-shrink-0 text-brand-gold" />
+                      <div>
+                        <p className="font-medium text-gray-900 dark:text-white">
+                          {item.title}
+                        </p>
+                        <p className="text-sm text-gray-600 dark:text-gray-400">
+                          {item.desc}
+                        </p>
+                      </div>
+                    </li>
+                  );
+                })}
+              </ul>
+            </motion.div>
+          </div>
         </div>
       </section>
 
-      {/* Why Choose Section */}
-      <section className="max-w-6xl mx-auto px-6 py-16 text-center">
+      {/* Why Choose */}
+      <section className="max-w-7xl mx-auto px-6 py-20 text-center">
         <motion.h2
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5 }}
-          className="text-3xl font-semibold font-serif text-gray-900 dark:text-white mb-10"
+          {...fadeUp}
+          className="text-3xl md:text-4xl font-serif font-semibold text-gray-900 dark:text-white mb-14"
         >
           Why Choose Kedar Watches
         </motion.h2>
@@ -158,22 +195,22 @@ const About = () => {
             {
               icon: Gem,
               title: "Premium Quality",
-              text: "Every Kedar watch is carefully selected and inspected for design precision, durability, and smooth performance.",
+              text: "Every watch undergoes inspection for durability, finish, and functional precision.",
             },
             {
               icon: Wallet,
-              title: "Affordable Luxury",
-              text: "From everyday watches to luxury-inspired replicas, we offer refined timepieces for every style and budget.",
+              title: "Accessible Pricing",
+              text: "Elegant designs that remain affordable across a wide range of budgets.",
             },
             {
               icon: Truck,
-              title: "Fast & Reliable Delivery",
-              text: "Same-day delivery within Lagos and 2–3 business days nationwide — secure, prompt, and dependable.",
+              title: "Reliable Delivery",
+              text: "Same-day Lagos delivery and fast nationwide & international fulfillment.",
             },
             {
               icon: Handshake,
-              title: "Customer-First Service",
-              text: "Honest communication, responsive support, and a genuine commitment to your satisfaction.",
+              title: "Customer Commitment",
+              text: "Responsive support and consistent after-sales care.",
             },
           ].map((item, index) => {
             const Icon = item.icon;
@@ -182,12 +219,12 @@ const About = () => {
               <motion.div
                 key={index}
                 whileHover={{ y: -6 }}
-                transition={{ duration: 0.3 }}
-                className="bg-white dark:bg-[#222222] p-6 rounded-xl shadow-md hover:shadow-xl border border-gray-200 dark:border-gray-700"
+                transition={{ duration: 0.25 }}
+                className="bg-white dark:bg-[#222222] p-7 rounded-xl shadow-md hover:shadow-xl border border-gray-200 dark:border-gray-700"
               >
-                <div className="flex justify-center mb-4">
+                <div className="flex justify-center mb-5">
                   <div className="p-3 rounded-full bg-brand-gold/10 text-brand-gold">
-                    <Icon size={28} strokeWidth={1.5} />
+                    <Icon size={26} strokeWidth={1.6} />
                   </div>
                 </div>
 
@@ -204,31 +241,29 @@ const About = () => {
         </div>
       </section>
 
-
-      {/* Final CTA */}
-      <section className="text-center py-16">
+      {/* CTA */}
+      <section className="bg-brand-light dark:bg-[#222222] text-center py-20">
         <motion.h2
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
-          className="text-3xl font-semibold font-serif text-gray-900 dark:text-white mb-4"
+          {...fadeUp}
+          className="text-3xl md:text-4xl font-serif font-semibold text-gray-900 dark:text-white mb-4"
         >
           Experience Timeless Confidence
         </motion.h2>
-        <p className="max-w-xl mx-auto text-gray-600 dark:text-gray-400 mb-6">
-          Whether it’s your first watch or your next favorite, Kedar Watches is 
-          here to deliver elegance, precision, and value — right to your wrist.
+
+        <p className="max-w-xl mx-auto text-gray-600 dark:text-gray-400 mb-8 leading-relaxed">
+          Discover refined craftsmanship, dependable performance, and lasting
+          value — designed for everyday excellence.
         </p>
+
         <a
           href="/products"
-          className="mt-3 inline-block text-sm bg-brand-gold text-white rounded-md hover:bg-brand-darkgold transition px-4 py-2 duration-300"
+          className="inline-block text-sm bg-brand-gold text-white rounded-md hover:bg-brand-darkgold transition px-6 py-3 duration-300"
         >
-          Shop Now
+          Browse Collection
         </a>
       </section>
     </div>
   );
-}
-
+};
 
 export default About;

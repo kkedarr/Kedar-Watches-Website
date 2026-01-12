@@ -6,7 +6,7 @@ const Shipping = () => {
   return (
     <div className="min-h-screen bg-[#FDFBF8] dark:bg-brand-dark text-[#4B3B27] dark:text-gray-100 transition-colors duration-300">
       {/* HEADER */}
-      <section className="text-center py-16 px-4">
+      <section className="text-center py-5 px-4">
         <motion.h1
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -15,7 +15,7 @@ const Shipping = () => {
         >
           Shipping & Customer Service
         </motion.h1>
-        <motion.p
+        {/*<motion.p
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 0.2, duration: 0.6 }}
@@ -23,11 +23,11 @@ const Shipping = () => {
         >
           We take pride in ensuring that every order is processed with care, delivered safely, and supported by
           a customer-first experience worthy of your trust.
-        </motion.p>
+        </motion.p>*/}
       </section>
 
       {/* DELIVERY INFO */}
-      <section className="max-w-5xl mx-auto px-6 py-10 space-y-10">
+      <section className="max-w-5xl mx-auto px-6 py-0 space-y-10">
         {/* SHIPPING METHODS */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}

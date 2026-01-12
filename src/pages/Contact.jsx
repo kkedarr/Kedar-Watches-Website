@@ -30,7 +30,7 @@ const Contact = () => {
         >
           Get In Touch
         </motion.h1>
-        <motion.p
+        {/*<motion.p
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 0.2, duration: 0.6 }}
@@ -38,7 +38,7 @@ const Contact = () => {
         >
           We’re here to assist you with any inquiries, support needs, or simply to chat
           about our exquisite timepieces. Choose your preferred method below.
-        </motion.p>
+        </motion.p>*/}
       </section>
 
       {/* CONTACT OPTIONS */}
