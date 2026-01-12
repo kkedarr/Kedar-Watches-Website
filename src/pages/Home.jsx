@@ -37,7 +37,7 @@ const Home = () => {
                   transition={{ delay: i * 0.06 }}
                   className="
                     group
-                    rounded-xl
+                    rounded-md
                     border border-black/5 dark:border-white/10
                     bg-white/50 dark:bg-white/5
                     backdrop-blur-sm

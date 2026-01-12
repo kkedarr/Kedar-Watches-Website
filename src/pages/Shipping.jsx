@@ -11,7 +11,7 @@ const Shipping = () => {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
-          className="text-3xl md:text-4xl font-serif font-semibold mb-4 text-gray-900 dark:text-white"
+          className="text-2xl md:text-4xl font-semibold mb-4 text-gray-900 dark:text-white tracking-tight"
         >
           Shipping & Customer Service
         </motion.h1>
@@ -37,7 +37,7 @@ const Shipping = () => {
         >
           <div className="flex items-center gap-3 mb-5">
             <Truck className="w-6 h-6 text-[#A57C4D] dark:text-[#d4b278]" />
-            <h2 className="text-xl font-semibold text-gray-900 dark:text-white">
+            <h2 className="text-xl font-semibold text-gray-900 dark:text-white tracking-tight">
               Shipping Methods & Estimated Delivery
             </h2>
           </div>
@@ -236,7 +236,7 @@ const Shipping = () => {
           </p>
           <a
             href="/contact"
-            className="inline-block bg-brand-gold hover:bg-brand-darkgold dark:bg-brand-gold dark:hover:bg-brand-darkgold text-white dark:text-gray-900 font-medium py-2 px-6 rounded-md transition"
+            className="inline-block bg-brand-gold hover:bg-brand-darkgold dark:bg-brand-gold dark:hover:bg-brand-darkgold text-white dark:text-gray-900 font-medium py-2 px-6 rounded-sm transition"
           >
             Contact Us
           </a>

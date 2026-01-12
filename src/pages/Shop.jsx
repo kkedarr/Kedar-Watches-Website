@@ -145,7 +145,7 @@ const Shop = () => {
                         text-xs md:text-sm font-medium
                         px-2 md:px-4
                         py-2 md:py-2.5
-                        rounded-md transition
+                        rounded-sm transition
                         whitespace-nowrap
                       "
                     >
@@ -169,7 +169,7 @@ const Shop = () => {
                       className="
                         inline-flex items-center justify-center
                         w-9 h-8
-                        rounded-md md:rounded-lg 
+                        rounded-sm md:rounded-sm 
                         border border-brand-gold dark:border-brand-gold
                         text-[#A57C4D] dark:text-[#d4b278]
                         hover:bg-[#A57C4D] hover:text-white

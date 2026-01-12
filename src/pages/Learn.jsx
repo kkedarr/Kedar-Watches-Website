@@ -214,7 +214,7 @@ const Learn = () => {
   }, [selectedItem]);
 
   return (
-    <div className="min-h-screen bg-brand-light dark:bg-brand-dark transition-colors duration-300">
+    <div className="min-h-screen bg-brand-light dark:bg-brand-lightdark transition-colors duration-300">
       {/* Header */}
       <section className="text-center py-5 px-4 md:px-10 bg-brand-light dark:bg-brand-lightdark transition-colors duration-300">
         <motion.h1
@@ -222,7 +222,7 @@ const Learn = () => {
           whileInView={{ y: 0, opacity: 1 }}
           transition={{ duration: 0.7 }}
           viewport={{ once: true }}
-          className="text-xl md:text-3xl font-serif font-bold text-gray-900 dark:text-white mb-6"
+          className="text-2xl md:text-3xl font-semibold text-gray-900 dark:text-white mt-3 tracking-tight"
         >
           Discover the World of Watches
         </motion.h1>
@@ -262,7 +262,7 @@ const Learn = () => {
               </p>
               <button
                 onClick={() => setSelectedItem(item)}
-                className="mt-3 inline-block text-sm bg-brand-gold text-white rounded-md hover:bg-brand-darkgold transition px-5 py-2 duration-300"
+                className="mt-3 inline-block text-sm bg-brand-gold text-white rounded-sm hover:bg-brand-darkgold transition px-5 py-2 duration-300"
               >
                 Learn More
               </button>

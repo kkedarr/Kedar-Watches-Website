@@ -28,7 +28,7 @@ const Hero = () => {
             <span className="text-brand-gold">Style You Can Trust.</span>
           </h1>
 
-          <p className="text-gray-700 dark:text-gray-300 text-base md:text-lg leading-relaxed">
+          <p className="text-gray-700 dark:text-gray-300 text-base md:text-lg tracking-tight">
             At{" "}
             <span className="font-medium text-brand-gold">
               Kedar Watches
@@ -47,10 +47,10 @@ const Hero = () => {
               to="/shop"
               className="
                 inline-flex items-center justify-center
-                rounded-md
+                rounded-sm
                 bg-brand-gold text-white
-                px-8 py-3
-                text-sm font-medium tracking-wide
+                px-5 py-2
+                text-md font-medium tracking-wide
                 shadow-md hover:shadow-lg
                 hover:bg-brand-darkgold
                 transition-all duration-300
@@ -79,7 +79,7 @@ const Hero = () => {
               w-full
               aspect-[4/3]
               object-cover
-              rounded-2xl
+              rounded-xl
               shadow-xl
               transition-transform duration-700
               hover:scale-[1.02]

@@ -78,7 +78,7 @@ const Navbar = () => {
                   to={link.path}
                   className={`
                     relative
-                    px-3 py-1.5
+                    px-4 py-1
                     rounded-full
                     text-md font-medium tracking-wider
                     transition-all duration-200 ease-out

@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 const Categories = () => {
   const brandCategories = {
-    "Budget & Trending (Nigeria)": [
+    "Trending": [
       "Curren", "Poedagar", "Tomi", "Naviforce", "SKMEI",
       "Nibosi", "Lige", "Megir", "Matturi", "Chenxi"
     ],
@@ -39,7 +39,7 @@ const Categories = () => {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.5 }}
-          className="text-3xl md:text-4xl font-serif font-bold text-gray-900 dark:text-white"
+          className="text-2xl md:text-4xl font-semibold text-gray-900 dark:text-white"
         >
           Explore by Brand
         </motion.h2>
@@ -86,7 +86,7 @@ const Categories = () => {
                     className="
                       block text-center
                       px-4 py-2.5
-                      rounded-xl text-sm font-medium
+                      rounded-sm text-sm font-medium
                       bg-brand-light dark:bg-brand-lightdark
                       text-gray-900 dark:text-gray-100
                       border border-gray-300 dark:border-gray-700

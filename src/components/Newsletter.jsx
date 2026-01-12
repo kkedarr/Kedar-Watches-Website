@@ -50,7 +50,7 @@ const Newsletter = () => {
       <div className="absolute inset-0 bg-gradient-to-br from-white/10 to-transparent pointer-events-none" />
 
       <div className="relative z-10">
-        <h2 className="text-3xl md:text-4xl font-serif font-bold mb-4">
+        <h2 className="text-2xl md:text-4xl font-semibold mb-4">
           Stay Updated with Our Latest Collections
         </h2>
 
@@ -69,7 +69,7 @@ const Newsletter = () => {
             onChange={(e) => setFirstName(e.target.value)}
             placeholder="First name (optional)"
             aria-label="First name"
-            className="w-full sm:w-[220px] px-5 py-3 rounded-md bg-white/15 text-white placeholder-white/70
+            className="w-full sm:w-[220px] px-5 py-3 rounded-sm bg-white/15 text-white placeholder-white/70
                        focus:outline-none focus:ring-2 focus:ring-white transition"
           />
 
@@ -81,14 +81,14 @@ const Newsletter = () => {
             placeholder="Enter your email"
             required
             aria-label="Email address"
-            className="w-full sm:w-[320px] px-5 py-3 rounded-md bg-white/15 text-white placeholder-white/70
+            className="w-full sm:w-[320px] px-5 py-3 rounded-sm bg-white/15 text-white placeholder-white/70
                        focus:outline-none focus:ring-2 focus:ring-white transition"
           />
 
           <button
             type="submit"
             disabled={loading}
-            className="bg-white text-[#8B6431] font-semibold px-6 py-3 rounded-md
+            className="bg-white text-[#8B6431] font-semibold px-6 py-3 rounded-sm
                        hover:bg-gray-200 transition shadow-md disabled:opacity-60"
           >
             {loading ? "Subscribing..." : "Subscribe"}

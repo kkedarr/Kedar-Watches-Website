@@ -26,7 +26,7 @@ const Contact = () => {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
-          className="text-3xl md:text-4xl font-serif font-semibold mb-4 text-gray-900 dark:text-white"
+          className="text-2xl md:text-4xl font-semibold text-gray-900 dark:text-white tracking-tight"
         >
           Get In Touch
         </motion.h1>
@@ -42,7 +42,7 @@ const Contact = () => {
       </section>
 
       {/* CONTACT OPTIONS */}
-      <div className="max-w-5xl mx-auto px-6 py-10 grid md:grid-cols-2 gap-8">
+      <div className="max-w-5xl mx-auto px-6 py-5 grid md:grid-cols-2 gap-8">
         {/* WhatsApp */}
         <motion.div
           whileHover={{ y: -4 }}
@@ -58,7 +58,7 @@ const Contact = () => {
             href="https://wa.me/2348131316083?text=Hello%20Kedar%20Watches%2C%20I%27d%20like%20to%20order..."
             target="_blank"
             rel="noreferrer"
-            className="mt-3 inline-block text-sm bg-brand-gold text-white font-medium rounded-md hover:bg-brand-darkgold transition px-4 py-2 duration-300"
+            className="mt-3 inline-block text-sm bg-brand-gold text-white font-medium rounded-sm hover:bg-brand-darkgold transition px-4 py-2 duration-300"
           >
             Chat Now on WhatsApp
           </a>
@@ -118,7 +118,7 @@ const Contact = () => {
           </div>
         </motion.div>
 
-        {/* Showroom */}
+        {/* Online Store Only */}
         <motion.div
           whileHover={{ y: -4 }}
           className="bg-[#F8F5F0] dark:bg-brand-lightdark rounded-md p-8 text-center shadow-sm transition-all duration-300"
@@ -165,7 +165,7 @@ const Contact = () => {
                 value={formData.name}
                 onChange={handleChange}
                 required
-                className="w-full px-4 py-3 rounded-md bg-white dark:bg-brand-lightdark text-gray-800 dark:text-gray-100 focus:ring-2 focus:ring-[#A57C4D] dark:focus:ring-[#d4b278] outline-none"
+                className="w-full px-4 py-3 rounded-sm bg-white dark:bg-brand-lightdark text-gray-800 dark:text-gray-100 focus:ring-2 focus:ring-[#A57C4D] dark:focus:ring-[#d4b278] outline-none"
               />
               <input
                 type="email"
@@ -174,7 +174,7 @@ const Contact = () => {
                 value={formData.email}
                 onChange={handleChange}
                 required
-                className="w-full px-4 py-3 rounded-md bg-white dark:bg-brand-lightdark text-gray-800 dark:text-gray-100 focus:ring-2 focus:ring-[#A57C4D] dark:focus:ring-[#d4b278] outline-none"
+                className="w-full px-4 py-3 rounded-sm bg-white dark:bg-brand-lightdark text-gray-800 dark:text-gray-100 focus:ring-2 focus:ring-[#A57C4D] dark:focus:ring-[#d4b278] outline-none"
               />
             </div>
             <textarea
@@ -184,11 +184,11 @@ const Contact = () => {
               onChange={handleChange}
               required
               rows="5"
-              className="w-full px-4 py-3 rounded-md bg-white dark:bg-brand-lightdark text-gray-800 dark:text-gray-100 focus:ring-2 focus:ring-[#A57C4D] dark:focus:ring-[#d4b278] outline-none resize-none"
+              className="w-full px-4 py-3 rounded-sm bg-white dark:bg-brand-lightdark text-gray-800 dark:text-gray-100 focus:ring-2 focus:ring-[#A57C4D] dark:focus:ring-[#d4b278] outline-none resize-none"
             ></textarea>
             <button
               type="submit"
-              className="flex items-center justify-center gap-2 bg-brand-gold hover:bg-brand-darkgold text-white font-medium py-3 px-8 rounded-md mx-auto transition"
+              className="flex items-center justify-center gap-2 bg-brand-gold hover:bg-brand-darkgold text-white font-medium py-3 px-8 rounded-sm mx-auto transition"
             >
               <Send className="w-4 h-4" />
               Send Message

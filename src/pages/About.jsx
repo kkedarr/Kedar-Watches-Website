@@ -29,11 +29,11 @@ const About = () => {
             {...fadeUp}
             src={StoryImage}
             alt="Our Story"
-            className="rounded-xl shadow-lg object-cover h-[360px] w-full"
+            className="rounded-lg shadow-lg object-cover h-[360px] w-full"
           />
 
           <motion.div {...fadeUp} className="space-y-6">
-            <h2 className="text-3xl md:text-4xl font-semibold text-gray-900 dark:text-white">
+            <h2 className="text-2xl md:text-4xl font-semibold text-gray-900 dark:text-white">
               Our Story
             </h2>
 
@@ -63,7 +63,7 @@ const About = () => {
       {/* Philosophy */}
       <section className="max-w-7xl mx-auto px-6 py-20 grid lg:grid-cols-2 gap-14 items-center">
         <motion.div {...fadeUp} className="space-y-6">
-          <h2 className="text-3xl md:text-4xl font-serif font-semibold text-gray-900 dark:text-white">
+          <h2 className="text-2xl md:text-4xl font-semibold text-gray-900 dark:text-white tracking-tight">
             Our Philosophy
           </h2>
 
@@ -86,7 +86,7 @@ const About = () => {
           {...fadeUp}
           src={HeroImage}
           alt="Luxury Watches"
-          className="rounded-xl shadow-lg object-cover h-[360px] w-full"
+          className="rounded-lg shadow-lg object-cover h-[360px] w-full"
         />
       </section>
 
@@ -99,13 +99,13 @@ const About = () => {
             {/* Mission */}
             <motion.div
               {...fadeUp}
-              className="rounded-xl border border-black/5 dark:border-white/10 p-8 md:p-10 bg-white/70 dark:bg-white/5 backdrop-blur-sm"
+              className="rounded-md border border-gray-200 dark:border-gray-700 p-8 md:p-10 bg-white/70 dark:bg-white/5 backdrop-blur-sm"
             >
               <div className="flex items-center gap-4 mb-5">
                 <div className="p-2 rounded-lg bg-black/5 dark:bg-white/10">
                   <ShieldCheck className="w-5 h-5 text-brand-gold" />
                 </div>
-                <h3 className="text-xl font-serif font-semibold text-gray-900 dark:text-white">
+                <h3 className="text-2xl font-semibold text-gray-900 dark:text-white tracking-tight">
                   Our Mission
                 </h3>
               </div>
@@ -121,13 +121,13 @@ const About = () => {
             <motion.div
               {...fadeUp}
               transition={{ delay: 0.1 }}
-              className="rounded-xl border border-black/5 dark:border-white/10 p-8 md:p-10 bg-white/70 dark:bg-white/5 backdrop-blur-sm"
+              className="rounded-md border border-gray-200 dark:border-gray-700 p-8 md:p-10 bg-white/70 dark:bg-white/5 backdrop-blur-sm"
             >
               <div className="flex items-center gap-4 mb-6">
                 <div className="p-2 rounded-lg bg-black/5 dark:bg-white/10">
                   <Gem className="w-5 h-5 text-brand-gold" />
                 </div>
-                <h3 className="text-xl font-serif font-semibold text-gray-900 dark:text-white">
+                <h3 className="text-2xl font-semibold text-gray-900 dark:text-white tracking-tight">
                   Core Values
                 </h3>
               </div>
@@ -185,7 +185,7 @@ const About = () => {
       <section className="max-w-7xl mx-auto px-6 py-20 text-center">
         <motion.h2
           {...fadeUp}
-          className="text-3xl md:text-4xl font-serif font-semibold text-gray-900 dark:text-white mb-14"
+          className="text-2xl md:text-4xl font-semibold text-gray-900 dark:text-white mb-14 tracking-tight"
         >
           Why Choose Kedar Watches
         </motion.h2>
@@ -220,7 +220,7 @@ const About = () => {
                 key={index}
                 whileHover={{ y: -6 }}
                 transition={{ duration: 0.25 }}
-                className="bg-white dark:bg-[#222222] p-7 rounded-xl shadow-md hover:shadow-xl border border-gray-200 dark:border-gray-700"
+                className="bg-white dark:bg-[#222222] p-7 rounded-md shadow-md hover:shadow-xl border border-gray-200 dark:border-gray-700"
               >
                 <div className="flex justify-center mb-5">
                   <div className="p-3 rounded-full bg-brand-gold/10 text-brand-gold">
@@ -245,7 +245,7 @@ const About = () => {
       <section className="bg-brand-light dark:bg-[#222222] text-center py-20">
         <motion.h2
           {...fadeUp}
-          className="text-3xl md:text-4xl font-serif font-semibold text-gray-900 dark:text-white mb-4"
+          className="text-2xl md:text-4xl font-semibold text-gray-900 dark:text-white mb-4 tracking-tight"
         >
           Experience Timeless Confidence
         </motion.h2>
@@ -257,7 +257,7 @@ const About = () => {
 
         <a
           href="/products"
-          className="inline-block text-sm bg-brand-gold text-white rounded-md hover:bg-brand-darkgold transition px-6 py-3 duration-300"
+          className="inline-block text-sm bg-brand-gold text-white rounded-sm hover:bg-brand-darkgold transition px-6 py-3 duration-300"
         >
           Browse Collection
         </a>
