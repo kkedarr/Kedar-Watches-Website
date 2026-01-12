@@ -5,7 +5,6 @@ import Testimonials from "../components/Testimonials";
 import Newsletter from "../components/Newsletter";
 import { motion } from "framer-motion";
 import { Package, Users, Clock, MapPin } from "lucide-react";
-import Container from "../components/Container";
 
 
 
@@ -23,9 +22,7 @@ const Home = () => {
       <>
       <Hero />
       {/* ================= KPI STRIP ================= */}
-      <Container>
       <section className="border-b border-black/5 dark:border-white/10">
-      
         <div className="max-w-7xl mx-auto px-6 py-12">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
             {stats.map((stat, i) => {
@@ -69,17 +66,13 @@ const Home = () => {
             })}
           </div>
         </div>
-        
       </section>
-      </Container>
 
-      <Container><Categories /></Container>
-      
+
+      <Categories />
       {/* <FeaturedProducts /> */}
-      <Container><Testimonials /></Container>
-      
-      <Container><Newsletter /></Container>
-      
+      <Testimonials />
+      <Newsletter />
     </>
   );
 };
