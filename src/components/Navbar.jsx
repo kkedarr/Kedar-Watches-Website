@@ -79,14 +79,14 @@ const Navbar = () => {
                   className={`
                     relative
                     px-4 py-1.5
-                    rounded-md
-                    text-md font-medium tracking-wider
+                    rounded-md uppercase
+                    text-sm font-medium tracking-wider
                     transition-all duration-200 ease-out
                     border
                     ${
                       isActive
-                        ? "text-brand-gold border-brand-gold/40"
-                        : "text-gray-700 dark:text-gray-200 border-transparent hover:border-black/10 dark:hover:border-white/15 hover:text-brand-gold"
+                        ? "text-brand-gold rounded-sm border-brand-gold/40"
+                        : "text-gray-700 rounded-sm dark:text-gray-200 border-transparent hover:border-black/10 dark:hover:border-white/15 hover:text-brand-gold"
                     }
                   `}
                 >
@@ -198,7 +198,7 @@ const Navbar = () => {
                       key={link.name}
                       to={link.path}
                       onClick={() => setIsOpen(false)}
-                      className={`text-md tracking-wide transition-colors ${
+                      className={`text-xs uppercase tracking-wide transition-colors ${
                         isActive
                           ? "text-brand-gold"
                           : "text-gray-700 dark:text-gray-200 hover:text-brand-gold"
