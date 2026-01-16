@@ -118,7 +118,7 @@ const Shop = () => {
                 <Link to={`/product/${product.id}`} className="block">
                   <div className="relative group">
                     {product.is_replica && (
-                      <div className="absolute text-xs uppercase tracking-tight top-2 left-2 z-10 bg-brand-gold text-white px-2 py-1 rounded-sm">
+                      <div className="absolute text-xs uppercase tracking-tight top-2 left-2 z-10 bg-brand-darkgold text-white px-2 py-1 rounded-sm">
                         Inspired
                       </div>
                     )}
