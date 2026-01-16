@@ -125,7 +125,7 @@ const handleTouchEnd = (e) => {
             <img
               src={selectedImage}
               alt={product.name}
-              className="w-full h-[320px] md:h-[480px] object-cover rounded-xl shadow-md select-none"
+              className="w-full h-[320px] md:h-[480px] object-cover rounded-md shadow-md select-none"
               draggable={false}
             />
 
@@ -160,7 +160,7 @@ const handleTouchEnd = (e) => {
                   setCurrentImageIndex(index);
                 }}
 
-                className={`w-24 h-24 object-cover rounded-lg cursor-pointer border-2 transition
+                className={`w-24 h-24 object-cover rounded-md cursor-pointer border-2 transition
                   ${
                     selectedImage === img.url
                       ? "border-[#8B6431]"
@@ -182,8 +182,8 @@ const handleTouchEnd = (e) => {
           <div className="mb-2">
 
             {product.is_replica && (
-              <div className="mb-4 p-4 border border-brand-gold bg-brand-darklight dark:bg-brand-lightdark/40 rounded-lg">
-                <p className="text-sm font-semibold text-brand-darkgold mb-1">
+              <div className="mb-4 p-4 border border-brand-gold bg-brand-darklight dark:bg-brand-lightdark/40 rounded-md">
+                <p className="text-xs font-semibold uppercase text-brand-darkgold mb-1">
                   Replica Watch Disclosure
                 </p>
                 <p className="text-xs text-[#7A6C59] dark:text-gray-400 leading-relaxed">
@@ -209,25 +209,25 @@ const handleTouchEnd = (e) => {
           <div className="flex items-center gap-4 mb-10">
             <button
               onClick={() => setQuantity((q) => Math.max(1, q - 1))}
-              className="px-2 py-0 border rounded-md dark:border-gray-600"
+              className="px-2 py-0 border rounded-sm dark:border-gray-600"
             >
               −
             </button>
 
-            <span className="px-3 py-1 bg-gray-100 dark:bg-gray-700 rounded-md">
+            <span className="px-3 py-1 bg-gray-100 dark:bg-gray-700 rounded-sm">
               {quantity}
             </span>
 
             <button
               onClick={() => setQuantity((q) => q + 1)}
-              className="px-2 py-0 border rounded-md dark:border-gray-600"
+              className="px-2 py-0 border rounded-sm dark:border-gray-600"
             >
               +
             </button>
 
             <button
               onClick={handleAdd}
-              className="ml-4 px-4 py-1 bg-brand-gold hover:bg-[#a0743b] text-md text-white font-medium rounded-md transition"
+              className="ml-4 px-4 py-1 bg-brand-gold hover:bg-[#a0743b] text-md text-white font-medium rounded-sm transition"
             >
               Add to Cart
             </button>
