@@ -56,7 +56,7 @@ const Navbar = () => {
             : "bg-white/90 dark:bg-brand-dark/90 py-5 shadow-none border-b border-transparent"
         }`}
       >
-        <div className="flex items-center justify-between max-w-7xl mx-auto px-6 lg:px-16 transition-all duration-300">
+        <div className="flex items-center justify-between max-w-8xl mx-auto px-6 lg:px-16 transition-all duration-300">
           {/* Logo */}
           <Link to="/" className="flex items-center space-x-2 group">
             <motion.img
@@ -78,14 +78,14 @@ const Navbar = () => {
                   to={link.path}
                   className={`
                     relative
-                    px-4 py-1
-                    rounded-full
+                    px-4 py-1.5
+                    rounded-md
                     text-md font-medium tracking-wider
                     transition-all duration-200 ease-out
                     border
                     ${
                       isActive
-                        ? "text-brand-gold border-brand-gold/40 bg-brand-gold/5"
+                        ? "text-brand-gold border-brand-gold/40"
                         : "text-gray-700 dark:text-gray-200 border-transparent hover:border-black/10 dark:hover:border-white/15 hover:text-brand-gold"
                     }
                   `}
@@ -177,7 +177,7 @@ const Navbar = () => {
             >
               {/* Header */}
               <div className="flex justify-between items-center mb-6">
-                <h2 className="text-lg font-bold text-gray-800 dark:text-gray-100">
+                <h2 className="text-lg font-semibold text-gray-800 dark:text-gray-100">
                   MENU
                 </h2>
 
@@ -198,7 +198,7 @@ const Navbar = () => {
                       key={link.name}
                       to={link.path}
                       onClick={() => setIsOpen(false)}
-                      className={`text-sm font-semibold tracking-wide transition-colors ${
+                      className={`text-md tracking-wide transition-colors ${
                         isActive
                           ? "text-brand-gold"
                           : "text-gray-700 dark:text-gray-200 hover:text-brand-gold"

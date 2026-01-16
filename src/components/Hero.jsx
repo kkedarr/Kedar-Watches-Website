@@ -1,6 +1,9 @@
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import HeroImage from "../assets/images/watch-hero.jpg";
+import { useState } from "react";
+import { Truck, ShoppingBag, Loader2 } from "lucide-react";
+
 
 const Hero = () => {
   return (
@@ -28,37 +31,99 @@ const Hero = () => {
             <span className="text-brand-gold">Style You Can Trust.</span>
           </h1>
 
-          <p className="text-gray-700 dark:text-gray-300 text-base md:text-lg tracking-tight">
+          <p className="text-gray-700 dark:text-gray-300 text-base md:text-lg tracking-tight text-left">
             At{" "}
             <span className="font-medium text-brand-gold">
               Kedar Watches
             </span>
-            , we bring you the elegance of luxury timepieces without the excessive
-            price tag. Discover expertly crafted premium-grade wristwatches designed
-            for those who value style, precision, and presence.
+            , we curate well-crafted timepieces that balance durability, comfort, and
+            modern style — giving you a classy look without overspending. Every watch is
+            chosen for dependable everyday wear, whether you're heading to work, meeting
+            friends, or dressing up for special occasions.
           </p>
 
-          <motion.div
-            whileHover={{ scale: 1.04 }}
-            whileTap={{ scale: 0.96 }}
-            className="inline-block"
-          >
-            <Link
-              to="/shop"
-              className="
-                inline-flex items-center justify-center
-                rounded-sm
-                bg-brand-gold text-white
-                px-5 py-2
-                text-md font-medium tracking-wide
-                shadow-md hover:shadow-lg
-                hover:bg-brand-darkgold
-                transition-all duration-300
-              "
+            {/* CTA BUTTONS */}
+            <motion.div
+              className="flex flex-col sm:flex-row gap-4 sm:gap-5 justify-center md:justify-start w-full sm:w-auto"
+              initial="hidden"
+              animate="visible"
+              variants={{
+                hidden: {},
+                visible: {
+                  transition: {
+                    staggerChildren: 0.15,
+                    delayChildren: 0.3,
+                  },
+                },
+              }}
             >
-              Explore Collection
-            </Link>
-          </motion.div>
+              {/* HOW SHIPPING WORKS */}
+              <motion.div
+                variants={{
+                  hidden: { opacity: 0, y: 12 },
+                  visible: { opacity: 1, y: 0 },
+                }}
+                whileHover={{ y: -2 }}
+                whileTap={{ scale: 0.97 }}
+              >
+                <Link
+                  to="/shipping"
+                  aria-label="Learn how shipping works"
+                  className="
+                    group inline-flex items-center justify-center gap-2
+                    w-full sm:w-auto
+                    rounded-sm
+                    border border-brand-gold
+                    text-brand-gold dark:text-brand-gold
+                    dark:hover:bg-brand-gold dark:hover:text-white
+                    px-5 py-2
+                    text-md font-medium tracking-wide
+                    hover:bg-brand-gold hover:text-white
+                    transition-all duration-300
+                    whitespace-nowrap
+                    focus-visible:outline-none
+                    focus-visible:ring-2 focus-visible:ring-brand-gold
+                    focus-visible:ring-offset-2
+                  "
+                >
+                  <Truck className="w-4 h-4 transition-transform group-hover:translate-x-0.5" />
+                  How Shipping Works
+                </Link>
+              </motion.div>
+
+              {/* CHECK THE SHOP */}
+              <motion.div
+                variants={{
+                  hidden: { opacity: 0, y: 12 },
+                  visible: { opacity: 1, y: 0 },
+                }}
+                whileHover={{ y: -2 }}
+                whileTap={{ scale: 0.97 }}
+              >
+                <Link
+                  to="/shop"
+                  aria-label="Browse the shop"
+                  className="
+                    group inline-flex items-center justify-center gap-2
+                    w-full sm:w-auto
+                    rounded-sm
+                    bg-brand-gold text-white
+                    px-5 py-2
+                    text-md font-medium tracking-wide
+                    shadow-md hover:shadow-lg
+                    hover:bg-brand-darkgold
+                    transition-all duration-300
+                    whitespace-nowrap
+                    focus-visible:outline-none
+                    focus-visible:ring-2 focus-visible:ring-brand-gold
+                    focus-visible:ring-offset-2
+                  "
+                >
+                  <ShoppingBag className="w-4 h-4 transition-transform group-hover:translate-x-0.5" />
+                  Check the Shop
+                </Link>
+              </motion.div>
+            </motion.div>
         </motion.div>
 
         {/* Right Image */}
@@ -92,4 +157,3 @@ const Hero = () => {
 };
 
 export default Hero;
-
