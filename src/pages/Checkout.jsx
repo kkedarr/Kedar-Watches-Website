@@ -130,12 +130,12 @@ const Checkout = () => {
 
   return (
     <section className="max-w-6xl mx-auto py-2 px-4 bg-gray-50 dark:bg-brand-dark transition-colors">
-      <h1 className="text-4xl font-serif font-bold text-gray-900 dark:text-white mb-12">Checkout</h1>
+      <h1 className="text-2xl sm:text-3xl md:text-4xl font-semibold tracking-tight text-gray-900 dark:text-white mb-12">Checkout</h1>
 
       {/* Shipping Information */}
-      <div className="p-8 bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-200 dark:border-gray-700 mb-10">
-        <h2 className="text-xl font-semibold mb-1">Shipping Information</h2>
-        <p className="text-sm text-gray-500 mb-6">Please provide your contact and shipping details.</p>
+      <div className="p-8 bg-white dark:bg-gray-800 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700 mb-10">
+        <h2 className="text-lg sm:text-xl font-semibold tracking-tight mb-1">Shipping Information</h2>
+        <p className="text-xs sm:text-sm text-gray-500 leading-relaxed mb-6">Please provide your contact and shipping details.</p>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <div>
@@ -144,7 +144,7 @@ const Checkout = () => {
               name="firstName"
               value={form.firstName}
               onChange={handleChange}
-              className="w-full border border-gray-200 dark:border-gray-600 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[#8B6431] dark:bg-gray-700"
+              className="w-full text-sm sm:text-base border border-gray-200 dark:border-gray-600 rounded-sm px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[#8B6431] dark:bg-gray-700"
               type="text"
               placeholder="First name"
               required
@@ -157,7 +157,7 @@ const Checkout = () => {
               name="lastName"
               value={form.lastName}
               onChange={handleChange}
-              className="w-full border border-gray-200 dark:border-gray-600 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[#8B6431] dark:bg-gray-700"
+              className="w-full text-sm sm:text-base border border-gray-200 dark:border-gray-600 rounded-sm px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[#8B6431] dark:bg-gray-700"
               type="text"
               placeholder="Last name"
               required
@@ -171,7 +171,7 @@ const Checkout = () => {
             name="email"
             value={form.email}
             onChange={handleChange}
-            className="w-full border border-gray-200 dark:border-gray-600 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[#8B6431] dark:bg-gray-700"
+            className="w-full text-sm sm:text-base border border-gray-200 dark:border-gray-600 rounded-sm px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[#8B6431] dark:bg-gray-700"
             type="email"
             placeholder="you@example.com"
             required
@@ -184,7 +184,7 @@ const Checkout = () => {
             name="phone"
             value={form.phone}
             onChange={handleChange}
-            className="w-full border border-gray-200 dark:border-gray-600 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[#8B6431] dark:bg-gray-700"
+            className="w-full text-sm sm:text-base border border-gray-200 dark:border-gray-600 rounded-sm px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[#8B6431] dark:bg-gray-700"
             type="tel"
             placeholder="+2348012345678"
             required
@@ -193,7 +193,7 @@ const Checkout = () => {
 
         {/* Address */}
         <div className="mt-10">
-          <h3 className="text-lg font-medium">Shipping Address</h3>
+          <h3 className="text-base sm:text-lg font-medium tracking-tight">Shipping Address</h3>
 
           <div className="mt-4 space-y-6">
             <div>
@@ -202,7 +202,7 @@ const Checkout = () => {
                 name="address1"
                 value={form.address1}
                 onChange={handleChange}
-                className="w-full border border-gray-200 dark:border-gray-600 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[#8B6431] dark:bg-gray-700"
+                className="w-full text-sm sm:text-base border border-gray-200 dark:border-gray-600 rounded-sm px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[#8B6431] dark:bg-gray-700"
                 type="text"
                 placeholder="Street address, P.O. box"
                 required
@@ -210,12 +210,12 @@ const Checkout = () => {
             </div>
 
             <div>
-              <label className="block text-sm mb-1">Address Line 2 (Optional)</label>
+              <label className="block text-xs sm:text-sm font-medium text-gray-600 dark:text-gray-300 mb-1">Address Line 2 (Optional)</label>
               <input
                 name="address2"
                 value={form.address2}
                 onChange={handleChange}
-                className="w-full border border-gray-200 dark:border-gray-600 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[#8B6431] dark:bg-gray-700"
+                className="w-full text-sm sm:text-base border border-gray-200 dark:border-gray-600 rounded-sm px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[#8B6431] dark:bg-gray-700"
                 type="text"
                 placeholder="Apartment, suite, unit, building"
               />
@@ -223,12 +223,12 @@ const Checkout = () => {
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div>
-                <label className="block text-sm mb-1">City</label>
+                <label className="block text-xs sm:text-sm font-medium text-gray-600 dark:text-gray-300 mb-1">City</label>
                 <input
                   name="city"
                   value={form.city}
                   onChange={handleChange}
-                  className="w-full border border-gray-200 dark:border-gray-600 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[#8B6431] dark:bg-gray-700"
+                  className="w-full text-sm sm:text-base border border-gray-200 dark:border-gray-600 rounded-sm px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[#8B6431] dark:bg-gray-700"
                   type="text"
                   placeholder="City"
                   required
@@ -236,12 +236,12 @@ const Checkout = () => {
               </div>
 
               <div>
-                <label className="block text-sm mb-1">State / Province</label>
+                <label className="block text-xs sm:text-sm font-medium text-gray-600 dark:text-gray-300 mb-1">State / Province</label>
                 <input
                   name="state"
                   value={form.state}
                   onChange={handleChange}
-                  className="w-full border border-gray-200 dark:border-gray-600 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[#8B6431] dark:bg-gray-700"
+                  className="w-full text-sm sm:text-base border border-gray-200 dark:border-gray-600 rounded-sm px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[#8B6431] dark:bg-gray-700"
                   type="text"
                   placeholder="State / Province"
                 />
@@ -250,24 +250,24 @@ const Checkout = () => {
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div>
-                <label className="block text-sm mb-1">Postal Code</label>
+                <label className="block text-xs sm:text-sm font-medium text-gray-600 dark:text-gray-300 mb-1">Postal Code</label>
                 <input
                   name="postalCode"
                   value={form.postalCode}
                   onChange={handleChange}
-                  className="w-full border border-gray-200 dark:border-gray-600 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[#8B6431] dark:bg-gray-700"
+                  className="w-full text-sm sm:text-base border border-gray-200 dark:border-gray-600 rounded-sm px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[#8B6431] dark:bg-gray-700"
                   type="text"
                   placeholder="Postal code"
                 />
               </div>
 
               <div>
-                <label className="block text-sm mb-1">Country</label>
+                <label className="block text-xs sm:text-sm font-medium text-gray-600 dark:text-gray-300 mb-1">Country</label>
                 <select
                   name="country"
                   value={form.country}
                   onChange={handleChange}
-                  className="w-full border border-gray-200 dark:border-gray-600 rounded-md px-3 py-2 bg-white dark:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-[#8B6431]"
+                  className="w-full text-sm sm:text-base border border-gray-200 dark:border-gray-600 rounded-sm px-3 py-2 bg-white dark:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-[#8B6431]"
                 >
                   {countries.map((c) => (
                     <option key={c} value={c}>
@@ -282,19 +282,19 @@ const Checkout = () => {
       </div>
 
       {/* Payment Method */}
-      <div className="p-8 bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-200 dark:border-gray-700 mb-10">
+      <div className="p-8 bg-white dark:bg-gray-800 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700 mb-10">
         <h2 className="text-xl font-semibold mb-1">Payment Method</h2>
         <p className="text-sm text-gray-500 mb-4">
           Payment gateway integration is coming soon. Currently, checkout is completed via WhatsApp.
         </p>
 
-        <div className="p-4 bg-gray-100 dark:bg-gray-700 rounded-lg text-sm text-gray-600 dark:text-gray-300">
+        <div className="p-4 bg-gray-100 dark:bg-gray-700 rounded-sm text-sm text-gray-600 dark:text-gray-300">
           Our support team will confirm your order and provide next steps after you send the WhatsApp message.
         </div>
       </div>
 
       {/* Order Summary */}
-      <div className="p-8 bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-200 dark:border-gray-700">
+      <div className="p-8 bg-white dark:bg-gray-800 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700">
         <h2 className="text-xl font-semibold mb-6">Order Summary</h2>
 
         <div className="space-y-6">
@@ -313,7 +313,7 @@ const Checkout = () => {
                 className="w-16 h-16 rounded-lg object-cover"
               />
               <div className="flex-1">
-                <p className="font-medium">{item.name}</p>
+                <p className="text-sm sm:text-base font-medium leading-snug">{item.name}</p>
                 {item.color && <p className="text-sm text-gray-500">Color: {item.color}</p>}
                 <p className="text-sm text-gray-500">Quantity: {item.quantity}</p>
               </div>
@@ -340,9 +340,9 @@ const Checkout = () => {
 
           {/* No VAT anymore */}
 
-          <div className="flex justify-between font-semibold text-lg pt-4 border-t dark:border-gray-700">
+          <div className="flex justify-between font-semibold text-base sm:text-lg pt-4 border-t dark:border-gray-700">
             <p>Total:</p>
-            <p className="text-[#8B6431]">₦{total.toLocaleString()}</p>
+            <p className="text-brand-gold text-lg sm:text-xl font-semibold">₦{total.toLocaleString()}</p>
           </div>
           <p className="text-xs text-gray-500 mt-1">
             Total excludes shipping. Final delivery cost will be confirmed on WhatsApp.
@@ -352,14 +352,14 @@ const Checkout = () => {
         <div className="mt-10 flex flex-col sm:flex-row gap-3 sm:justify-between">
           <Link
             to="/cart"
-            className="px-6 py-3 border rounded-md hover:bg-gray-100 dark:hover:bg-gray-700 transition text-center"
+            className="px-5 py-2 border rounded-sm hover:bg-gray-100 dark:hover:bg-gray-700 transition text-center"
           >
             Back to Cart
           </Link>
 
           <button
             onClick={handlePlaceOrder}
-            className="px-8 py-3 bg-[#8B6431] hover:bg-[#a0743b] text-white rounded-md transition"
+            className="px-5 py-2 bg-brand-gold hover:bg-brand-darkgold text-white rounded-sm transition"
           >
             Place Order via WhatsApp
           </button>
