@@ -78,7 +78,7 @@ const Shop = () => {
 
 
   return (
-    <section className="py-2 px-4 md:px-20 bg-[#FDFBF8] dark:bg-brand-dark transition-colors duration-300 mb-5">
+    <section className="py-2 px-4 md:px-20 bg-[#FDFBF8] dark:bg-brand-dark transition-colors duration-300 mb-10">
 
       {/* NO PRODUCTS */}
       {displayedProducts.length === 0 ? (
