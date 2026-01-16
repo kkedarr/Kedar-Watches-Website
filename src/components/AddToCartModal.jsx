@@ -9,7 +9,7 @@ const AddToCartModal = () => {
 
   return (
     <div className="fixed inset-0 z-50 bg-black/50 flex items-center justify-center px-4">
-      <div className="bg-white dark:bg-gray-900 rounded-xl p-6 max-w-sm w-full text-center">
+      <div className="bg-white dark:bg-gray-900 rounded-md p-6 max-w-sm w-full text-center">
         <img
           src={addedItem.image || "/placeholder.jpg"}
           alt=""
@@ -27,15 +27,15 @@ const AddToCartModal = () => {
         <div className="flex gap-3 mt-6">
           <button
             onClick={() => setAddedItem(null)}
-            className="flex-1 border border-gray-300 dark:border-gray-600 rounded-md py-2"
+            className="flex-1 border border-gray-300 dark:border-gray-600 rounded-sm py-1"
           >
-            Continue Shopping
+            Stay in Shop
           </button>
 
           <Link
             to="/cart"
             onClick={() => setAddedItem(null)}
-            className="flex-1 bg-[#8B6431] hover:bg-[#a0743b] text-white rounded-md py-2"
+            className="flex-1 bg-brand-gold hover:bg-[#a0743b] text-white rounded-sm py-1"
           >
             View Cart
           </Link>

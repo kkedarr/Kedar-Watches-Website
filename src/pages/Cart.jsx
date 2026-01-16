@@ -238,7 +238,7 @@ const Cart = () => {
             <div className="flex justify-end gap-3">
               <button
                 onClick={() => setItemToRemove(null)}
-                className="px-4 py-2 border border-gray-300 dark:border-gray-700 rounded-sm text-sm text-gray-700 dark:text-gray-300"
+                className="px-4 py-1 border border-gray-300 dark:border-gray-700 rounded-sm text-sm text-gray-700 dark:text-gray-300"
               >
                 Cancel
               </button>
@@ -247,7 +247,7 @@ const Cart = () => {
                   removeItem(itemToRemove.id);
                   setItemToRemove(null);
                 }}
-                className="px-4 py-2 bg-red-600 hover:bg-red-700 text-white rounded-sm text-sm transition"
+                className="px-4 py-1 bg-red-600 hover:bg-red-700 text-white rounded-sm text-sm transition"
               >
                 Remove
               </button>
