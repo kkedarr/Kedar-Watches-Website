@@ -164,7 +164,7 @@ const FloatingCartButton = () => {
           className="
             relative flex items-center justify-center
             w-12 h-12 rounded-full
-            bg-brand-gold text-white
+            bg-brand-darkgold text-white
             shadow-lg hover:shadow-xl
             focus:outline-none focus:ring-2 focus:ring-brand-gold/50
           "
