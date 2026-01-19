@@ -110,7 +110,7 @@ const Shop = () => {
                   rounded-md overflow-hidden
                   shadow-md hover:shadow-xl
                   transition duration-300
-                  flex flex-col h-full
+                  flex flex-col h-auto
                   mt-4 sm:mt-6 md:mt-10
                 "
               >
@@ -164,7 +164,7 @@ const Shop = () => {
                   </p>
 
                   {/* BUTTONS */}
-                  <div className="mt-auto flex items-center justify-center gap-2 sm:gap-3">
+                  <div className="mt-auto flex items-center justify-center gap-3 md:gap-10">
                     <Link
                       to={`/product/${product.id}`}
                       className="
@@ -172,7 +172,8 @@ const Shop = () => {
                         bg-brand-gold hover:bg-[#8C663C]
                         text-white text-xs md:text-sm font-medium
                         px-2 md:px-4 py-2 md:py-2.5
-                        rounded-sm transition whitespace-nowrap
+                        rounded-sm transition whitespace-nowrap 
+                        w-auto md:w-[200px] justify-center
                       "
                     >
                       <Eye className="w-3 h-3 md:w-4 md:h-4" />
@@ -193,7 +194,7 @@ const Shop = () => {
                       }
                       className="
                         inline-flex items-center justify-center
-                        w-9 h-8 rounded-sm
+                        w-8 h-8 md:w-9 md:h-9 rounded-sm
                         border border-brand-gold
                         hover:bg-brand-gold hover:text-white
                         transition

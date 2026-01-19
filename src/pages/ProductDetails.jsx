@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom";
 import { useProducts } from "../context/ProductContext";
 import { useCart } from "../context/CartContext";
 import { useEffect, useState } from "react";
+import { ChevronLeft, ChevronRight } from "lucide-react";
 
 const ProductDetails = () => {
   const { id } = useParams();
@@ -33,7 +34,6 @@ const ProductDetails = () => {
     setCurrentImageIndex(index >= 0 ? index : 0);
     setSelectedImage(mainImage);
   }, [mainImage, images]);
-
 
   /* ------------------ EARLY RETURN (AFTER HOOKS) ------------------ */
   if (!product) {
@@ -75,7 +75,7 @@ const ProductDetails = () => {
         { label: "Water Resistance", value: details.water_resistance || "Not specified" },
       ];
 
-
+  /* ------------------ GALLERY CONTROLS ------------------ */
   const goNext = () => {
     setCurrentImageIndex((i) => {
       const next = (i + 1) % images.length;
@@ -93,63 +93,101 @@ const ProductDetails = () => {
   };
 
   const handleTouchStart = (e) => {
-  setTouchStartX(e.touches[0].clientX);
-};
+    setTouchStartX(e.touches[0].clientX);
+  };
 
-const handleTouchEnd = (e) => {
-  if (touchStartX === null) return;
+  const handleTouchEnd = (e) => {
+    if (touchStartX === null) return;
 
-  const touchEndX = e.changedTouches[0].clientX;
-  const diff = touchStartX - touchEndX;
+    const touchEndX = e.changedTouches[0].clientX;
+    const diff = touchStartX - touchEndX;
 
-  if (Math.abs(diff) > 50) {
-    diff > 0 ? goNext() : goPrev();
-  }
+    if (Math.abs(diff) > 50) {
+      diff > 0 ? goNext() : goPrev();
+    }
 
-  setTouchStartX(null);
-};
-
-
+    setTouchStartX(null);
+  };
 
   return (
-    <section className="py-16 px-6 md:px-20 bg-[#F8F7F3] dark:bg-brand-dark min-h-screen">
+    <section className="py-16 px-6 md:px-20 bg-brand-light dark:bg-brand-dark min-h-screen">
       <div className="grid grid-cols-1 md:grid-cols-2 gap-14">
 
         {/* ------------------ LEFT: IMAGES ------------------ */}
         <div>
           <div
-            className="relative"
+            className="
+              relative
+              rounded-xl
+              bg-brand-light dark:bg-brand-dark
+              overflow-hidden
+            "
             onTouchStart={handleTouchStart}
             onTouchEnd={handleTouchEnd}
           >
-            <img
-              src={selectedImage}
-              alt={product.name}
-              className="w-full h-[320px] md:h-[480px] object-cover rounded-md shadow-md select-none"
-              draggable={false}
-            />
+            {/* Image Stage */}
+            <div className="flex items-center justify-center h-[320px] md:h-[480px] p-0">
+              <img
+                src={selectedImage}
+                alt={product.name}
+                draggable={false}
+                className="
+                  max-h-full
+                  max-w-full
+                  object-scale-down
+                  select-none
+                  transition-opacity duration-300
+                "
+              />
+            </div>
 
-            {/* Desktop / Universal Arrows */}
+            {/* Navigation Arrows */}
             {images.length > 1 && (
               <>
                 <button
                   onClick={goPrev}
-                  className="hidden md:flex absolute left-3 top-1/2 -translate-y-1/2 bg-white/80 dark:bg-black/60 p-2 rounded-full shadow hover:scale-105 transition"
+                  aria-label="Previous image"
+                  className="
+                    absolute left-3 top-1/2 -translate-y-1/2
+                    flex items-center justify-center
+                    h-10 w-10 md:h-11 md:w-11
+                    rounded-full
+                    bg-white/90 dark:bg-black/70
+                    backdrop-blur
+                    border border-black/10 dark:border-white/10
+                    shadow-sm
+                    hover:scale-105 hover:bg-white
+                    active:scale-95
+                    transition
+                  "
                 >
-                  ‹
+                  <ChevronLeft className="w-5 h-5 text-gray-800 dark:text-white" />
                 </button>
 
                 <button
                   onClick={goNext}
-                  className="hidden md:flex absolute right-3 top-1/2 -translate-y-1/2 bg-white/80 dark:bg-black/60 p-2 rounded-full shadow hover:scale-105 transition"
+                  aria-label="Next image"
+                  className="
+                    absolute right-3 top-1/2 -translate-y-1/2
+                    flex items-center justify-center
+                    h-10 w-10 md:h-11 md:w-11
+                    rounded-full
+                    bg-white/90 dark:bg-black/70
+                    backdrop-blur
+                    border border-black/10 dark:border-white/10
+                    shadow-sm
+                    hover:scale-105 hover:bg-white
+                    active:scale-95
+                    transition
+                  "
                 >
-                  ›
+                  <ChevronRight className="w-5 h-5 text-gray-800 dark:text-white" />
                 </button>
               </>
             )}
           </div>
 
-
+          {/* Thumbnails */}
           <div className="flex gap-4 mt-5 overflow-x-auto pb-2">
             {images.map((img, index) => (
               <img
@@ -159,7 +197,6 @@ const handleTouchEnd = (e) => {
                   setSelectedImage(img.url);
                   setCurrentImageIndex(index);
                 }}
-
                 className={`w-24 h-24 object-cover rounded-md cursor-pointer border-2 transition
                   ${
                     selectedImage === img.url
@@ -180,7 +217,6 @@ const handleTouchEnd = (e) => {
 
           {/* PRICE + DISCLOSURE */}
           <div className="mb-2">
-
             {product.is_replica && (
               <div className="mb-4 p-4 border border-brand-gold bg-brand-darklight dark:bg-brand-lightdark/40 rounded-md">
                 <p className="text-xs font-semibold uppercase text-brand-darkgold mb-1">
@@ -194,12 +230,10 @@ const handleTouchEnd = (e) => {
               </div>
             )}
 
-            <p className="text-lg font-semibold text-brand-gold dark:text-brand-gold">
+            <p className="text-lg font-semibold text-brand-gold">
               ₦{Number(product.price).toLocaleString("en-NG")}
             </p>
-
           </div>
-
 
           <p className="text-gray-700 text-sm dark:text-gray-300 leading-relaxed mb-8">
             {product.description}
@@ -209,25 +243,31 @@ const handleTouchEnd = (e) => {
           <div className="flex items-center gap-4 mb-10">
             <button
               onClick={() => setQuantity((q) => Math.max(1, q - 1))}
-              className="px-2 py-0 border rounded-sm dark:border-gray-600"
+              className="px-2 py-0.5 border rounded-sm dark:border-gray-600"
             >
               −
             </button>
 
-            <span className="px-3 py-1 bg-gray-100 dark:bg-gray-700 rounded-sm">
+            <span className="px-4 py-1 bg-gray-100 dark:bg-gray-700 rounded-sm">
               {quantity}
             </span>
 
             <button
               onClick={() => setQuantity((q) => q + 1)}
-              className="px-2 py-0 border rounded-sm dark:border-gray-600"
+              className="px-2 py-0.5 border rounded-sm dark:border-gray-600"
             >
               +
             </button>
 
             <button
               onClick={handleAdd}
-              className="ml-4 px-4 py-1 bg-brand-gold hover:bg-[#a0743b] text-md text-white font-medium rounded-sm transition"
+              className="
+                ml-4 px-5 py-2
+                bg-brand-gold hover:bg-[#a0743b]
+                text-sm text-white font-medium
+                rounded-sm
+                transition
+              "
             >
               Add to Cart
             </button>
