@@ -36,7 +36,7 @@ const getBrandQueryParam = (brand) => {
 const Categories = () => {
   const brandCategories = {
     "Trending Brands in Nigeria": [
-      "Curren", "Poedagar", "Tomi", "Naviforce", "SKMEI",
+      "Valentine Packages", "Gift", "For Men", "For Women", "Couple Set","Curren", "Poedagar", "Tomi", "Naviforce", "SKMEI",
       "Nibosi", "Lige", "Megir", "Matturi", "Chenxi"
     ],
 
