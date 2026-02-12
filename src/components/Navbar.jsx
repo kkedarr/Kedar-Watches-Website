@@ -111,14 +111,14 @@ const Navbar = () => {
                   className={`
                     relative
                     px-4 py-1.5
-                    rounded-md uppercase
+                    rounded-full uppercase
                     text-sm font-medium tracking-wider
                     transition-all duration-200 ease-out
                     border
                     ${
                       isActive
-                        ? "text-brand-gold rounded-sm border-brand-gold/40"
-                        : "text-gray-700 rounded-sm dark:text-gray-200 border-transparent hover:border-black/10 dark:hover:border-white/15 hover:text-brand-gold"
+                        ? "text-brand-gold rounded-full border-brand-gold/40"
+                        : "text-gray-700 rounded-full dark:text-gray-200 border-transparent hover:border-black/10 dark:hover:border-white/15 hover:text-brand-gold"
                     }
                   `}
                 >
@@ -281,7 +281,7 @@ const Navbar = () => {
                     onChange={(e) => setSearchQuery(e.target.value)}
                     className="
                       w-full pl-11 pr-4 py-3
-                      rounded-lg
+                      rounded-sm
                       bg-gray-100 dark:bg-[#1f1f1f]
                       border border-gray-300 dark:border-gray-700
                       text-sm
