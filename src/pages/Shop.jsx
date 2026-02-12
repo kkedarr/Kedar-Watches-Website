@@ -3,9 +3,9 @@ import { Link, useParams, useSearchParams } from "react-router-dom";
 import { motion } from "framer-motion";
 import { supabase } from "../lib/supabaseClient";
 import { useCart } from "../context/CartContext";
-import { ShoppingCart, Eye } from "lucide-react";
+import { ShoppingCart, Eye, Search, SlidersHorizontal, X } from "lucide-react";
 import { useSEO } from "../hooks/useSEO";
-import { useMemo } from "react";
+import { useMemo, useState, useEffect } from "react";
 
 const formatInspiredLabel = (brand) => {
   if (!brand) return "";
@@ -16,6 +16,16 @@ const Shop = () => {
   const { categoryId } = useParams();
   const [searchParams] = useSearchParams();
   const brand = searchParams.get("brand");
+  const searchFromUrl = searchParams.get("search");
+
+
+  const [priceRange, setPriceRange] = useState("all");
+  const [typeFilter, setTypeFilter] = useState("all");
+  const [sortOption, setSortOption] = useState("default");
+  const [searchQuery, setSearchQuery] = useState("");
+  const [showMobileFilters, setShowMobileFilters] = useState(false);
+
+
 
   const { products, getProductsByCategory } = useProducts();
   const { addToCart } = useCart();
@@ -31,20 +41,91 @@ const Shop = () => {
     return data?.publicUrl || "/placeholder.jpg";
   };
 
+
+  useEffect(() => {
+    if (searchFromUrl) {
+      setSearchQuery(searchFromUrl);
+    }
+  }, [searchFromUrl]);
+
   /* --- FAST FILTERING --- */
   const displayedProducts = useMemo(() => {
+    let filtered = [...products];
+
+    /* CATEGORY FILTER */
+    if (categoryId) {
+      filtered = filtered.filter(
+        (product) => String(product.category_id) === String(categoryId)
+      );
+    }
+
+    /* BRAND FILTER (FROM URL) */
     if (brand) {
-      return products.filter((product) =>
+      filtered = filtered.filter((product) =>
         product.name?.toLowerCase().includes(brand.toLowerCase())
       );
     }
 
-    if (categoryId) {
-      return getProductsByCategory(categoryId);
+    /* 🔎 LIVE SEARCH FILTER */
+    if (searchQuery.trim() !== "") {
+      const query = searchQuery.toLowerCase();
+
+      filtered = filtered.filter((product) =>
+        product.name?.toLowerCase().includes(query) ||
+        product.description?.toLowerCase().includes(query)
+      );
     }
 
-    return products;
-  }, [brand, categoryId, products, getProductsByCategory]);
+    /* PRICE FILTER */
+    if (priceRange !== "all") {
+      filtered = filtered.filter((product) => {
+        const price = Number(product.price);
+
+        switch (priceRange) {
+          case "under20":
+            return price < 20000;
+          case "20to50":
+            return price >= 20000 && price <= 50000;
+          case "50to100":
+            return price >= 50000 && price <= 100000;
+          case "100to200":
+            return price > 100000 && price <= 200000;
+          case "200plus":
+            return price > 200000;
+          default:
+            return true;
+        }
+      });
+    }
+
+    /* TYPE FILTER */
+    if (typeFilter !== "all") {
+      if (typeFilter === "inspired") {
+        filtered = filtered.filter((product) => product.is_replica);
+      } else if (typeFilter === "original") {
+        filtered = filtered.filter((product) => !product.is_replica);
+      }
+    }
+
+    /* SORTING */
+    if (sortOption === "low-high") {
+      filtered.sort((a, b) => Number(a.price) - Number(b.price));
+    } else if (sortOption === "high-low") {
+      filtered.sort((a, b) => Number(b.price) - Number(a.price));
+    }
+
+    return filtered;
+  }, [
+    products,
+    brand,
+    categoryId,
+    searchQuery,   // 🔥 VERY IMPORTANT
+    priceRange,
+    typeFilter,
+    sortOption,
+  ]);
+
+
 
 
   /* --- SEO META --- */
@@ -78,7 +159,254 @@ const Shop = () => {
 
 
   return (
-    <section className="py-2 px-4 md:px-20 bg-[#FDFBF8] dark:bg-brand-dark transition-colors duration-300 mb-10">
+    <section className="py-2 px-4 md:px-20 bg-brand-light dark:bg-brand-dark transition-colors duration-300 mb-10">
+
+      {/* FILTER + SEARCH SECTION */}
+      <div className="mb-3">
+
+        {/* CONTAINER */}
+        <div className="bg-white dark:bg-brand-lightdark 
+        
+        rounded-md px-4 py-5 md:px-6 md:py-6 shadow-sm">
+
+          {/* TOP ROW */}
+          <div className="flex flex-col gap-2 md:flex-row md:items-center md:justify-between">
+
+            {/* SEARCH */}
+            <div className="relative w-full md:w-[360px]">
+              <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
+              <input
+                type="text"
+                placeholder="Search by brand, model or keyword..."
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                className="
+                  w-full pl-11 pr-4 py-3
+                  rounded-sm 
+                  bg-gray-50 dark:bg-brand-dark
+                  dark:border-gray-600 dark:text-white
+                  text-sm
+                  focus:outline-none focus:ring-2 focus:ring-brand-gold
+                  transition
+                "
+              />
+            </div>
+
+            {/* DESKTOP FILTER GROUP */}
+            <div className="hidden md:flex items-center gap-3">
+
+              {/* Price */}
+              <select
+                value={priceRange}
+                onChange={(e) => setPriceRange(e.target.value)}
+                className="
+                  px-4 py-3 rounded-sm
+                  bg-gray-50 dark:bg-brand-dark
+                  dark:border-gray-600 dark:text-white
+                  text-sm
+                  focus:outline-none focus:ring-2 focus:ring-brand-gold
+                  transition
+                "
+              >
+                <option value="all">All Prices</option>
+                <option value="under20">Under ₦20k</option>
+                <option value="20to50">₦20k – ₦50k</option>
+                <option value="50to100">₦50k – ₦100k</option>
+                <option value="100to200">₦100k – ₦200k</option>
+                <option value="200plus">₦200k+</option>
+              </select>
+
+              {/* Type */}
+              <select
+                value={typeFilter}
+                onChange={(e) => setTypeFilter(e.target.value)}
+                className="
+                  px-4 py-3 rounded-sm
+                  bg-gray-50 dark:bg-brand-dark 
+                  dark:text-white text-sm
+                  focus:outline-none focus:ring-2 focus:ring-brand-gold
+                  transition
+                "
+              >
+                <option value="all">All Types</option>
+                <option value="original">Original</option>
+                <option value="inspired">Inspired</option>
+              </select>
+
+              {/* Sort */}
+              <select
+                value={sortOption}
+                onChange={(e) => setSortOption(e.target.value)}
+                className="
+                  px-4 py-3 rounded-sm
+                  bg-gray-50 dark:bg-brand-dark dark:text-white
+                  text-sm
+                  focus:outline-none focus:ring-2 focus:ring-brand-gold
+                  transition
+                "
+              >
+                <option value="default">Sort</option>
+                <option value="low-high">Price: Low → High</option>
+                <option value="high-low">Price: High → Low</option>
+              </select>
+
+              {/* Reset */}
+              <button
+                onClick={() => {
+                  setPriceRange("all");
+                  setTypeFilter("all");
+                  setSortOption("default");
+                  setSearchQuery("");
+                }}
+                className="text-sm font-medium text-gray-500 hover:text-brand-gold transition"
+              >
+                Reset
+              </button>
+            </div>
+
+            {/* MOBILE FILTER BUTTON */}
+            <button
+              onClick={() => setShowMobileFilters(true)}
+              className="
+                md:hidden flex items-center justify-center gap-2
+                px-4 py-1 rounded-smdark:text-white
+                text-sm
+              "
+            >
+              <SlidersHorizontal className="w-4 h-4" />
+              Filters
+            </button>
+
+          </div>
+
+          {/* PRODUCT COUNT + ACTIVE STATE */}
+          <div className="mt-2 flex items-center justify-between text-sm">
+            <p className="text-gray-600 dark:text-gray-400">
+              Showing <span className="font-semibold text-gray-900 dark:text-white">
+                {displayedProducts.length}
+              </span> watches
+            </p>
+
+            {(priceRange !== "all" ||
+              typeFilter !== "all" ||
+              searchQuery !== "") && (
+              <span className="text-xs text-brand-gold font-medium">
+                Filters Applied
+              </span>
+            )}
+          </div>
+        </div>
+
+        {/* MOBILE SLIDE PANEL */}
+        {showMobileFilters && (
+          <div className="
+            fixed inset-0 z-50 bg-black/40 backdrop-blur-sm
+            flex justify-end
+          ">
+            <div className="
+              w-[85%] max-w-sm h-full
+              bg-white dark:bg-brand-lightdark
+              p-6 space-y-6
+              shadow-2xl
+              animate-slideIn
+            ">
+
+              <div className="flex justify-between items-center">
+                <h3 className="text-lg font-semibold dark:text-white">
+                  Filter & Sort
+                </h3>
+                <button onClick={() => setShowMobileFilters(false)}>
+                  <X className="w-5 h-5 dark:text-white" />
+                </button>
+              </div>
+
+              {/* Price */}
+              <div className="space-y-2">
+                <label className="text-sm font-medium dark:text-white">
+                  Price Range
+                </label>
+                <select
+                  value={priceRange}
+                  onChange={(e) => setPriceRange(e.target.value)}
+                  className="w-full px-4 py-3 rounded-sm
+                  bg-gray-50 dark:bg-brand-dark
+                   dark:text-white"
+                >
+                  <option value="all">All Prices</option>
+                  <option value="under20">Under ₦20k</option>
+                  <option value="20to50">₦20k – ₦50k</option>
+                  <option value="50to100">₦50k – ₦100k</option>
+                  <option value="100to200">₦100k – ₦200k</option>
+                  <option value="200plus">₦200k+</option>
+                </select>
+              </div>
+
+              {/* Type */}
+              <div className="space-y-2">
+                <label className="text-sm font-medium dark:text-white">
+                  Type
+                </label>
+                <select
+                  value={typeFilter}
+                  onChange={(e) => setTypeFilter(e.target.value)}
+                  className="w-full px-4 py-3 rounded-sm
+                  bg-gray-50 dark:bg-brand-dark
+                  dark:text-white"
+                >
+                  <option value="all">All Types</option>
+                  <option value="original">Original</option>
+                  <option value="inspired">Inspired</option>
+                </select>
+              </div>
+
+              {/* Sort */}
+              <div className="space-y-2">
+                <label className="text-sm font-medium dark:text-white">
+                  Sort By
+                </label>
+                <select
+                  value={sortOption}
+                  onChange={(e) => setSortOption(e.target.value)}
+                  className="w-full px-4 py-3 rounded-sm
+                  bg-gray-50 dark:bg-brand-dark
+                  dark:text-white"
+                >
+                  <option value="default">Default</option>
+                  <option value="low-high">Price: Low → High</option>
+                  <option value="high-low">Price: High → Low</option>
+                </select>
+              </div>
+
+              {/* ACTION BUTTONS */}
+              <div className="pt-6 space-y-3">
+                <button
+                  onClick={() => setShowMobileFilters(false)}
+                  className="w-full bg-brand-gold text-white py-3 rounded-sm font-medium"
+                >
+                  Apply Filters
+                </button>
+
+                <button
+                  onClick={() => {
+                    setPriceRange("all");
+                    setTypeFilter("all");
+                    setSortOption("default");
+                    setSearchQuery("");
+                  }}
+                  className="w-full text-sm text-gray-500"
+                >
+                  Reset
+                </button>
+              </div>
+
+            </div>
+          </div>
+        )}
+
+      </div>
+
+
+
 
       {/* NO PRODUCTS */}
       {displayedProducts.length === 0 ? (

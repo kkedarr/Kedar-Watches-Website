@@ -1,6 +1,7 @@
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 
+
 /**
  * Brands that require "Inspired by" prefix for legal safety
  * Only include trademark-sensitive luxury brands here.
