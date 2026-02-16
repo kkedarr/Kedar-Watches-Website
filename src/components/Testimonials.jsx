@@ -1,5 +1,4 @@
 import UserAvatar from "../assets/images/user-placeholder.svg";
-
 import { motion } from "framer-motion";
 
 const Testimonials = () => {
@@ -25,7 +24,8 @@ const Testimonials = () => {
   ];
 
   return (
-    <section className="py-16 px-6 md:px-16 lg:px-16 bg-brand-darklight dark:bg-brand-dark transition-colors duration-300">
+    <section className="py-16 px-6 md:px-10 lg:px-16 bg-brand-darklight dark:bg-brand-dark transition-colors duration-300">
+      
       {/* Section Title */}
       <div className="text-center mb-14">
         <h2 className="text-2xl md:text-4xl font-semibold text-gray-900 dark:text-white mb-3">
@@ -36,8 +36,8 @@ const Testimonials = () => {
         </p>
       </div>
 
-      {/* Testimonials */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-10 px-6 md:px-20">
+      {/* Testimonials Grid */}
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-10">
         {testimonials.map((review, index) => (
           <motion.div
             key={index}
@@ -45,19 +45,22 @@ const Testimonials = () => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5, delay: index * 0.2 }}
-            className="flex flex-col items-center text-center bg-brand-light dark:bg-brand-lightdark p-8 rounded-lg shadow-md hover:shadow-xl hover:-translate-y-2 transition-all duration-300"
+            className="flex flex-col items-center text-center bg-brand-light dark:bg-brand-lightdark p-6 lg:p-8 rounded-lg shadow-md hover:shadow-xl hover:-translate-y-2 transition-all duration-300"
           >
-            <p className="italic text-gray-700 dark:text-gray-300 mb-6 leading-relaxed">
+            <p className="italic text-gray-700 dark:text-gray-300 mb-6 leading-relaxed text-sm md:text-base">
               “{review.text}”
             </p>
+
             <img
               src={review.img}
               alt={review.name}
-              className="w-16 h-16 rounded-full object-cover mb-4 border-2 border-brand-gold dark:border-brand-gold"
+              className="w-16 h-16 rounded-full object-cover mb-4 border-2 border-brand-gold"
             />
+
             <h3 className="font-semibold text-gray-900 dark:text-gray-100 text-lg">
               {review.name}
             </h3>
+
             <p className="text-sm text-gray-500 dark:text-gray-400">
               {review.location}
             </p>

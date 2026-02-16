@@ -88,9 +88,11 @@ const Navbar = () => {
             : "bg-white/90 dark:bg-brand-dark/90 py-5 shadow-none border-b border-transparent"
         }`}
       >
-        <div className="flex items-center justify-between max-w-8xl mx-auto px-6 lg:px-16 transition-all duration-300">
+        <div className="max-w-7xl mx-auto px-6 lg:px-12">
+          <div className="flex items-center justify-between h-16">
+
           {/* Logo */}
-          <Link to="/" className="flex items-center space-x-2 group">
+          <Link to="/" className="flex items-center">
             <motion.img
               src={Logo}
               alt="Kedar Watches Logo"
@@ -101,7 +103,7 @@ const Navbar = () => {
           </Link>
 
           {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center space-x-6">
+          <div className="hidden lg:flex items-center space-x-8">
             {navLinks.map((link) => {
               const isActive = location.pathname === link.path;
               return (
@@ -130,7 +132,7 @@ const Navbar = () => {
           </div>
 
           {/* Desktop right icons */}
-          <div className="hidden md:flex items-center space-x-4">
+          <div className="hidden lg:flex items-center space-x-4">
             {/* DESKTOP SEARCH */}
             <div ref={searchRef} className="relative hidden md:block">
               <form onSubmit={handleSearch}>
@@ -142,7 +144,7 @@ const Navbar = () => {
                   onChange={(e) => setSearchQuery(e.target.value)}
                   placeholder="Search watches..."
                   className="
-                    w-[240px] focus:w-[320px]
+                    w-[200px] lg:w-[240px] focus:lg:w-[300px]
                     transition-all duration-300
                     pl-11 pr-4 py-2.5
                     rounded-full
@@ -224,7 +226,7 @@ const Navbar = () => {
           <motion.button
             whileHover={{ scale: 1.1 }}
             onClick={() => setIsOpen(!isOpen)}
-            className="md:hidden p-2 dark:border-gray-700 hover:bg-gray-100 dark:hover:bg-[#2a2a2a] transition"
+            className="lg:hidden p-2 dark:border-gray-700 hover:bg-gray-100 dark:hover:bg-[#2a2a2a] transition"
           >
             {isOpen ? (
               <X className="w-6 h-6 text-brand-gold" />
@@ -232,6 +234,7 @@ const Navbar = () => {
               <Menu className="w-6 h-6 text-brand-gold" />
             )}
           </motion.button>
+          </div>
         </div>
       </motion.nav>
 

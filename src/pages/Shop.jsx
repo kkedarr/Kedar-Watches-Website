@@ -159,15 +159,23 @@ const Shop = () => {
 
 
   return (
-    <section className="py-2 px-4 md:px-20 bg-brand-light dark:bg-brand-dark transition-colors duration-300 mb-10">
+    <section className="py-6 bg-brand-light dark:bg-brand-dark transition-colors duration-300 mb-12">
+      <div className="max-w-7xl mx-auto px-6 lg:px-12">
+
 
       {/* FILTER + SEARCH SECTION */}
       <div className="mb-3">
 
         {/* CONTAINER */}
-        <div className="bg-white dark:bg-brand-lightdark 
-        
-        rounded-md px-4 py-5 md:px-6 md:py-6 shadow-sm">
+        <div className="
+          bg-white/80 dark:bg-brand-lightdark/70
+          backdrop-blur-md
+          border border-gray-200 dark:border-gray-800
+          rounded-xl
+          px-5 py-6 md:px-8 md:py-7
+          shadow-lg
+        ">
+
 
           {/* TOP ROW */}
           <div className="flex flex-col gap-2 md:flex-row md:items-center md:justify-between">
@@ -424,7 +432,7 @@ const Shop = () => {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.5 }}
-          className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-4 md:gap-6 items-stretch"
+          className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 md:gap-8 items-stretch"
         >
           {displayedProducts.map((product) => {
             const imageUrl = resolveImageSrc(product.mainImage);
@@ -435,18 +443,17 @@ const Shop = () => {
                 whileHover={{ scale: 1.02 }}
                 className="
                   bg-white dark:bg-brand-lightdark
-                  rounded-md overflow-hidden
-                  shadow-md hover:shadow-xl
-                  transition duration-300
-                  flex flex-col h-auto
-                  mt-4 sm:mt-6 md:mt-10
+                  rounded-xl overflow-hidden
+                  shadow-lg hover:shadow-2xl
+                  transition-all duration-300
+                  flex flex-col
                 "
               >
                 {/* IMAGE */}
                 <Link to={`/product/${product.id}`} className="block">
                   <div className="relative group">
                     {product.is_replica && (
-                      <div className="absolute text-xs uppercase tracking-tight top-2 left-2 z-10 bg-brand-darkgold text-white px-2 py-1 rounded-sm">
+                      <div className="absolute text-xs uppercase tracking-tight top-2 left-2 z-10 bg-brand-gold text-black px-3 py-1 rounded-full font-medium">
                         Inspired
                       </div>
                     )}
@@ -464,13 +471,13 @@ const Shop = () => {
                       "
                     />
 
-                    <div className="absolute inset-0 bg-black/5 group-hover:bg-black/20 transition duration-300" />
+                    <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition duration-300" />
                   </div>
                 </Link>
 
                 {/* CONTENT */}
                 <div className="p-2.5 sm:p-4 md:p-5 flex flex-col flex-1 text-center">
-                  <h3 className="text-sm sm:text-base md:text-lg font-semibold text-gray-900 dark:text-white mb-1 line-clamp-2">
+                  <h3 className="text-sm sm:text-base md:text-lg font-semibold tracking-tight text-gray-900 dark:text-white mb-1 line-clamp-2">
                     {product.name}
                   </h3>
 
@@ -500,7 +507,7 @@ const Shop = () => {
                         bg-brand-gold hover:bg-[#8C663C]
                         text-white text-xs md:text-sm font-medium
                         px-2 md:px-4 py-2 md:py-2.5
-                        rounded-sm transition whitespace-nowrap 
+                        rounded-md transition whitespace-nowrap 
                         w-auto md:w-[200px] justify-center
                       "
                     >
@@ -522,7 +529,7 @@ const Shop = () => {
                       }
                       className="
                         inline-flex items-center justify-center
-                        w-8 h-8 md:w-9 md:h-9 rounded-sm
+                        w-8 h-8 md:w-12 md:h-9 rounded-md
                         border border-brand-gold
                         hover:bg-brand-gold hover:text-white
                         transition
@@ -538,6 +545,7 @@ const Shop = () => {
           })}
         </motion.div>
       )}
+      </div>
     </section>
   );
 };
